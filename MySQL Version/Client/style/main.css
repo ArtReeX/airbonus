@@ -1,0 +1,679 @@
+@font-face {
+    font-family: Titillium Web;
+    src: url(/style/fonts/TitilliumWeb.ttf);
+}
+
+#airport_from {
+    font-size: 14pt;
+    margin-left: 15%;
+    margin-top: 5%;
+    text-transform: uppercase
+}
+
+#airport_to {
+    font-size: 14pt;
+    margin-left: 15%;
+    text-transform: uppercase;
+    margin-top: 2%;
+}
+
+#amount9 {
+    margin-left: 15%;
+    margin-top: 5%;
+    text-align: left;
+    width: 400px
+}
+
+#box-p6 {
+    display: block;
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%
+}
+
+#button-back-p2 {
+    margin-left: 10%
+}
+
+#button-back-p3 {
+    margin-left: 20%
+}
+
+#button-back-p4 {
+    margin-left: 20%
+}
+
+#button-back-p5 {
+    margin-left: 20%
+}
+
+#button-back-p6 {
+    margin-left: 10%
+}
+
+#button-back-p7 {
+    margin-left: 10%
+}
+
+#button-back-p8 {
+    margin-top: 2%;
+    margin-left: 10%
+}
+
+#button-back-p9 {
+    margin-left: 5%
+}
+
+#button-back-p9-sorry {
+    margin-left: 45%
+}
+
+#button-p3 {
+    margin-left: 40%
+}
+
+#button-p4 {
+    margin-left: 40%
+}
+
+#button-p5 {
+    margin-left: 40%
+}
+
+#button-p6 {
+    margin-left: 60%
+}
+
+#button-p7 {
+    margin-left: 60%
+}
+
+#button2 {
+    margin-left: 60%
+}
+
+#button9 {
+    margin-top: 2%;
+    margin-left: 50%;
+    min-width: 172.19px;
+    width: 20%
+}
+
+#button_p1 {
+    margin-left: 42.5%;
+    margin-right: 42.5%;
+    width: 15%
+}
+
+#check {
+    /*background-color: #fff;*/
+    border: 1px solid #000;
+    color: #000;
+    font-family: Titillium Web;
+    font-size: 12pt;
+    margin-left: 10%;
+    margin-right: 10%;
+    max-height: 300px;
+    min-width: 500px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 5px;
+    text-align: inline;
+    width: 80%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+#check9 {
+    height: 110px;
+    margin-left: 50%;
+    margin-top: -75px
+}
+
+#img-p9 {
+    width: 90%;
+    margin-top: 2%;
+}
+
+#inp-family {
+    display: inline-block;
+    font-family: Titillium Web;
+    font-size: 14pt;
+    text-align: center;
+    width: 15%;
+    margin-left: 10%
+}
+
+#inp-spend {
+    display: inline-block;
+    font-family: Titillium Web;
+    font-size: 14pt;
+    text-align: center;
+    width: 15%;
+    margin-left: 10%
+}
+
+.tickets-block {
+    min-width: 700px
+}
+
+.tickets-block-line {
+    margin-top: 2%
+}
+
+#tickets-min {
+    margin-left: 10%;
+    margin-top: 2%;
+    min-width: 350px;
+    text-align: left;
+    width: 50%
+}
+
+#tickets-max {
+    margin-left: 10%;
+    margin-top: 2%;
+    min-width: 350px;
+    text-align: left;
+    width: 50%
+}
+
+#line {
+    height: 0
+}
+
+#list5 {
+    margin: auto
+}
+
+#list8 {
+    float: right;
+    margin-left: .5%;
+    margin-top: 6%
+}
+
+#list9 {
+    margin-left: 50%;
+    margin-top: -50px
+}
+
+#marital {
+    float: left;
+    margin-top: 1%;
+    text-align: left;
+    width: 50%;
+    min-width: 350px;
+}
+
+#per-family {
+    margin-left: 10%;
+    margin-top: 5%;
+    min-width: 350px;
+    text-align: left;
+    width: 50%
+}
+
+#preloader {
+    margin-left: 45%;
+    margin-right: 45%;
+    margin-top: 20%;
+    width: 10%;
+}
+
+#preloader img {
+    width: 100%;
+}
+
+#selector-p8-1 {
+    color: #000;
+    float: right;
+    font-family: Titillium Web;
+    font-size: 14pt;
+    margin-left: 10%;
+    margin-top: 3%;
+    overflow: auto;
+    padding: 5px;
+    position: absolute;
+    text-align: center;
+    text-align-last: center;
+    width: 10%;
+    min-width: 100px
+}
+
+#selector-p8-2 {
+    color: #000;
+    float: right;
+    font-family: Titillium Web;
+    font-size: 14pt;
+    margin-left: 10%;
+    margin-top: 3%;
+    overflow: auto;
+    padding: 5px;
+    position: absolute;
+    text-align: center;
+    text-align-last: center;
+    width: 10%;
+    min-width: 100px
+}
+
+#selector2 {
+    font-size: 16pt;
+    margin-left: 12%;
+    margin-top: 2%;
+    padding: 5px;
+    width: 80%
+}
+
+#selector3 {
+    color: #000;
+    display: inline-block;
+    font-family: Titillium Web;
+    font-size: 14pt;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 5px;
+    text-align: center;
+    text-align-last: center;
+    width: 60%;
+}
+
+#selector5 {
+    color: #000;
+    display: inline-block;
+    font-family: Titillium Web;
+    font-size: 14pt;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 3%;
+    overflow: auto;
+    padding: 5px;
+    text-align: center;
+    text-align-last: center;
+    width: 60%
+}
+
+#single {
+    margin-top: 1%
+}
+
+#spend {
+    margin-left: 10%;
+    margin-top: 2%;
+    min-width: 350px;
+    text-align: left;
+    width: 50%
+}
+
+.spend-per-block {
+    margin-top: 2%;
+    min-width: 700px
+}
+
+#sry {
+    color: #00b7b9;
+}
+
+#sry_task {
+    border: 0 solid #f03;
+}
+
+#status {
+    border: 1.4px solid #000;
+    display: inline-block;
+    font-family: Titillium Web;
+    font-size: 18pt;
+    margin-left: 15%;
+    max-height: 130px;
+    overflow: auto;
+    margin-left: 10%;
+    width: 15%;
+    min-width: 150px;
+    position: absolute;
+}
+
+#total {
+    font-size: 12pt;
+    margin-left: 68%;
+    margin-top: 2%;
+    width: 20%
+}
+
+.airlines-list {
+    display: block;
+    font-family: Titillium Web;
+    font-size: 16pt;
+}
+
+.border-text {
+    color: #000;
+    display: inline-block;
+    font-family: Titillium Web;
+    font-size: 16pt;
+    margin-left: 10%;
+    padding: 5px;
+    text-align: center;
+    width: 70%
+}
+
+.boxes {
+    background: #fff;
+    color: #000;
+    height: 20px;
+    width: 20px
+}
+
+.button {
+    background-color: #1c7071;
+    border: 1px solid #000;
+    color: #fff;
+    font-family: Titillium Web;
+    font-size: 16pt;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    padding: 5px;
+    text-align: center;
+    width: 10%
+}
+
+.button-back {
+    background-color: gray;
+    border: 1px solid #000;
+    color: #fff;
+    font-family: Titillium Web;
+    font-size: 16pt;
+    margin-bottom: 2%;
+    margin-left: 10%;
+    margin-top: 2%;
+    padding: 5px;
+    text-align: center;
+    width: 10%
+}
+
+.button:hover {
+    cursor: pointer
+}
+
+.card-list {
+    border-bottom: 1px solid #eaeaea;
+    border-right: 1px solid #eaeaea;
+    display: inline-block;
+    vertical-align: middle;
+    width: 33%
+}
+
+.cards-img {
+    display: block;
+    margin: auto;
+    width: 20%
+}
+
+.check-input {
+    border: 1px solid #000;
+    border-radius: 3px;
+    display: block;
+    float: right;
+    font-family: Titillium Web;
+    font-size: 12pt;
+    height: 5%;
+    text-align: center;
+    visibility: hidden
+}
+
+.cinput {
+    background-color: #adf;
+    border: 1px solid #000;
+    color: #000;
+    font-family: Titillium Web;
+    font-size: 20pt;
+    font-size: 16pt;
+    height: 51px;
+    margin-left: -5px;
+    margin-top: 5%;
+    text-align: center;
+    width: 100px
+}
+
+.error {
+    border: 1px solid #f03;
+    color: #f03;
+    display: inline-block;
+    float: right;
+    font-family: Titillium Web;
+    font-size: 16pt;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10px;
+    padding: 5px;
+    text-align: center;
+    width: 50%
+}
+
+.header {
+    color: #00b7b9;
+    display: inline-block;
+    font-family: Titillium Web;
+    font-size: 30pt;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+    width: 80%;
+    margin-bottom: 2%;
+}
+
+.item-list {
+    background: #F0F0F0
+}
+
+.list {
+    border: 1px solid #000;
+    height: 44px;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 20px;
+    text-align: left;
+    width: 320px
+}
+
+.list li {
+    border-left: 1px solid #000;
+    color: #000;
+    display: inline-block;
+    display: inline-block;
+    font-family: Titillium Web;
+    font-size: 16pt;
+    height: 38px;
+    list-style: none;
+    padding: 3px 13px;
+    text-align: left;
+    width: 15px
+}
+
+.list li:hover {
+    cursor: pointer
+}
+
+.page {
+    height: 80%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    width: 100%;
+    min-width: 700px;
+}
+
+.search-result {
+    background-color: #fff;
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.2);
+    font-family: Titillium Web;
+    margin-left: 15.1%;
+    max-height: 180px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: left;
+    width: 69.9%
+}
+
+.search-result li {
+    list-style: none;
+    padding-left: 3%;
+    padding-right: 3%
+}
+
+.search-result li:hover {
+    background-color: #eee;
+    cursor: pointer
+}
+
+.selector {
+    color: #000;
+    display: inline-block;
+    font-family: Titillium Web;
+    font-size: 14pt;
+    margin-left: 30%;
+    margin-right: 10%;
+    padding: 5px;
+    text-align: left;
+    width: 40%
+}
+
+.status-block {
+    display: inline-block;
+    margin-top: 0%;
+    min-width: 700px;
+    width: 100%
+}
+
+.task {
+    color: #000;
+    display: inline-block;
+    font-family: Titillium Web;
+    font-size: 20pt;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 5px;
+    text-align: center;
+    width: 80%
+}
+
+.text {
+    color: #000;
+    display: inline-block;
+    font-family: Titillium Web;
+    font-size: 20pt;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 20px;
+    padding: 5px;
+    text-align: center;
+    width: 80%
+}
+
+.ui-menu-item-wrapper {
+    border-left: 1px solid #000;
+    color: #000;
+    display: inline-block;
+    display: inline-block;
+    font-family: Titillium Web;
+    font-size: 20pt;
+    height: 38px;
+    list-style: none;
+    padding: 3px 13px;
+    text-align: left;
+    width: 15px
+}
+
+.warning {
+    color: #000;
+    display: inline-block;
+    font-family: Titillium Web;
+    font-size: 16pt;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 20px;
+    padding: 5px;
+    text-align: center;
+    width: 80%
+}
+
+::-webkit-scrollbar {
+    height: 2px;
+    width: 2px
+}
+
+::-webkit-scrollbar-button {
+    height: 0;
+    width: 0
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e1e1e1;
+    border: 0 none #fff;
+    border-radius: 50px
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: #fff
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #fff
+}
+
+::-webkit-scrollbar-track {
+    background: #666;
+    border: 0 none #fff;
+    border-radius: 50px
+}
+
+::-webkit-scrollbar-track:active {
+    background: #333
+}
+
+::-webkit-scrollbar-track:hover {
+    background: #666
+}
+
+body {
+    background-image: url(/style/images/fon.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    height: 98%;
+    width: 98%
+}
+
+table {
+    border-spacing: 1px;
+    color: #000;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+td a {
+    color: #154088;
+    text-decoration: none
+}
+
+td a:active {
+    color: #154088
+}
+
+td a:hover {
+    border-bottom: 2px solid #154088
+}
+
+td a:visited {
+    color: #154088
+}
+
+td,
+th {
+    font-family: Titillium Web;
+    font-size: 16pt;
+    height: 80px;
+    padding: 5px;
+    text-align: center;
+    width: 100px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}

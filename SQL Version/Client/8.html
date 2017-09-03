@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    
+    <!-- заголовок страницы -->
+    <title> Pilot Project </title>
+
+    <script>
+        if (window.step !== 8) {
+            window.location.replace("/");
+        } else {
+
+            var temp = '', count;
+            
+            for (count = 0; count <= 5; count += 1) {
+                temp = temp + "<option value='" + count + "'>" + count + "<\/option>";
+            }
+            
+            /*globals $*/
+            $("#selector-p8-1").empty();
+            $("#selector-p8-1").append(temp);
+            $("#selector-p8-2").empty();
+            $("#selector-p8-2").append(temp);
+            
+            var data = {
+                statusValue: "",
+                minPeople: "",
+                maxPeople: "",
+                spendNextMonth: "",
+                spendNextYear: ""
+            },
+                temp = '';
+
+            /*globals socket*/
+            
+            // запрос у сервера семейного положения
+            socket.emit('getMaritalStatus');
+            
+            // обработка данных семейного положения от сервера
+            socket.on('getMaritalStatus', function (message) {
+                
+                'use strict';
+                
+                var marital_status = message, count;
+
+                for (count = 0; count < message.result.length; count += 1) {
+                    temp = temp + "<input type='radio' class='boxes' name='chooseone' value='" + message.result[count].value + "'>";
+                    temp = temp + "<label for='" + message.result[count].id + "'>" + message.result[count].name + "<\/label><br>";
+                }
+                
+                $('#status').empty();
+                $('#status').append(temp);
+                
+                temp = '';
+                
+            });
+
+
+            //------------------------------------------
+
+            $('#button9').click(function () {
+                
+                'use strict';
+                
+                var min = $('select option:selected')[0],
+                    max = $('select option:selected')[1];
+                
+                $('.error').remove();
+                
+                data.statusValue = $.trim($("input:radio:checked").attr("value"));
+                data.spendNextMonth = $.trim($('#inp-family').val());
+                data.spendNextYear = $.trim($('#inp-spend').val());
+                data.minPeople = $(min).val();
+                data.maxPeople = $(max).val();
+ 
+                if (data.statusValue && data.spendNextYear && data.spendNextMonth && data.minPeople && data.maxPeople && parseInt(data.spendNextMonth, 10) <= parseInt(data.spendNextYear, 10)) {
+                    
+                    socket.emit('setOtherQuestions', {
+                        'params': { 'data' : data }
+                    });
+                    
+                    $('body').empty();
+                    
+                    $.ajax({
+                        url: '9.html',
+                        type: "GET",
+                        dataType: 'text',
+                        success: function (html) {
+                            window.step = 9;
+                            $('body').css("margin-left", "100%");
+                            $('body').html(html);
+                            $('body').animate({
+                                marginLeft: "0%"
+                            }, 200);
+                        }
+                    });
+                    
+                } else {
+                    
+                    if (parseInt(data.spendNextMonth, 10) >= parseInt(data.spendNextYear, 10)) {
+                        $('.page').append("<div class='error'>Annual costs should be more than monthly!<\/div>");
+                    } else {
+                        $('.page').append("<div class='error'>Select all items!<\/div>");
+                    }
+                }
+                
+            });
+
+
+            $('#selector-p8-1').change(function () {
+                
+                'use strict';
+                
+                var min = $('select option:selected')[0],
+                    max = $('select option:selected')[1],
+                    num = parseInt($(min).val(), 10),
+                    opert = "",
+                    i;
+                
+                if (parseInt($(min).val(), 10) < parseInt($(max).val(), 10)) {
+                    num = parseInt($(max).val(), 10);
+                }
+                
+                $('#selector-p8-2').empty();
+                for (i = parseInt($(min).val(), 10); i <= 5; i += 1) {
+                    opert = opert + "<option value='" + i + "'>" + i + "<\/option>";
+                }
+                
+                $('#selector-p8-2').append(opert);
+                $('#selector-p8-2').val(num);
+                
+            });
+
+            $('#button-back-p8').click(function () {
+                
+                'use strict';
+                
+                $('body').empty();
+                
+                $.ajax({
+                    url: '7.html',
+                    type: "GET",
+                    dataType: 'text',
+                    success: function (html) {
+                        window.step = 7;
+                        $('body').css("margin-left", "-100%");
+                        $('body').html(html);
+                        $('body').animate({
+                            marginLeft: "0%"
+                        }, 200);
+                    }
+                });
+                
+            });
+            
+            $('#selector-p8-1, #selector-p8-2').mousedown(function () {
+                
+                'use strict';
+                
+                if (this.options.length > 3) {
+                    this.size = 3;
+                }
+            });
+            
+            $('#selector-p8-1, #selector-p8-2').change(function () {
+                
+                'use strict';
+                
+                this.blur();
+            });
+            
+            $('#selector-p8-1, #selector-p8-2').blur(function () {
+                
+                'use strict';
+                
+                this.size = 0;
+            });
+        }
+
+    </script>
+
+</head>
+
+<!-- структура основной страницы -->
+<body>
+    
+    <div class="page">
+        
+        <div class="header"> Few final questions </div><br>
+
+        <div class="status-block">
+            
+            <div id="marital" class="border-text">Your marital status</div>
+
+            <div id="status"></div>
+
+        </div>
+
+        <div id="tickets-block">
+            
+            <div class="tickets-block-line">
+                
+                <div class="border-text" id="tickets-min">Minimum number of passengers travelling with you including your spouse</div>
+
+                <select id="selector-p8-1">
+
+                </select>
+
+            </div>
+            
+            <div class="tickets-block-line">
+                
+                <div class="border-text"  id="tickets-max">Maximum number of passengers travelling with you including your spouse</div>
+
+                <select id="selector-p8-2">
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div id="spend-in-block">
+
+            <div class="spend-per-block">
+                
+                <div class="border-text" id="per-family">Amount you spend monthly</div>
+
+                <input id="inp-family" type="text">
+                    
+            </div>
+
+            <div class="spend-per-block">
+                
+                <div class="border-text" id="spend">Amount you plan to spend in the next 12 months</div>
+
+                <input id="inp-spend" type="text">
+                    
+            </div>
+
+        </div>
+
+        <button class="button-back" id="button-back-p8">Back</button>
+
+        <button class="button" id="button9">Check the results!</button>
+
+    </div>
+
+</body>
+
+</html>

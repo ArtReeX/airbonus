@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    
+    <!-- заголовок страницы -->
+    <title> Pilot Project </title>
+    
+    <script>
+        
+    if (window.step !== 7) {
+        window.location.replace("/");
+    } else {
+
+        var temp = "",
+            data = [],
+            check_max;
+
+        /*globals socket*/
+        socket.emit('getAmExCards');
+        
+        // запрос от сервера AmEx карт
+        socket.on('getAmExCards', function (message) {
+
+            'use strict';
+
+            /*globals $*/
+            $('#check').empty();
+            check_max = parseInt(message.result.max, 10);
+
+            var count;
+
+            for (count = 0; count < message.result.cards.length; count += 1) {
+                
+                temp = temp + "<input type='checkbox' value='" + message.result.cards[count].id + "' class='boxes'>" + message.result.cards[count].name;
+                temp = temp + "<input class='check-input' type='number' placeholder='Remaining miles' disabled='true'>";
+                
+                if (message.result.cards[count].image !== null) {
+                    temp = temp + "<img class='cards-img' src='http://akite.org:8181/client/images/cards/" + message.result.cards[count].image + "'>";
+                }
+                
+                temp = temp + "<br>";
+            }
+            
+            $('#check').empty();
+            $('#check').append(temp);
+            
+            temp = '';
+            
+        });
+
+
+        $('#button-p7').click(function () {
+
+            'use strict';
+
+            var count, a;
+
+            for (count = 0; count < $(":checkbox:checked").length; count += 1) {
+                a = $(":checkbox:checked")[count];
+
+                data.push({
+                    card: $(a).val(),
+                    bonus: $(a).next().val().trim() ? $(a).next().val() : 0
+                });
+            }
+            
+            // отправка на сервер выбранных AmEx карт
+            socket.emit('setAmExCards', {
+                'params': { 'data' : data }
+            });
+
+            $('body').empty();
+            
+            $.ajax({
+                url: '8.html',
+                type: "GET",
+                dataType: 'text',
+                success: function (html) {
+                    window.step = 8;
+                    $('body').css("margin-left", "100%");
+                    $('body').html(html);
+                    $('body').animate({
+                        marginLeft: "0%"
+                    }, 200);
+                }
+            });
+            
+        });
+
+        $('#check').change(function () {
+
+            'use strict';
+
+            $('#count').html($(":checkbox:checked").length);
+            
+        });
+
+
+        $('#check').on('change', 'input[type="checkbox"]', function () {
+
+            'use strict';
+
+            $('.error').remove();
+            if ($(this).prop('checked')) {
+
+                /*if (*$(":checkbox:checked").length > check_max) {
+                    this.checked = false;
+                    $('.page').append("<div class='error'>Total must be less then " + check_max + "!<\/div>");
+                } else {
+                    $(this).next().prop("disabled", false);
+                    $(this).next().css("visibility", "visible");
+                }*/
+
+                $(this).next().prop("disabled", false);
+                $(this).next().css("visibility", "visible");
+
+            } else {
+                
+                $(this).next().prop("disabled", true);
+                $(this).next().val("");
+                $(this).next().css("visibility", "hidden");
+                
+            }
+        });
+
+
+        $('#button-back-p7').click(function () {
+
+            'use strict';
+
+            $('body').empty(); // чистим страницу
+            $.ajax({ // ajax-запрос на след.страницу
+                url: '6.html',
+                type: "GET",
+                dataType: 'text',
+                success: function (html) {
+                    window.step = 6;
+                    $('body').css("margin-left", "-100%");
+                    $('body').html(html);
+                    $('body').animate({
+                        marginLeft: "0%"
+                    }, 200);
+                }
+            });
+            
+        });
+    }
+
+    </script>
+
+</head>
+
+<!-- структура основной страницы -->
+<body>
+    
+    <div class="page">
+        
+        <div class="text"> Have you EVER had any of the American Express cards (choose from the list)? </div><br>
+
+        <br>
+            
+        <div id="check">
+
+        </div>
+
+        <br>
+            
+        <button class="button-back" id="button-back-p7">Back</button>
+        
+        <button class="button" id="button-p7">Next!</button>
+
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    
+    <!-- заголовок страницы -->
+    <title> Pilot Project </title>
+
+    <script>
+        
+    if (window.step !== 5) {
+        window.location.replace("/");
+    } else {
+        var temp = "", count;
+
+        for (count = 0; count <= 20; count += 1) {
+            temp = temp + "<option value='" + count + "'>" + count + "<\/option>";
+        }
+
+        /*globals $*/
+        $("#selector5").empty();
+        $("#selector5").append(temp);
+
+        $('#button-p5').click(function () {
+
+            'use strict';
+
+            $('.error').remove();
+            
+            var data = {
+                cardCount: $('select option:selected').val()
+            };
+
+            if (data.cardCount >= 0 && data.cardCount <= 20) {
+
+                /*globals socket*/
+                socket.emit('setCardCount', {
+                    'params': {
+                        cardCount: data.cardCount
+                    }
+                });
+
+                $('body').empty();
+                $.ajax({
+                    url: '6.html',
+                    type: "GET",
+                    dataType: 'text',
+                    success: function (html) {
+                        window.step = 6;
+                        $('body').css("margin-left", "100%");
+                        $('body').html(html);
+                        $('body').animate({
+                            marginLeft: "0%"
+                        }, 200);
+                    }
+                });
+
+            } else {
+                $('.page').append("<div class='error'>Cards range must be 1-20!<\/div>");
+            }
+
+        });
+
+        $('#button-back-p5').click(function () {
+
+            'use strict';
+
+            $('body').empty();
+            $.ajax({
+                url: '4.html',
+                type: "GET",
+                dataType: 'text',
+                success: function (html) {
+                    window.step = 4;
+                    $('body').css("margin-left", "-100%");
+                    $('body').html(html);
+                    $('body').animate({
+                        marginLeft: "0%"
+                    }, 200);
+                }
+            });
+            
+        });
+
+        $('#selector5').mousedown(function () {
+
+            'use strict';
+
+            if (this.options.length > 5) {
+                this.size = 5;
+            }
+
+        });
+
+        $('#selector5').change(function () {
+
+            'use strict';
+
+            this.blur();
+        });
+
+        $('#selector5').blur(function () {
+
+            'use strict';
+
+            this.size = 0;
+        });
+    }
+
+    </script>
+
+</head>
+
+<!-- структура основной страницы -->
+<body>
+    
+    <div class="page">
+        
+        <div class="text">How many credit cards total you opened in the last 24 months?</div>
+
+        <select id="selector5">
+
+        </select>
+
+        <br>
+            
+        <button class="button-back" id="button-back-p5">Back</button>
+
+        <button class="button" id="button-p5">Next!</button><br>
+
+    </div>
+
+</body>
+
+</html>

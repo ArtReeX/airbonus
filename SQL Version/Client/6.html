@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    
+    <!-- заголовок страницы -->
+    <title> Pilot Project </title>
+    
+    <script>
+        
+    if (window.step !== 6) {
+        window.location.replace("/");
+    } else {
+        
+        var temp = "",
+            data = [],
+            check_max = 0;
+
+        /*globals socket*/
+        socket.emit('getAllCards');
+        
+        // запрос от сервера всех карт
+        socket.on('getAllCards', function (message) {
+
+            'use strict';
+
+            var check_max = parseInt(message.result.max, 10), count;
+
+            for (count = 0; count < message.result.cards.length; count += 1) {
+                temp = temp + "<input type='checkbox' link='http://airbonus.azurewebsites.net:8181/client/images/cards/" + message.result.cards[count].image + "' value='" + message.result.cards[count].id + "' class='boxes'>" + message.result.cards[count].name;
+                temp = temp + "<input class='check-input' min='1' type='number' placeholder='Remaining miles' disabled='true'>";
+
+                if (message.result.cards[count].image !== null) {
+                    temp = temp + "<img class='cards-img' src='http://airbonus.azurewebsites.net:8181/client/images/cards/" + message.result.cards[count].image + "'>";
+                }
+                temp = temp + "<br>";
+            }
+
+            /*globals $*/
+            $('#check').empty();
+            $('#check').append(temp);
+            
+            temp = '';
+            
+        });
+
+        $('#button-p6').click(function () {
+
+            'use strict';
+
+            var count, a;
+
+            for (count = 0; count < $(":checkbox:checked").length; count += 1) {
+
+                a = $(":checkbox:checked")[count];
+
+                data.push({
+                    card: $(a).val(),
+                    bonus: $(a).next().val().trim() ? $(a).next().val() : 0
+                });
+                
+            }
+            
+            // отправка на сервер данных выбранных пользователем карт
+            socket.emit('setAllCards', {
+                'params': { 'data' : data }
+            });
+
+            $('body').empty();
+            $.ajax({
+                url: '7.html',
+                type: "GET",
+                dataType: 'text',
+                success: function (html) {
+                    window.step = 7;
+                    $('body').css("margin-left", "100%");
+                    $('body').html(html);
+                    $('body').animate({
+                        marginLeft: "0%"
+                    }, 200);
+                }
+            });
+
+        });
+
+        $('#check').change(function () {
+
+            'use strict';
+
+            $('#count').html($(":checkbox:checked").length);
+        });
+
+
+        $('#check').on('change', 'input[type="checkbox"]', function () {
+
+            'use strict';
+
+            $('.error').remove();
+            if ($(this).prop('checked')) {
+
+                /*if (*$(":checkbox:checked").length > check_max*) {
+                    this.checked = false;
+                    $('.page').append("<div class='error'>Total must be less then " + check_max + "!<\/div>");
+                } else {
+                    $(this).next().prop("disabled", false);
+                    $(this).next().css("visibility", "visible");
+                }*/
+
+                $(this).next().prop("disabled", false);
+                $(this).next().css("visibility", "visible");
+
+            } else {
+                $(this).next().prop("disabled", true);
+                $(this).next().val("");
+                $(this).next().css("visibility", "hidden");
+            }
+            
+        });
+
+
+        $('#button-back-p6').click(function () {
+
+            'use strict';
+
+            $('body').empty();
+            $.ajax({
+                url: '5.html',
+                type: "GET",
+                dataType: 'text',
+                success: function (html) {
+                    window.step = 5;
+                    $('body').css("margin-left", "-100%");
+                    $('body').html(html);
+                    $('body').animate({
+                        marginLeft: "0%"
+                    }, 200);
+                }
+            });
+        });
+    }
+
+    </script>
+
+</head>
+
+<!-- структура основной страницы -->
+<body>
+    
+    <div class="page">
+        
+        <div class="text"> Do you currently have any of these cards? </div><br>
+
+        <br>
+            
+        <div id="check">
+
+        </div>
+
+        <br>
+            
+        <button class="button-back" id="button-back-p6">Back</button>
+        
+        <button class="button" id="button-p6">Next!</button><br>
+
+    </div>
+
+</body>
+
+</html>
