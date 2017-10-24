@@ -1,1 +1,1 @@
-node main
+node server

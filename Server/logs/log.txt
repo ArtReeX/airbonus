@@ -1,0 +1,154 @@
+﻿[2017-10-24 16:53:36.325] [ERROR] default - { Error: ER_ACCESS_DENIED_ERROR: Access denied for user ''@'localhost' (using password: NO)
+    at Handshake.Sequence._packetToError (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\sequences\Sequence.js:52:14)
+    at Handshake.ErrorPacket (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\sequences\Handshake.js:130:18)
+    at Protocol._parsePacket (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:279:23)
+    at Parser.write (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Parser.js:76:12)
+    at Protocol.write (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:39:16)
+    at Socket.<anonymous> (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\Connection.js:103:28)
+    at emitOne (events.js:96:13)
+    at Socket.emit (events.js:188:7)
+    at readableAddChunk (_stream_readable.js:176:18)
+    at Socket.Readable.push (_stream_readable.js:134:10)
+    --------------------
+    at Protocol._enqueue (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:145:48)
+    at Protocol.handshake (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:52:23)
+    at PoolConnection.connect (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\Connection.js:130:18)
+    at Pool.getConnection (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\Pool.js:48:16)
+    at Object.create (D:\Projects\nextWOS\Git\Server\core\database.js:16:21)
+    at D:\Projects\nextWOS\Git\Server\server.js:49:25
+    at D:\Projects\nextWOS\Git\Server\node_modules\async\dist\async.js:3853:24
+    at replenish (D:\Projects\nextWOS\Git\Server\node_modules\async\dist\async.js:946:17)
+    at iterateeCallback (D:\Projects\nextWOS\Git\Server\node_modules\async\dist\async.js:931:17)
+    at D:\Projects\nextWOS\Git\Server\node_modules\async\dist\async.js:906:16
+  code: 'ER_ACCESS_DENIED_ERROR',
+  errno: 1045,
+  sqlMessage: 'Access denied for user \'\'@\'localhost\' (using password: NO)',
+  sqlState: '28000',
+  fatal: true }
+[2017-10-24 16:54:45.087] [INFO] default - Сервер успешно запущен.
+[2017-10-24 16:54:59.623] [ERROR] default - { Error: ER_BAD_DB_ERROR: Unknown database 'nextwos3242'
+    at Handshake.Sequence._packetToError (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\sequences\Sequence.js:52:14)
+    at Handshake.ErrorPacket (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\sequences\Handshake.js:130:18)
+    at Protocol._parsePacket (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:279:23)
+    at Parser.write (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Parser.js:76:12)
+    at Protocol.write (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:39:16)
+    at Socket.<anonymous> (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\Connection.js:103:28)
+    at emitOne (events.js:96:13)
+    at Socket.emit (events.js:188:7)
+    at readableAddChunk (_stream_readable.js:176:18)
+    at Socket.Readable.push (_stream_readable.js:134:10)
+    --------------------
+    at Protocol._enqueue (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:145:48)
+    at Protocol.handshake (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:52:23)
+    at PoolConnection.connect (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\Connection.js:130:18)
+    at Pool.getConnection (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\Pool.js:48:16)
+    at Object.create (D:\Projects\nextWOS\Git\Server\core\database.js:16:21)
+    at D:\Projects\nextWOS\Git\Server\server.js:49:25
+    at D:\Projects\nextWOS\Git\Server\node_modules\async\dist\async.js:3853:24
+    at replenish (D:\Projects\nextWOS\Git\Server\node_modules\async\dist\async.js:946:17)
+    at iterateeCallback (D:\Projects\nextWOS\Git\Server\node_modules\async\dist\async.js:931:17)
+    at D:\Projects\nextWOS\Git\Server\node_modules\async\dist\async.js:906:16
+  code: 'ER_BAD_DB_ERROR',
+  errno: 1049,
+  sqlMessage: 'Unknown database \'nextwos3242\'',
+  sqlState: '42000',
+  fatal: true }
+[2017-10-24 17:00:13.079] [INFO] default - Сервер успешно запущен.
+[2017-10-24 17:00:21.055] [ERROR] default - { Error: ER_BAD_DB_ERROR: Unknown database 'nextwosewfw'
+    at Handshake.Sequence._packetToError (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\sequences\Sequence.js:52:14)
+    at Handshake.ErrorPacket (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\sequences\Handshake.js:130:18)
+    at Protocol._parsePacket (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:279:23)
+    at Parser.write (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Parser.js:76:12)
+    at Protocol.write (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:39:16)
+    at Socket.<anonymous> (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\Connection.js:103:28)
+    at emitOne (events.js:96:13)
+    at Socket.emit (events.js:188:7)
+    at readableAddChunk (_stream_readable.js:176:18)
+    at Socket.Readable.push (_stream_readable.js:134:10)
+    --------------------
+    at Protocol._enqueue (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:145:48)
+    at Protocol.handshake (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:52:23)
+    at PoolConnection.connect (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\Connection.js:130:18)
+    at Pool.getConnection (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\Pool.js:48:16)
+    at Object.create (D:\Projects\nextWOS\Git\Server\core\database.js:16:21)
+    at D:\Projects\nextWOS\Git\Server\server.js:40:25
+    at D:\Projects\nextWOS\Git\Server\node_modules\async\dist\async.js:3853:24
+    at replenish (D:\Projects\nextWOS\Git\Server\node_modules\async\dist\async.js:946:17)
+    at iterateeCallback (D:\Projects\nextWOS\Git\Server\node_modules\async\dist\async.js:931:17)
+    at D:\Projects\nextWOS\Git\Server\node_modules\async\dist\async.js:906:16
+  code: 'ER_BAD_DB_ERROR',
+  errno: 1049,
+  sqlMessage: 'Unknown database \'nextwosewfw\'',
+  sqlState: '42000',
+  fatal: true }
+[2017-10-24 17:00:29.956] [INFO] default - Сервер успешно запущен.
+[2017-10-24 17:15:40.750] [INFO] default - Сервер успешно запущен.
+[2017-10-24 17:47:54.212] [INFO] default - Сервер успешно запущен.
+[2017-10-24 20:07:41.806] [INFO] default - Сервер успешно запущен.
+[2017-10-24 21:19:13.468] [INFO] default - Сервер успешно запущен.
+[2017-10-24 21:19:57.978] [ERROR] default - { Error: ER_NO_SUCH_TABLE: Table 'nextwos.general_accounts' doesn't exist
+    at Query.Sequence._packetToError (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\sequences\Sequence.js:52:14)
+    at Query.ErrorPacket (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\sequences\Query.js:77:18)
+    at Protocol._parsePacket (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:279:23)
+    at Parser.write (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Parser.js:76:12)
+    at Protocol.write (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:39:16)
+    at Socket.<anonymous> (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\Connection.js:103:28)
+    at emitOne (events.js:96:13)
+    at Socket.emit (events.js:188:7)
+    at readableAddChunk (_stream_readable.js:176:18)
+    at Socket.Readable.push (_stream_readable.js:134:10)
+    --------------------
+    at Protocol._enqueue (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:145:48)
+    at PoolConnection.query (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\Connection.js:208:25)
+    at D:\Projects\nextWOS\Git\Server\core\services\database\restoring\methods\generals\methods\users.js:13:18
+    at Handshake.onConnect (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\Pool.js:64:7)
+    at Handshake.Sequence.end (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\sequences\Sequence.js:88:24)
+    at Handshake.Sequence.OkPacket (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\sequences\Sequence.js:97:8)
+    at Protocol._parsePacket (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:279:23)
+    at Parser.write (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Parser.js:76:12)
+    at Protocol.write (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\protocol\Protocol.js:39:16)
+    at Socket.<anonymous> (D:\Projects\nextWOS\Git\Server\node_modules\mysql\lib\Connection.js:103:28)
+  code: 'ER_NO_SUCH_TABLE',
+  errno: 1146,
+  sqlMessage: 'Table \'nextwos.general_accounts\' doesn\'t exist',
+  sqlState: '42S02',
+  index: 0,
+  sql: 'SELECT * FROM general_accounts LIMIT 1' }
+[2017-10-24 21:25:56.435] [INFO] default - Сервер успешно запущен.
+[2017-10-24 21:26:08.161] [INFO] default - Сервер успешно запущен.
+[2017-10-24 21:37:07.216] [INFO] default - Сервер успешно запущен.
+[2017-10-24 21:43:41.288] [INFO] default - Сервер успешно запущен.
+[2017-10-24 21:50:33.384] [INFO] default - Сервер успешно запущен.
+[2017-10-24 21:50:53.544] [INFO] default - Сервер успешно запущен.
+[2017-10-24 21:55:39.420] [INFO] default - Сервер успешно запущен.
+[2017-10-24 21:55:56.299] [INFO] default - Сервер успешно запущен.
+[2017-10-24 22:57:27.442] [INFO] default - Сервер успешно запущен.
+[2017-10-24 23:47:32.567] [INFO] default - Сервер успешно запущен.
+[2017-10-24 23:49:33.191] [INFO] default - Сервер успешно запущен.
+[2017-10-25 00:35:00.831] [INFO] default - Сервер успешно запущен.
+[2017-10-25 00:35:03.819] [INFO] default - Сервер успешно запущен.
+[2017-10-25 01:37:38.691] [INFO] default - Сервер успешно запущен.
+[2017-10-25 01:43:35.149] [INFO] default - Сервер успешно запущен.
+[2017-10-25 01:43:49.466] [INFO] default - Пользователь 9KyJ5OhwkSRTFhO-AAAA, IP: ::1 подключился.
+[2017-10-25 01:44:20.828] [INFO] default - Сервер успешно запущен.
+[2017-10-25 01:44:32.519] [INFO] default - Сервер успешно запущен.
+[2017-10-25 01:45:06.593] [INFO] default - Сервер успешно запущен.
+[2017-10-25 01:45:24.683] [INFO] default - Сервер успешно запущен.
+[2017-10-25 01:45:26.251] [INFO] default - Пользователь Y-z4_XH2ZNG-YLZ3AAAA, IP: ::1 подключился.
+[2017-10-25 01:46:16.759] [INFO] default - Сервер успешно запущен.
+[2017-10-25 01:46:17.074] [INFO] default - Пользователь 74tqUoJ3wXjs3rQTAAAA, IP: ::1 подключился.
+[2017-10-25 01:46:18.319] [INFO] default - Пользователь RvOoQwu1w_Ty1CkLAAAB, IP: ::1 подключился.
+[2017-10-25 01:46:21.286] [INFO] default - Пользователь pUBnELDtIi7EhQQwAAAC, IP: ::1 подключился.
+[2017-10-25 01:46:36.552] [INFO] default - Сервер успешно запущен.
+[2017-10-25 01:46:42.215] [INFO] default - Пользователь eojH99ZhylxAKq5dAAAA, IP: ::1 подключился.
+[2017-10-25 01:46:44.970] [INFO] default - Пользователь Us3GzPKRW23qDavmAAAB, IP: ::1 подключился.
+[2017-10-25 01:46:47.211] [INFO] default - Пользователь 2zSotdu9NIpYk_BeAAAC, IP: ::1 подключился.
+[2017-10-25 01:48:11.194] [INFO] default - Сервер успешно запущен.
+[2017-10-25 01:48:17.851] [INFO] default - Пользователь DOLV63WLwiSmKz1zAAAA, IP: ::1 подключился.
+[2017-10-25 01:48:59.706] [INFO] default - Сервер успешно запущен.
+[2017-10-25 01:48:59.762] [INFO] default - Пользователь HjQ8thkF9miMuOmvAAAA, IP: ::1 подключился.
+[2017-10-25 01:49:01.629] [INFO] default - Пользователь HjQ8thkF9miMuOmvAAAA отключился.
+[2017-10-25 01:49:01.872] [INFO] default - Пользователь yh1yl1dRxTTxz803AAAB, IP: ::1 подключился.
+[2017-10-25 01:49:04.146] [INFO] default - Пользователь yh1yl1dRxTTxz803AAAB отключился.
+[2017-10-25 01:49:04.281] [INFO] default - Пользователь FHO7pAPsHVaC945vAAAC, IP: ::1 подключился.
+[2017-10-25 01:49:07.414] [INFO] default - Пользователь FHO7pAPsHVaC945vAAAC отключился.

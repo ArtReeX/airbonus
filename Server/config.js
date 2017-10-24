@@ -2,29 +2,22 @@
 var config = {
 
     // параметры MySQL
-    mysql: {
-        
-        host: 'db.akite.org',
-        port: '3306',
-        user: 'pilot',
-        password: 'Antratsit2017',
-        database: 'pilot'
-        
+    "database": {
+
+        "host": "localhost",
+        "port": "3306",
+        "user": "root",
+        "password": "",
+        "database": "pilot"
+
     },
-    
+
     // параметры сервера
-    server: {
+    "server": {
         
-        port: '8181',
-        
-        options: {
-            
-            // мс
-            pingTimeout: 300000,
-            // мс
-            pingInterval: 300000
-            
-        }
+        "port": '8181',
+
+        "files_directory": "./files"
         
     },
 
@@ -37,24 +30,27 @@ var config = {
     DEBUG   - информация о нормальном ходе выполненияи программы, предназначенная для разработчиков
     TRACE   - несущественная информация для глубокой отладки
     */
-    
+
     // параметры логирования
-    log: {
-        
-        level: 'TRACE',
-        file: './logs/ws/log.txt',
-        file_size: 1000000,
-        file_backup: 20
-        
-    },
-    
-    // параметры директорий доступных извне
-    dir: {
-        
-        files_directory: './files'
-        
+    "log": {
+
+        "level": "TRACE",
+        "file": "./logs/log.txt",
+        "file_size": 1000000,
+        "file_backup": 20
+
     },
 
+    // параметры WEB-сокетов
+    "websocket": {
+
+        // мс
+        "pingTimeout": 300000,
+        // мс
+        "pingInterval": 300000
+
+    },
+    
     // параметры вычисления данных
     calculate: {
         
