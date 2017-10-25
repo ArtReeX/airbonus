@@ -1,5 +1,5 @@
 /************************ ОБРАБОТЧИКИ ЗАПУСКА ************************/
-/*globals $, document, window, showPageIndex, setTimeout*/
+/*globals $, document, window, showPageAirports, setTimeout*/
 
 $(document).ready(function () {
 
@@ -18,7 +18,7 @@ $(document).ready(function () {
             if (window.identifier === "error") {
 
                 // выполняем редирект на главную страницу
-                showPageIndex();
+                showPageAirports();
 
             }
 
@@ -34,7 +34,7 @@ $(document).ready(function () {
         // переподключение через N секунд
         setTimeout(function () {
 
-            showPageIndex();
+            showPageAirports();
 
         }, 10000);
 
