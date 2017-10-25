@@ -18,7 +18,7 @@ module.exports = function (params, database, callback) {
         } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query("SELECT min,max,min_credit_score FROM income WHERE id=" + id  + " LIMIT 1", function (error, incomes) {
+            connection.query("SELECT min,max,min_credit_score FROM income WHERE id=" + params.id  + " LIMIT 1", function (error, incomes) {
 
                 if (error) {
                     
@@ -33,10 +33,10 @@ module.exports = function (params, database, callback) {
                     // возврат результата
                     callback({
                         "error": null,
-                        "data": { 
+                        "data": {
                             "min": incomes[0].min,
                             "max": incomes[0].max,
-                            "min_credit_score: incomes[0].min_credit_score
+                            "min_credit_score": incomes[0].min_credit_score
                         }
                     });
 
