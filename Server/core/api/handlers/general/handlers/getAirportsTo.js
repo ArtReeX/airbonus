@@ -35,13 +35,8 @@ module.exports = function (params, methods, socket, database, log) {
             // ОБРАБОТКА ОТВЕТОВ
 
             // отправка результата
-            log.trace("Sending method resultgetAirportsTo results to " + socket.id + ":");
-            log.trace({
-                "error": null,
-                "data": {
-                    "result": result.data
-                }
-            });
+            log.trace("Sending method resultGetAirportsTo results to " + socket.id + ":");
+            log.trace({ "error": null, "data": result.data});
 
             socket.emit("resultGetAirportsTo", {
                 "error": null,

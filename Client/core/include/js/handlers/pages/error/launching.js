@@ -8,9 +8,8 @@ $(document).ready(function () {
     // - определение типа ошибки
     if (window.errorType === "connect_server") {
 
-        /*globals $*/
-        $('#error-head b').text("Ошибка подключения к серверу");
-        $('#error-subHead p').text("- вы будете перенаправлены на главную страницу когда соединение будет восстановлено");
+        $('#error-head b').text("Server connection error");
+        $('#error-subHead p').text("- you will be redirected to the main page when the connection is restored");
 
         // действие после восстановления подключения
         window.socket.on('connect', function () {
@@ -29,9 +28,8 @@ $(document).ready(function () {
         
     } else if (window.errorType === "page_exist") {
 
-        /*globals $*/
-        $('#error-head b').text("Страница не найдена");
-        $('#error-subHead p').text("- вы будете перенаправлены на главную страницу через 10 секунд");
+        $('#error-head b').text("Page not found");
+        $('#error-subHead p').text("- you will be redirected to the main page after 10 seconds");
 
         // переподключение через N секунд
         setTimeout(function () {

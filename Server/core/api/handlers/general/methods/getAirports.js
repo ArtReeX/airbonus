@@ -19,22 +19,22 @@ module.exports = function (params, database, callback) {
         } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query("SELECT id,min,max from credit_score ORDER BY min", function (error, scores) {
+            connection.query("SELECT iata, name, city FROM airports ORDER BY iata", function (error, airports) {
 
                 if (error) {
-                    
+
                     // возврат результата
                     callback({
                         "error": { "type": "database" },
                         "data": null
                     });
-                    
+
                 } else {
 
                     // возврат результата
                     callback({
                         "error": null,
-                        "data": { "scores": scores }
+                        "data": { "airports": airports }
                     });
 
                 }

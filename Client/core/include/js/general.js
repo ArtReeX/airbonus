@@ -1,12 +1,12 @@
 /************************ ОБРАБОЧИКИ ПОСТОЯННЫХ ЭЛЕМЕНТОВ ************************/
-/*globals $, document, window, io, showPageIndex, showPageError*/
+/*globals $, document, window, io, showPageAirports, showPageError*/
 
 $(document).ready(function () {
     
     'use strict';
     
     // показ основной страницы
-    showPageIndex();
+    showPageAirports();
     
     // подключение к серверу, если его нет
     if (typeof window.socket === "undefined") {

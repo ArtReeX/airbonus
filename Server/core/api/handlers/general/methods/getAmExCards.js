@@ -2,6 +2,7 @@
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
 module.exports = function (params, database, callback) {
+    
     'use strict';
 
     // получение соединения

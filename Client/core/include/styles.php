@@ -8,5 +8,5 @@
 <link rel="stylesheet" type="text/css" href="core/include/style/css/preloader.css">
 
 <!-- ОСНОВНЫЕ СТРАНИЦЫ -->
-<link rel="stylesheet" type="text/css" href="core/include/style/css/pages/index.css">
+<link rel="stylesheet" type="text/css" href="core/include/style/css/pages/airports.css">
 <link rel="stylesheet" type="text/css" href="core/include/style/css/pages/error.css">

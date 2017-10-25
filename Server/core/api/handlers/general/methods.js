@@ -2,6 +2,7 @@
 
 /*-------------- ЭКСПОРТ МЕТОДОВ ДЛЯ ОБРАБОТЧИКОВ API ------------------*/
 module.exports.getAirlines = require("./methods/getAirlines");
+module.exports.getAirports = require("./methods/getAirports");
 module.exports.getAirportsByLine = require("./methods/getAirportsByLine");
 module.exports.getAllCards = require("./methods/getAllCards");
 module.exports.getAmExCards = require("./methods/getAmExCards");

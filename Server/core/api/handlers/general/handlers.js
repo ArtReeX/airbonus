@@ -3,8 +3,7 @@
 /*-------------- ЭКСПОРТ ОБРАБОТЧИК ДЛЯ API ------------------*/
 module.exports.getAirportsFrom = require("./handlers/getAirportsFrom");
 module.exports.getAirportsTo = require("./handlers/getAirportsTo");
-module.exports.setAirportFrom = require("./handlers/setAirportFrom");
-module.exports.setAirportTo = require("./handlers/setAirportTo");
+module.exports.setAirports = require("./handlers/setAirports");
 module.exports.getAirlines = require("./handlers/getAirlines");
 module.exports.getCreditScores = require("./handlers/getCreditScores");
 module.exports.setCreditScores = require("./handlers/setCreditScores");

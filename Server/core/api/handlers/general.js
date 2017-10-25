@@ -28,20 +28,12 @@ module.exports.set = function (config, socket, database, log, async, callback) {
         
     });
     
-    // установка начального аэропорта
-    socket.on("setAirportFrom", function (airport) {
+    // установка начального и конечного аэропорта
+    socket.on("setAirports", function (from, to) {
         
-        handlers_module.setAirportFrom({
-            "airport" : String(airport)
-        }, methods_module, socket, database, log);
-        
-    });
-    
-    // установка конечного аэропорта
-    socket.on("setAirportTo", function (airport) {
-        
-        handlers_module.setAirportTo({
-            "airport" : String(airport)
+        handlers_module.setAirports({
+            "from" : String(from),
+            "to" : String(to)
         }, methods_module, socket, database, log);
         
     });

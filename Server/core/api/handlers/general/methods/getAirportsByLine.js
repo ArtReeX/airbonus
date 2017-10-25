@@ -2,6 +2,7 @@
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
 module.exports = function (params, database, callback) {
+    
     'use strict';
 
     // получение соединения
@@ -18,28 +19,28 @@ module.exports = function (params, database, callback) {
         } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query("SELECT iata, name, city FROM airports WHERE iata RLIKE '^" + line + "' OR city RLIKE '^" + params.line +
+            connection.query("SELECT iata, name, city FROM airports WHERE iata RLIKE '^" + params.line + "' OR city RLIKE '^" + params.line +
                 "' OR name RLIKE '^" + params.line + "' ORDER BY iata", function (error, airports) {
 
-                if (error) {
-                    
-                    // возврат результата
-                    callback({
-                        "error": { "type": "database" },
-                        "data": null
-                    });
-                    
-                } else {
+                    if (error) {
 
-                    // возврат результата
-                    callback({
-                        "error": null,
-                        "data": { "airports": airports }
-                    });
+                        // возврат результата
+                        callback({
+                            "error": { "type": "database" },
+                            "data": null
+                        });
 
-                }
+                    } else {
 
-            });
+                        // возврат результата
+                        callback({
+                            "error": null,
+                            "data": { "airports": airports }
+                        });
+
+                    }
+
+                });
 
         }
         

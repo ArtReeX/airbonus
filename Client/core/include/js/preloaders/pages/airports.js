@@ -1,7 +1,7 @@
 /************************ ПРЕДЗАГРУЗЧИК ************************/
 /*globals $, document, window, showPagePreloader, showPageError, setTimeout*/
 
-function showPageIndex() { // eslint-disable-line no-unused-vars
+function showPageAirports() {
 
     'use strict';
     
@@ -16,7 +16,7 @@ function showPageIndex() { // eslint-disable-line no-unused-vars
             // отправка запроса на получение содержимого страницы
             $.ajax({
 
-                url: "/core/include/php/pages/index.php",
+                url: "/core/include/php/pages/airports.php",
 
                 dataType: "html",
 
@@ -26,7 +26,7 @@ function showPageIndex() { // eslint-disable-line no-unused-vars
 
                     // идентификация страницы
                     window.identifierPrevious = window.identifier;
-                    window.identifier = "index";
+                    window.identifier = "airports";
 
                     // скрытие страницы
                     $("#loaded").hide();
@@ -38,9 +38,9 @@ function showPageIndex() { // eslint-disable-line no-unused-vars
                     $("#loaded").show();
 
                     // загрузка JS-содержимого страницы
-                    $.getScript("/core/include/js/handlers/pages/index/network.js");
-                    $.getScript("/core/include/js/handlers/pages/index/interface.js");
-                    $.getScript("/core/include/js/handlers/pages/index/launching.js");
+                    $.getScript("/core/include/js/handlers/pages/airports/network.js");
+                    $.getScript("/core/include/js/handlers/pages/airports/interface.js");
+                    $.getScript("/core/include/js/handlers/pages/airports/launching.js");
 
                 },
 
