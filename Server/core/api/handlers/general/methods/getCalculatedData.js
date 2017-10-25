@@ -915,7 +915,11 @@ module.exports = function (config, params, database, log, async, callback) {
 
                         ], function () {
 
-                            callback(data.result.sorted);
+                            // возврат результата
+                            callback({
+                                "error": null,
+                                "data": { "computed": data.result.sorted }
+                            });
 
                             // закрытие запроса
                             conn.release();
