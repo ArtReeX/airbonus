@@ -153,3 +153,39 @@
 [2017-10-25 01:49:04.281] [INFO] default - Пользователь FHO7pAPsHVaC945vAAAC, IP: ::1 подключился.
 [2017-10-25 01:49:07.414] [INFO] default - Пользователь FHO7pAPsHVaC945vAAAC отключился.
 [2017-10-25 14:56:29.718] [INFO] default - Сервер успешно запущен.
+[2017-10-25 15:27:25.245] [INFO] default - Сервер успешно запущен.
+[2017-10-25 15:27:27.584] [INFO] default - Пользователь cZ_j2a7Z0ywN9R0PAAAA, IP: ::1 подключился.
+[2017-10-25 15:32:05.834] [INFO] default - Пользователь cZ_j2a7Z0ywN9R0PAAAA отключился.
+[2017-10-25 15:32:06.077] [INFO] default - Пользователь GYoR0RA8Uzq5jMR0AAAB, IP: ::1 подключился.
+[2017-10-25 15:32:10.100] [INFO] default - Пользователь GYoR0RA8Uzq5jMR0AAAB отключился.
+[2017-10-25 15:32:10.279] [INFO] default - Пользователь kZRPjdtZfLGSpygiAAAC, IP: ::1 подключился.
+[2017-10-25 15:32:57.501] [INFO] default - Пользователь kZRPjdtZfLGSpygiAAAC отключился.
+[2017-10-25 15:32:57.786] [INFO] default - Пользователь sene_mVfMY7rNxH3AAAD, IP: ::1 подключился.
+[2017-10-25 15:34:10.586] [INFO] default - Пользователь sene_mVfMY7rNxH3AAAD отключился.
+[2017-10-25 15:34:10.869] [INFO] default - Пользователь EV4r4_pXQuE40PgtAAAE, IP: ::1 подключился.
+[2017-10-25 15:35:46.408] [INFO] default - Пользователь EV4r4_pXQuE40PgtAAAE отключился.
+[2017-10-25 15:35:46.689] [INFO] default - Пользователь Bb45Ic9IDfQyyTdFAAAF, IP: ::1 подключился.
+[2017-10-25 15:36:31.041] [INFO] default - Пользователь Bb45Ic9IDfQyyTdFAAAF отключился.
+[2017-10-25 15:36:31.312] [INFO] default - Пользователь -t0YaiaKGfOtjqYpAAAG, IP: ::1 подключился.
+[2017-10-25 15:37:50.726] [INFO] default - Пользователь -t0YaiaKGfOtjqYpAAAG отключился.
+[2017-10-25 15:37:50.999] [INFO] default - Пользователь LfXdYqF0gpI4XsXyAAAH, IP: ::1 подключился.
+[2017-10-25 15:38:04.223] [INFO] default - Пользователь LfXdYqF0gpI4XsXyAAAH отключился.
+[2017-10-25 15:38:04.520] [INFO] default - Пользователь FosS7r04FVJIvfEuAAAI, IP: ::1 подключился.
+[2017-10-25 15:40:57.722] [INFO] default - Пользователь FosS7r04FVJIvfEuAAAI отключился.
+[2017-10-25 15:40:58.012] [INFO] default - Пользователь JAvu6mGeHZCaB8lJAAAJ, IP: ::1 подключился.
+[2017-10-25 15:41:13.259] [INFO] default - Пользователь JAvu6mGeHZCaB8lJAAAJ отключился.
+[2017-10-25 15:41:13.527] [INFO] default - Пользователь 0R52_C5wJDcAxVAxAAAK, IP: ::1 подключился.
+[2017-10-25 15:44:12.576] [INFO] default - Пользователь 0R52_C5wJDcAxVAxAAAK отключился.
+[2017-10-25 15:44:12.849] [INFO] default - Пользователь -Y2HMUFEIiweOjUWAAAL, IP: ::1 подключился.
+[2017-10-25 15:44:30.800] [INFO] default - Пользователь -Y2HMUFEIiweOjUWAAAL отключился.
+[2017-10-25 15:44:31.080] [INFO] default - Пользователь cb9YnA_R1GDeHR2iAAAM, IP: ::1 подключился.
+[2017-10-25 15:44:50.397] [INFO] default - Пользователь cb9YnA_R1GDeHR2iAAAM отключился.
+[2017-10-25 15:44:50.689] [INFO] default - Пользователь 3L-GHk6Ws7aGXidjAAAN, IP: ::1 подключился.
+[2017-10-25 15:45:31.788] [INFO] default - Пользователь 3L-GHk6Ws7aGXidjAAAN отключился.
+[2017-10-25 15:45:32.083] [INFO] default - Пользователь qPjpWhAsbUTFOWCoAAAO, IP: ::1 подключился.
+[2017-10-25 15:45:56.405] [INFO] default - Пользователь qPjpWhAsbUTFOWCoAAAO отключился.
+[2017-10-25 15:45:56.683] [INFO] default - Пользователь am_7wgq4qXJ2H2dfAAAP, IP: ::1 подключился.
+[2017-10-25 15:46:11.494] [INFO] default - Пользователь am_7wgq4qXJ2H2dfAAAP отключился.
+[2017-10-25 15:46:11.777] [INFO] default - Пользователь afTWvMzOnb9A1IzrAAAQ, IP: ::1 подключился.
+[2017-10-25 15:46:28.296] [INFO] default - Пользователь afTWvMzOnb9A1IzrAAAQ отключился.
+[2017-10-25 15:46:28.577] [INFO] default - Пользователь 6hHBdKQpX9SxCFDgAAAR, IP: ::1 подключился.

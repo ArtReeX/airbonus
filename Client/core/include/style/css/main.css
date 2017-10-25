@@ -1,0 +1,38 @@
+/************************ ОСНОВНОЕ ************************/
+
+
+/* страница */
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* задний план */
+
+body {
+    background-image: url(../images/basic/background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+}
+
+
+/* размытый фон под загруженной страницой */
+
+.blur-content {
+    background-color: rgba(255, 255, 255, 0.3);
+    min-width: 480px;
+}
+
+
+/* блок */
+
+.row {
+    padding: 2%;
+}
