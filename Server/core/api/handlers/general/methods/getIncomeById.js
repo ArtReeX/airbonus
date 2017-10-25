@@ -1,14 +1,6 @@
-/*----------- ЗАГОЛОВКИ -----------*/
-/*global require*/
-var log_module = require('../log');
+/*globals module*/
 
-
-/*----------------- LOG ------------------*/
-var log = log_module.Log();
-
-
-/*----------------------------------------*/
-// ОБРАБОТЧИК ЗАПРОСА ДОХОДА ПО ИДЕНТИФИКАТОРУ
+/*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
 function getIncomeById(mysql, id, callback) {
     'use strict';
 
@@ -49,3 +41,62 @@ function getIncomeById(mysql, id, callback) {
 /*-------------- ЭКСПОРТ ------------------*/
 /*globals module */
 module.exports = getIncomeById;
+
+/*-------------- ЭКСПОРТ ------------------*/
+/*globals module */
+module.exports = getCreditScoreById;
+
+/*globals module*/
+
+/*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
+module.exports = function (params, database, callback) {
+    'use strict';
+
+    // получение соединения
+    database.getConnection(function (error, connection) {
+
+        if (error) {
+            
+            // возврат результата
+            callback({
+                "error": { "type": "database" },
+                "data": null
+            });
+            
+        } else {
+
+            // узнаём идентификаторы всех авиалиний из рейсов
+            connection.query("SELECT min,max,min_credit_score FROM income WHERE id=" + id  + " LIMIT 1", function (error, incomes) {
+
+                if (error) {
+                    
+                    // возврат результата
+                    callback({
+                        "error": { "type": "database" },
+                        "data": null
+                    });
+                    
+                } else {
+
+                    // возврат результата
+                    callback({
+                        "error": null,
+                        "data": { 
+                            "min": incomes[0].min,
+                            "max": incomes[0].max,
+                            "min_credit_score: incomes[0].min_credit_score
+                        }
+                    });
+
+                }
+
+            });
+
+        }
+        
+        // закрытие соединения
+        connection.release();
+
+    });
+
+};

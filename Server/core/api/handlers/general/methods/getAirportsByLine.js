@@ -1,47 +1,51 @@
-/*----------- ЗАГОЛОВКИ -----------*/
-/*global require*/
-var log_module = require('../log');
+/*globals module*/
 
-
-/*----------------- LOG ------------------*/
-var log = log_module.Log();
-
-
-/*----------------------------------------*/
-// ОБРАБОТЧИК ЗАПРОСА АЭРОПОРТОВ ПО СТРОКЕ
-function getAirportsByLine(mysql, line, callback) {
+/*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
+module.exports = function (params, database, callback) {
     'use strict';
 
-    // обращение к БД
-    mysql.getConnection(function (error, conn) {
+    // получение соединения
+    database.getConnection(function (error, connection) {
 
         if (error) {
-            log.fatal("Error MySQL connection: " + error);
+            
+            // возврат результата
+            callback({
+                "error": { "type": "database" },
+                "data": null
+            });
+            
         } else {
 
-            // основная часть
-            conn.query("SELECT iata, name, city FROM airports WHERE iata RLIKE '^" + line + "' OR city RLIKE '^" + line +
-                "' OR name RLIKE '^" + line + "' ORDER BY iata",
-                function (error, rows) {
+            // узнаём идентификаторы всех авиалиний из рейсов
+            connection.query("SELECT iata, name, city FROM airports WHERE iata RLIKE '^" + line + "' OR city RLIKE '^" + params.line +
+                "' OR name RLIKE '^" + params.line + "' ORDER BY iata", function (error, airports) {
 
-                    if (error) {
-                        log.debug("Error MySQL connection: " + error);
-                    } else {
-                        callback(rows);
-                    }
+                if (error) {
+                    
+                    // возврат результата
+                    callback({
+                        "error": { "type": "database" },
+                        "data": null
+                    });
+                    
+                } else {
 
-                    // закрытие запроса
-                    conn.release();
+                    // возврат результата
+                    callback({
+                        "error": null,
+                        "data": { "airports": airports }
+                    });
 
-                });
+                }
+
+            });
 
         }
+        
+        // закрытие соединения
+        connection.release();
 
     });
 
-}
-
-
-/*-------------- ЭКСПОРТ ------------------*/
-/*globals module */
-module.exports = getAirportsByLine;
+};

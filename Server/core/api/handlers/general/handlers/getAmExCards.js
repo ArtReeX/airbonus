@@ -1,4 +1,4 @@
-/*globals require, module*/
+/*globals module*/
 
 /*---------------------------- ОБРАБОТЧИК ДЛЯ API -------------------------------*/
 module.exports = function (params, methods, socket, database, log) {
@@ -6,16 +6,16 @@ module.exports = function (params, methods, socket, database, log) {
     "use strict";
     
     // запись сообщения клиента в отладку
-    log.info("Пользователь " + socket.id + " вызвал метод getIncome с параметрами: " + params);
+    log.info("Пользователь " + socket.id + " вызвал метод getAmExCards с параметрами: " + params);
     
-    methods.getIncome(params, database, function (result) {
+    methods.getAmExCards(params, database, function (result) {
 
         if (result.error) {
 
             // ОБРАБОТКА ОШИБОК
 
             // отправка результата
-            log.trace("Sending method resultGetIncome results to " + socket.id + ":");
+            log.trace("Sending method resultGetAmExCards results to " + socket.id + ":");
             log.trace({
                 "error": {
                     "type": result.error.type
@@ -23,7 +23,7 @@ module.exports = function (params, methods, socket, database, log) {
                 "data": null
             });
 
-            socket.emit('resultGetIncome', {
+            socket.emit("resultGetAmExCards", {
                 "error": {
                     "type": result.error.type
                 },
@@ -35,7 +35,7 @@ module.exports = function (params, methods, socket, database, log) {
             // ОБРАБОТКА ОТВЕТОВ
 
             // отправка результата
-            log.trace("Sending method resultGetIncome results to " + socket.id + ":");
+            log.trace("Sending method resultGetAmExCards results to " + socket.id + ":");
             log.trace({
                 "error": null,
                 "data": {
@@ -43,7 +43,7 @@ module.exports = function (params, methods, socket, database, log) {
                 }
             });
 
-            socket.emit('resultGetIncome', {
+            socket.emit("resultGetAmExCards", {
                 "error": null,
                 "data": result.data
             });

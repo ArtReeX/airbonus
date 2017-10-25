@@ -6,16 +6,16 @@ module.exports = function (params, methods, socket, database, log) {
     "use strict";
     
     // запись сообщения клиента в отладку
-    log.info("Пользователь " + socket.id + " вызвал метод getAirlines с параметрами: " + params);
+    log.info("Пользователь " + socket.id + " вызвал метод getCalculatedData с параметрами: " + params);
     
-    methods.getAirlines(params, database, function (result) {
+    methods.getCalculatedData(params, database, function (result) {
 
         if (result.error) {
 
             // ОБРАБОТКА ОШИБОК
 
             // отправка результата
-            log.trace("Sending method resultGetAirlines results to " + socket.id + ":");
+            log.trace("Sending method resultGetCalculatedData results to " + socket.id + ":");
             log.trace({
                 "error": {
                     "type": result.error.type
@@ -23,7 +23,7 @@ module.exports = function (params, methods, socket, database, log) {
                 "data": null
             });
 
-            socket.emit("resultGetAirlines", {
+            socket.emit("resultGetCalculatedData", {
                 "error": {
                     "type": result.error.type
                 },
@@ -35,7 +35,7 @@ module.exports = function (params, methods, socket, database, log) {
             // ОБРАБОТКА ОТВЕТОВ
 
             // отправка результата
-            log.trace("Sending method resultGetAirlines results to " + socket.id + ":");
+            log.trace("Sending method resultGetCalculatedData results to " + socket.id + ":");
             log.trace({
                 "error": null,
                 "data": {
@@ -43,7 +43,7 @@ module.exports = function (params, methods, socket, database, log) {
                 }
             });
 
-            socket.emit("resultGetAirlines", {
+            socket.emit("resultGetCalculatedData", {
                 "error": null,
                 "data": result.data
             });

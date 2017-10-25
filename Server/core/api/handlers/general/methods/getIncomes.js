@@ -1,15 +1,7 @@
-/*----------- ЗАГОЛОВКИ -----------*/
-/*global require*/
-var log_module = require('../log');
+/*globals module*/
 
-
-/*----------------- LOG ------------------*/
-var log = log_module.Log();
-
-
-/*----------------------------------------*/
-// ОБРАБОТЧИК ЗАПРОСА МИНИМАЛЬНОГО КРЕДИТНОГО РЕЙТИНГА
-function getMinCreditScore(mysql, callback) {
+/*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
+function getIncome(mysql, callback) {
     'use strict';
 
     // обращение к БД
@@ -20,12 +12,12 @@ function getMinCreditScore(mysql, callback) {
         } else {
 
             // основная часть
-            conn.query("SELECT value FROM consts WHERE name='Min_Credit_Score'", function (error, rows) {
+            conn.query("SELECT id,min,max from income ORDER BY min", function (error, rows) {
 
                 if (error) {
                     log.debug("Error MySQL connection: " + error);
                 } else {
-                    callback(rows[0].value);
+                    callback(rows);
                 }
 
                 // закрытие запроса
@@ -42,4 +34,4 @@ function getMinCreditScore(mysql, callback) {
 
 /*-------------- ЭКСПОРТ ------------------*/
 /*globals module */
-module.exports = getMinCreditScore;
+module.exports = getIncome;

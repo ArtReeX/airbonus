@@ -1,4 +1,4 @@
-/*globals require, module*/
+/*globals module*/
 
 /*---------------------------- ОБРАБОТЧИК ДЛЯ API -------------------------------*/
 module.exports = function (params, methods, socket, database, log) {

@@ -1,45 +1,50 @@
-/*----------- ЗАГОЛОВКИ -----------*/
-/*global require*/
-var log_module = require('../log');
+/*globals module*/
 
-
-/*----------------- LOG ------------------*/
-var log = log_module.Log();
-
-
-/*----------------------------------------*/
-// ОБРАБОТЧИК ЗАПРОСА AMEX КАРТ
-function getAmExCards(mysql, callback) {
+/*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
+module.exports = function (params, database, callback) {
     'use strict';
 
-    // обращение к БД
-    mysql.getConnection(function (error, conn) {
+    // получение соединения
+    database.getConnection(function (error, connection) {
 
         if (error) {
-            log.fatal("Error MySQL connection: " + error);
+            
+            // возврат результата
+            callback({
+                "error": { "type": "database" },
+                "data": null
+            });
+            
         } else {
 
-            // получение карт от банка American Express
-            conn.query("SELECT cards.id, cards.name, cards.image FROM cards, consts WHERE cards.bank_id=consts.value AND consts.name='AmEx_Bank_ID'", function (error, rows) {
+            // узнаём идентификаторы всех авиалиний из рейсов
+            connection.query("SELECT cards.id, cards.name, cards.image FROM cards, consts WHERE cards.bank_id=consts.value AND consts.name='AmEx_Bank_ID'", function (error, cards) {
 
                 if (error) {
-                    log.debug("Error MySQL connection: " + error);
+                    
+                    // возврат результата
+                    callback({
+                        "error": { "type": "database" },
+                        "data": null
+                    });
+                    
                 } else {
-                    callback(rows);
-                }
 
-                // закрытие запроса
-                conn.release();
+                    // возврат результата
+                    callback({
+                        "error": null,
+                        "data": { "cards": cards }
+                    });
+
+                }
 
             });
 
         }
+        
+        // закрытие соединения
+        connection.release();
 
     });
 
-}
-
-
-/*-------------- ЭКСПОРТ ------------------*/
-/*globals module */
-module.exports = getAmExCards;
+};

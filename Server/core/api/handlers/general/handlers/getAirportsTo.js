@@ -1,4 +1,4 @@
-/*globals require, module*/
+/*globals module*/
 
 /*---------------------------- ОБРАБОТЧИК ДЛЯ API -------------------------------*/
 module.exports = function (params, methods, socket, database, log) {
@@ -23,7 +23,7 @@ module.exports = function (params, methods, socket, database, log) {
                 "data": null
             });
 
-            socket.emit('resultGetAirportsTo', {
+            socket.emit("resultGetAirportsTo", {
                 "error": {
                     "type": result.error.type
                 },
@@ -43,7 +43,7 @@ module.exports = function (params, methods, socket, database, log) {
                 }
             });
 
-            socket.emit('resultGetAirportsTo', {
+            socket.emit("resultGetAirportsTo", {
                 "error": null,
                 "data": result.data
             });

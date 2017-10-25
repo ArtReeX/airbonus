@@ -1,18 +1,6 @@
-/*----------- ЗАГОЛОВКИ -----------*/
-/*globals require*/
-var async_module = require('async');
-var config_module = require('../../config');
-var log_module = require('../log');
+/*globals module*/
 
-
-/*----------------- LOG ------------------*/
-var log = log_module.Log();
-
-
-/*---------------------------- ЛОГИКА ВЫЧИСЛЕНИЯ КОНЕЧНЫХ ДАННЫХ -------------------------------*/
-
-
-// ОБРАБОТЧИК ЗАПРОСА РАССЧИТАНЫХ КОНЕЧНЫХ ДАННЫХ
+/*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
 function getCalculatedData(mysql, session, callback) {
     'use strict';
 

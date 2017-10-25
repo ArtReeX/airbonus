@@ -1,49 +1,59 @@
-/*----------- ЗАГОЛОВКИ -----------*/
-/*global require*/
-var log_module = require('../log');
+/*-------------- ЭКСПОРТ ------------------*/
+/*globals module */
+module.exports = getCreditScoreById;
 
+/*globals module*/
 
-/*----------------- LOG ------------------*/
-var log = log_module.Log();
-
-
-/*----------------------------------------*/
-// ОБРАБОТЧИК ЗАПРОСА КРЕДИТНОГО РЕЙТИНГА ПО ИДЕНТИФИКАТОРУ
-function getCreditScoreById(mysql, id, callback) {
+/*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
+module.exports = function (params, database, callback) {
     'use strict';
 
-    // обращение к БД
-    mysql.getConnection(function (error, conn) {
+    // получение соединения
+    database.getConnection(function (error, connection) {
 
         if (error) {
-            log.fatal("Error MySQL connection: " + error);
+            
+            // возврат результата
+            callback({
+                "error": { "type": "database" },
+                "data": null
+            });
+            
         } else {
 
-            // основная часть
-            conn.query("SELECT min,max from credit_score WHERE id=" + id + " LIMIT 1", function (error, rows) {
+            // узнаём идентификаторы всех авиалиний из рейсов
+            connection.query("SELECT min, max from credit_score WHERE id=" + id + " LIMIT 1", function (error, scores) {
 
                 if (error) {
-                    log.debug("Error MySQL connection: " + error);
-                } else {
                     
+                    // возврат результата
                     callback({
-                        min: rows[0].min,
-                        max: rows[0].max
+                        "error": { 
+                            
+                        },
+                        "data": null
                     });
-                }
+                    
+                } else {
 
-                // закрытие запроса
-                conn.release();
+                    // возврат результата
+                    callback({
+                        "error": { "type": "database" },
+                        "data": { 
+                            "min": scores[0].min,
+                            "max": scores[0].max
+                        }
+                    });
+
+                }
 
             });
 
         }
+        
+        // закрытие соединения
+        connection.release();
 
     });
 
-}
-
-
-/*-------------- ЭКСПОРТ ------------------*/
-/*globals module */
-module.exports = getCreditScoreById;
+};

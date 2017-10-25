@@ -5,10 +5,9 @@ module.exports = function (params, methods, socket, database, log) {
     
     "use strict";
     
-    socket.session.incomeMin = Number(params.min);
-    socket.session.incomeMax = Number(params.max);
+    socket.session.allCards = Number(params.cards);
     
     // запись сообщения клиента в отладку
-    log.info("Пользователь " + socket.id + " вызвал метод setIncome с параметрами: " + params);
+    log.info("Пользователь " + socket.id + " вызвал метод setAllCards с параметрами: " + params);
     
 };

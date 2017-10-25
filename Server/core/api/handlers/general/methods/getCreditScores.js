@@ -18,7 +18,7 @@ module.exports = function (params, database, callback) {
         } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query("SELECT id, name, image FROM cards ORDER BY name", function (error, cards) {
+            connection.query("SELECT id,min,max from credit_score ORDER BY min", function (error, scores) {
 
                 if (error) {
                     
@@ -33,7 +33,7 @@ module.exports = function (params, database, callback) {
                     // возврат результата
                     callback({
                         "error": null,
-                        "data": { "cards": cards }
+                        "data": { "scores": scores }
                     });
 
                 }

@@ -48,9 +48,6 @@ module.exports.set = function (socket, database, log, async, callback) {
     
     // запрос авиалиний
     socket.on("getAirlines", function (to, from) {
-
-        // запись сообщения клиента в отладку
-        log.info("Пользователь " + socket.id + " вызвал метод getAirlines с параметрами: " + to + "," + from);
         
         handlers_module.getAirlines({
             "to" : String(to),
@@ -60,20 +57,14 @@ module.exports.set = function (socket, database, log, async, callback) {
     });
     
     // запрос кредитного рейтинга
-    socket.on("getCreditScore", function () {
+    socket.on("getCreditScores", function () {
 
-        // запись сообщения клиента в отладку
-        log.info("Пользователь " + socket.id + " вызвал метод getCreditScore");
-        
         handlers_module.getCreditScore(null, methods_module, socket, database, log);
         
     });
     
     // установка кредитного рейтинга
-    socket.on("setCreditScore", function (min, max) {
-
-        // запись сообщения клиента в отладку
-        log.info("Пользователь " + socket.id + " вызвал метод setCreditScore с параметрами: " + min + "," + max);
+    socket.on("setCreditScores", function (min, max) {
         
         handlers_module.setCreditScore({
             "min" : Number(min),
@@ -83,20 +74,14 @@ module.exports.set = function (socket, database, log, async, callback) {
     });
     
     // запрос дохода
-    socket.on("getIncome", function () {
-
-        // запись сообщения клиента в отладку
-        log.info("Пользователь " + socket.id + " вызвал метод getIncome");
+    socket.on("getIncomes", function () {
         
         handlers_module.getCreditScore(null, methods_module, socket, database, log);
         
     });
     
     // установка дохода
-    socket.on("setIncome", function (min, max) {
-
-        // запись сообщения клиента в отладку
-        log.info("Пользователь " + socket.id + " вызвал метод setIncome с параметрами: " + min + "," + max);
+    socket.on("setIncomes", function (min, max) {
         
         handlers_module.setIncome({
             "min" : Number(min),
@@ -108,9 +93,6 @@ module.exports.set = function (socket, database, log, async, callback) {
     // установка карт пользователя
     socket.on("setCardCount", function (count) {
 
-        // запись сообщения клиента в отладку
-        log.info("Пользователь " + socket.id + " вызвал метод setCardCount с параметрами: " + count);
-        
         handlers_module.setCardCount({
             "count" : Number(count)
         }, methods_module, socket, database, log);
@@ -119,9 +101,6 @@ module.exports.set = function (socket, database, log, async, callback) {
     
     // запрос семейного положения
     socket.on("getMaritalStatus", function () {
-
-        // запись сообщения клиента в отладку
-        log.info("Пользователь " + socket.id + " вызвал метод getMaritalStatus");
         
         handlers_module.getMaritalStatus(null, methods_module, socket, database, log);
         
@@ -130,9 +109,6 @@ module.exports.set = function (socket, database, log, async, callback) {
     // запрос всех карт
     socket.on("getAllCard", function () {
 
-        // запись сообщения клиента в отладку
-        log.info("Пользователь " + socket.id + " вызвал метод getAllCard");
-        
         handlers_module.getAllCard(null, methods_module, socket, database, log);
         
     });
@@ -140,9 +116,6 @@ module.exports.set = function (socket, database, log, async, callback) {
     // установка количества карт
     socket.on("setAllCards", function (cards) {
 
-        // запись сообщения клиента в отладку
-        log.info("Пользователь " + socket.id + " вызвал метод setAllCards с параметрами: " + cards);
-        
         handlers_module.setAllCards({
             "cards" : cards
         }, methods_module, socket, database, log);
@@ -150,21 +123,15 @@ module.exports.set = function (socket, database, log, async, callback) {
     });
     
     // запрос всех карт AmericanExpress
-    socket.on("getAmExCard", function () {
-
-        // запись сообщения клиента в отладку
-        log.info("Пользователь " + socket.id + " вызвал метод getAmExCard");
+    socket.on("getAmExCards", function () {
         
         handlers_module.getAmExCard(null, methods_module, socket, database, log);
         
     });
     
     // установка карт AmericanExpress
-    socket.on("setAmExCard", function (cards) {
+    socket.on("setAmExCards", function (cards) {
 
-        // запись сообщения клиента в отладку
-        log.info("Пользователь " + socket.id + " вызвал метод setAmExCard с параметрами: " + cards);
-        
         handlers_module.setAmExCard({
             "cards" : cards
         }, methods_module, socket, database, log);
@@ -174,9 +141,6 @@ module.exports.set = function (socket, database, log, async, callback) {
     // установка дополнительных данных
     socket.on("setOtherParams", function (params) {
 
-        // запись сообщения клиента в отладку
-        log.info("Пользователь " + socket.id + " вызвал метод setOtherParams с параметрами: " + params);
-        
         handlers_module.setOtherParams({
             "params" : params
         }, methods_module, socket, database, log);
@@ -186,9 +150,6 @@ module.exports.set = function (socket, database, log, async, callback) {
     // запрос расчитаных данных
     socket.on("getCalculatedData", function () {
 
-        // запись сообщения клиента в отладку
-        log.info("Пользователь " + socket.id + " вызвал метод getCalculatedData");
-        
         handlers_module.getCalculatedData(null, methods_module, socket, database, log);
         
     });

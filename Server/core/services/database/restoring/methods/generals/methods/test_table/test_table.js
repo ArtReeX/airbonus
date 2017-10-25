@@ -18,6 +18,9 @@ module.exports.check = function (database, callback) {
             });
             
         }
+        
+        // закрытие соединения
+        connection.release();
 
     });
     */
@@ -45,6 +48,9 @@ module.exports.create = function (database, callback) {
             });
             
         }
+        
+        // закрытие соединения
+        connection.release();
 
     });
     
