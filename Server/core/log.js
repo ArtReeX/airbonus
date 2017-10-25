@@ -1,13 +1,13 @@
 /*globals require, module*/
 
 /*----------- ЗАГОЛОВКИ -----------*/
-var log4js_module = require('log4js');
+var log4js_module = require("log4js");
 
 
 /*---------------------------- LOG -------------------------------*/
 module.exports.create = function (config, callback) {
     
-    'use strict';
+    "use strict";
 
     // задание параметров логирования
     log4js_module.configure(

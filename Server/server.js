@@ -1,15 +1,15 @@
 /*global require*/
 
 /*-------------- ЗАГОЛОВКИ ------------------*/
-var async_module = require('async'),
+var async_module = require("async"),
     
-    config_module = require('./config'),
-    log_module = require('./core/log'),
-    database_module = require('./core/database'),
-    service_module = require('./core/services'),
-    express_module = require('./core/express'),
-    websocket_module = require('./core/websocket'),
-    api_module = require('./core/api');
+    config_module = require("./config"),
+    log_module = require("./core/log"),
+    database_module = require("./core/database"),
+    service_module = require("./core/services"),
+    express_module = require("./core/express"),
+    websocket_module = require("./core/websocket"),
+    api_module = require("./core/api");
 
 
 /*-------------- ПЕРЕМЕННЫЕ ------------------*/
@@ -23,7 +23,7 @@ async_module.series([
     // лог
     function (done) {
         
-        'use strict';
+        "use strict";
         
         log_module.create(config_module.log, function (error, logger) {
             
@@ -39,7 +39,7 @@ async_module.series([
     // база данных
     function (done) {
         
-        'use strict';
+        "use strict";
         
         database_module.create(config_module.database, log, function (error, database_client) {
             
@@ -55,7 +55,7 @@ async_module.series([
     // проверка и восстановление базы данных
     function (done) {
         
-        'use strict';
+        "use strict";
         
         service_module.database.restoring(database, async_module, function (error) {
             
@@ -68,7 +68,7 @@ async_module.series([
     // создание сервера
     function (done) {
         
-        'use strict';
+        "use strict";
         
         express_module.create(config_module.server, function (error, app_server) {
             
@@ -84,7 +84,7 @@ async_module.series([
     // подключение WEB-сокетов
     function (done) {
         
-        'use strict';
+        "use strict";
         
         websocket_module.create(config_module.websocket, app, function (error, websocket_server) {
             
@@ -100,7 +100,7 @@ async_module.series([
     // установка обработчиков
     function (done) {
         
-        'use strict';
+        "use strict";
         
         api_module.set(websocket, database, log, async_module, function (error) {
             
@@ -112,7 +112,7 @@ async_module.series([
     
 ], function (error) {
     
-    'use strict';
+    "use strict";
     
     if (error) {
         log.error(error);

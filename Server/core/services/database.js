@@ -2,4 +2,4 @@
 
 /*-------------- ЭКСПОРТ СЕРВИСНЫХ МЕТОДОВ ДЛЯ БАЗЫ ДАННЫХ ------------------*/
 
-module.exports = require('./database/restoring');
+module.exports = require("./database/restoring");

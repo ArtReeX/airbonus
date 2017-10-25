@@ -1,13 +1,13 @@
 /*globals require, module*/
 
 /*----------- ЗАГОЛОВКИ -----------*/
-var mysql_module = require('mysql');
+var mysql_module = require("mysql");
 
 
 /*---------------------------- MYSQL -------------------------------*/
 module.exports.create = function (config, log, callback) {
     
-    'use strict';
+    "use strict";
 
     // создание подключения с параметрами
     var database_client = mysql_module.createPool(config);

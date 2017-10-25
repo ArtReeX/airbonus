@@ -1,18 +1,18 @@
 /*globals require, module*/
 
 /*----------- ЗАГОЛОВКИ -----------*/
-var handlers_module = require('./api/handlers'),
-    parameters_module = require('./api/parameters');
+var handlers_module = require("./api/handlers"),
+    parameters_module = require("./api/parameters");
 
 
 /*---------------------------- API-ОБРАБОТЧИКИ -------------------------------*/
 module.exports.set = function (websocket, database, log, async, callback) {
     
-    'use strict';
+    "use strict";
     
     var socket;
     
-    websocket.sockets.on('connection', function (socket_client) {
+    websocket.sockets.on("connection", function (socket_client) {
 
         // логгирование
         log.info("Пользователь " + socket_client.id + ", IP: " + socket_client.request.connection.remoteAddress + " подключился.");

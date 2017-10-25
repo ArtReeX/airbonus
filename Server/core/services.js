@@ -2,4 +2,4 @@
 
 /*-------------- ЭКСПОРТ СЕРВИСНЫХ МЕТОДОВ ------------------*/
 
-module.exports.database = require('./services/database');
+module.exports.database = require("./services/database");

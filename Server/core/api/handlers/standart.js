@@ -1,13 +1,12 @@
 /*globals require, module*/
 
-
 /*---------------------------- СТАНДАРТНЫЕ ОБРАБОТЧИКИ -------------------------------*/
 module.exports.set = function (socket, log, async, callback) {
     
-    'use strict';
+    "use strict";
     
     // отключение клиента
-    socket.on('disconnect', function () {
+    socket.on("disconnect", function () {
 
         // логгирование
         log.info("Пользователь " + socket.id + " отключился.");
