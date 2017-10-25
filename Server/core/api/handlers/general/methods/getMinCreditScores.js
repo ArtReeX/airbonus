@@ -1,37 +1,50 @@
 /*globals module*/
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-function getMinCreditScore(mysql, callback) {
+module.exports = function (params, database, callback) {
     'use strict';
 
-    // обращение к БД
-    mysql.getConnection(function (error, conn) {
+    // получение соединения
+    database.getConnection(function (error, connection) {
 
         if (error) {
-            log.fatal("Error MySQL connection: " + error);
+            
+            // возврат результата
+            callback({
+                "error": { "type": "database" },
+                "data": null
+            });
+            
         } else {
 
-            // основная часть
-            conn.query("SELECT value FROM consts WHERE name='Min_Credit_Score'", function (error, rows) {
+            // узнаём идентификаторы всех авиалиний из рейсов
+            connection.query("SELECT value FROM consts WHERE name='Min_Credit_Score'", function (error, scores) {
 
                 if (error) {
-                    log.debug("Error MySQL connection: " + error);
+                    
+                    // возврат результата
+                    callback({
+                        "error": { "type": "database" },
+                        "data": null
+                    });
+                    
                 } else {
-                    callback(rows[0].value);
-                }
 
-                // закрытие запроса
-                conn.release();
+                    // возврат результата
+                    callback({
+                        "error": null,
+                        "data": { "score": scores[0].min }
+                    });
+
+                }
 
             });
 
         }
+        
+        // закрытие соединения
+        connection.release();
 
     });
 
-}
-
-
-/*-------------- ЭКСПОРТ ------------------*/
-/*globals module */
-module.exports = getMinCreditScore;
+};

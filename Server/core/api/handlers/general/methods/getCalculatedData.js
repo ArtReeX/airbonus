@@ -1,7 +1,8 @@
 /*globals module*/
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-function getCalculatedData(mysql, session, callback) {
+module.exports = function (config, params, database, log, async, callback) {
+    
     'use strict';
 
     // данные для работы
@@ -68,7 +69,7 @@ function getCalculatedData(mysql, session, callback) {
         // выбор прямых рейсов
         selectDirectRoutes = function (conn, done) {
 
-            conn.query("SELECT airlines.name, routes.airline_id, routes.mile, routes.price, routes.source, routes.destination FROM routes, airlines WHERE airlines.iata = routes.airline_id AND routes.source='" + session.userAirportFrom + "' AND routes.destination='" + session.userAirportTo + "' ORDER BY routes.mile", function (error, routes) {
+            conn.query("SELECT airlines.name, routes.airline_id, routes.mile, routes.price, routes.source, routes.destination FROM routes, airlines WHERE airlines.iata = routes.airline_id AND routes.source='" + params.userAirportFrom + "' AND routes.destination='" + params.userAirportTo + "' ORDER BY routes.mile", function (error, routes) {
 
                 if (error) {
                     log.debug("Error MySQL connection: " + error);
@@ -85,7 +86,7 @@ function getCalculatedData(mysql, session, callback) {
         // выбор обратных рейсов
         selectBackRoutes = function (conn, done) {
 
-            conn.query("SELECT airlines.name, routes.airline_id, routes.mile, routes.price, routes.source, routes.destination FROM routes, airlines WHERE airlines.iata = routes.airline_id AND routes.source='" + session.userAirportTo + "' AND routes.destination='" + session.userAirportFrom + "' ORDER BY routes.mile", function (error, routes) {
+            conn.query("SELECT airlines.name, routes.airline_id, routes.mile, routes.price, routes.source, routes.destination FROM routes, airlines WHERE airlines.iata = routes.airline_id AND routes.source='" + params.userAirportTo + "' AND routes.destination='" + params.userAirportFrom + "' ORDER BY routes.mile", function (error, routes) {
 
                 if (error) {
                     log.debug("Error MySQL connection: " + error);
@@ -105,20 +106,20 @@ function getCalculatedData(mysql, session, callback) {
             // пользовательские карты
             var user_cards = [];
 
-            async_module.series([
+            async.series([
 
                 // переписываем имеющиеся карты в массив
                 function (done) {
                     var i;
-                    for (i = 0; i < session.allCards.length; i += 1) {
-                        user_cards.push(session.allCards[i].card);
+                    for (i = 0; i < params.allCards.length; i += 1) {
+                        user_cards.push(params.allCards[i].card);
 
-                        if (i === session.allCards.length - 1) {
+                        if (i === params.allCards.length - 1) {
                             done();
                         }
                     }
 
-                    if (session.allCards.length === 0) {
+                    if (params.allCards.length === 0) {
                         done();
                     }
                 },
@@ -144,10 +145,10 @@ function getCalculatedData(mysql, session, callback) {
                                 // определение установленного пользователем значения бонусов для каждой из карт
                                 for (card_count = 0; card_count < data.cards.available.length; card_count += 1) {
                                     
-                                    for (act_count = 0; act_count < session.allCards.length; act_count += 1) {
+                                    for (act_count = 0; act_count < params.allCards.length; act_count += 1) {
                                         
-                                        if (Number(data.cards.available[card_count].id) === Number(session.allCards[act_count].card)) {
-                                            data.cards.available[card_count].bonus_cur = session.allCards[act_count].bonus;
+                                        if (Number(data.cards.available[card_count].id) === Number(params.allCards[act_count].card)) {
+                                            data.cards.available[card_count].bonus_cur = params.allCards[act_count].bonus;
                                         }
                                         
                                     }
@@ -189,7 +190,7 @@ function getCalculatedData(mysql, session, callback) {
                 for (route_count = 0; route_count < data.routes.direct.length; route_count += 1) {
 
                     // проверка достаточности оплаты от мин. (1) к макс. количеству людей
-                    for (people_count = 1; people_count <= session.maxPeople + session.statusValue; people_count += 1) {
+                    for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                         // 
                         
@@ -222,7 +223,7 @@ function getCalculatedData(mysql, session, callback) {
                 for (route_count = 0; route_count < data.routes.back.length; route_count += 1) {
 
                     // проверка достаточности оплаты от мин. (1) к макс. количеству людей
-                    for (people_count = 1; people_count <= session.maxPeople + session.statusValue; people_count += 1) {
+                    for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                         // проверка на возможность покупки разного количества билетов за бонусы
                         if (data.cards.available[card_count].bonus_cur >= (data.routes.back[route_count].mile * people_count) && data.cards.available[card_count].airline_iata === data.routes.back[route_count].airline_id) {
@@ -265,20 +266,20 @@ function getCalculatedData(mysql, session, callback) {
             // идентификаторы карт пользователя
             var user_cards = [];
 
-            async_module.series([
+            async.series([
 
                 // переписываем имеющиеся карты в массив
                 function (done) {
                     var i;
-                    for (i = 0; i < session.allCards.length; i += 1) {
-                        user_cards.push(session.allCards[i].card);
+                    for (i = 0; i < params.allCards.length; i += 1) {
+                        user_cards.push(params.allCards[i].card);
 
-                        if (i === session.allCards.length - 1) {
+                        if (i === params.allCards.length - 1) {
                             done();
                         }
                     }
 
-                    if (session.allCards.length === 0) {
+                    if (params.allCards.length === 0) {
                         done();
                     }
                 },
@@ -344,7 +345,7 @@ function getCalculatedData(mysql, session, callback) {
                 for (route_count = 0; route_count < data.routes.direct.length; route_count += 1) {
 
                     // проверка достаточности оплаты от мин. (1) к макс. количеству людей
-                    for (people_count = 1; people_count <= session.maxPeople + session.statusValue; people_count += 1) {
+                    for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                         // проверка на возможность покупки разного количества билетов за бонусы
                         if (data.cards.free[card_count].bonus_cur >= (data.routes.direct[route_count].mile * people_count) && data.cards.free[card_count].airline_iata === data.routes.direct[route_count].airline_id) {
@@ -375,7 +376,7 @@ function getCalculatedData(mysql, session, callback) {
                 for (route_count = 0; route_count < data.routes.back.length; route_count += 1) {
 
                     // проверка достаточности оплаты от мин. (1) к макс. количеству людей
-                    for (people_count = 1; people_count <= session.maxPeople + session.statusValue; people_count += 1) {
+                    for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                         // проверка на возможность покупки разного количества билетов за бонусы
                         if (data.cards.free[card_count].bonus_cur >= (data.routes.back[route_count].mile * people_count) && data.cards.free[card_count].airline_iata === data.routes.back[route_count].airline_id) {
@@ -726,10 +727,10 @@ function getCalculatedData(mysql, session, callback) {
                 
                 // критерии расчёта
                 criterion_calc = {
-                    amount_min: session.spendNextMonth * 3,
-                    amount_max: (session.spendNextMonth * 3) + ((session.spendNextYear - (session.spendNextMonth * 12)) * 0.5),
-                    min_people: session.minPeople + session.statusValue,
-                    max_people: session.maxPeople + session.statusValue
+                    amount_min: params.spendNextMonth * 3,
+                    amount_max: (params.spendNextMonth * 3) + ((params.spendNextYear - (params.spendNextMonth * 12)) * 0.5),
+                    min_people: params.minPeople + params.statusValue,
+                    max_people: params.maxPeople + params.statusValue
                 },
                 
                 // слияние всех карт
@@ -745,7 +746,7 @@ function getCalculatedData(mysql, session, callback) {
             for (tickets_count = criterion_calc.max_people; tickets_count >= criterion_calc.min_people; tickets_count -= 1) {
             
                 // определение комбинаций карт для разного числа людей, от меньшего к большему
-                for (depth_count = 1; depth_count <= config_module.calculate.recursion_depth; depth_count += 1) {
+                for (depth_count = 1; depth_count <= config.recursion_depth; depth_count += 1) {
 
                     // проверка наличия данных в результате, если данных нету, ищем большую комбинацию
                     if (!data.result.unsorted.length) {
@@ -759,7 +760,7 @@ function getCalculatedData(mysql, session, callback) {
 
                 }
                 
-                if (depth_count !== config_module.calculate.recursion_depth + 1 || tickets_count === criterion_calc.min_people) {
+                if (depth_count !== config.recursion_depth + 1 || tickets_count === criterion_calc.min_people) {
                     done();
                     break;
                 }
@@ -822,14 +823,14 @@ function getCalculatedData(mysql, session, callback) {
 
 
     // обращение к БД
-    mysql.getConnection(function (error, conn) {
+    database.getConnection(function (error, conn) {
 
         if (error) {
             log.fatal("Error MySQL connection: " + error);
         } else {
 
 
-            async_module.parallel([
+            async.parallel([
 
                 // получение прямых рейсов
                 function (done) {
@@ -843,7 +844,7 @@ function getCalculatedData(mysql, session, callback) {
 
             ], function () {
 
-                async_module.series([
+                async.series([
 
                     // определение разрешённых авиалиний карт для прямых рейсов
                     function (done) {
@@ -857,12 +858,12 @@ function getCalculatedData(mysql, session, callback) {
 
                 ], function () {
 
-                    async_module.parallel([
+                    async.parallel([
 
                         // расчёт стоимостей имеющихся карт
                         function (done) {
                             
-                            async_module.series([
+                            async.series([
                                 
                                 function (done) {
                                     selectAvailableCards(conn, done);
@@ -882,7 +883,7 @@ function getCalculatedData(mysql, session, callback) {
                         // расчёт стоимостей свободных карт
                         function (done) {
                             
-                            async_module.series([
+                            async.series([
                                 
                                 function (done) {
                                     selectFreeCards(conn, done);
@@ -900,7 +901,7 @@ function getCalculatedData(mysql, session, callback) {
 
                     ], function () {
 
-                        async_module.series([
+                        async.series([
 
                             // высчитывание окончательных данных
                             function (done) {
@@ -930,10 +931,4 @@ function getCalculatedData(mysql, session, callback) {
 
     });
 
-}
-
-
-
-/*-------------- ЭКСПОРТ ------------------*/
-/*globals module*/
-module.exports = getCalculatedData;
+};

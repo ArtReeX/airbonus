@@ -6,7 +6,7 @@ var handlers_module = require("./general/handlers"),
 
 
 /*---------------------------- ОСНОВНЫЕ ОБРАБОТЧИКИ -------------------------------*/
-module.exports.set = function (socket, database, log, async, callback) {
+module.exports.set = function (config, socket, database, log, async, callback) {
     
     "use strict";
     
@@ -150,7 +150,7 @@ module.exports.set = function (socket, database, log, async, callback) {
     // запрос расчитаных данных
     socket.on("getCalculatedData", function () {
 
-        handlers_module.getCalculatedData(null, methods_module, socket, database, log);
+        handlers_module.getCalculatedData(config, socket.session, methods_module, socket, database, log, async);
         
     });
     

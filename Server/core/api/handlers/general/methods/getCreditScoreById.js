@@ -1,7 +1,3 @@
-/*-------------- ЭКСПОРТ ------------------*/
-/*globals module */
-module.exports = getCreditScoreById;
-
 /*globals module*/
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
@@ -22,14 +18,14 @@ module.exports = function (params, database, callback) {
         } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query("SELECT min, max from credit_score WHERE id=" + id + " LIMIT 1", function (error, scores) {
+            connection.query("SELECT min, max from credit_score WHERE id=" + params.id + " LIMIT 1", function (error, scores) {
 
                 if (error) {
                     
                     // возврат результата
                     callback({
-                        "error": { 
-                            
+                        "error": {
+                            "type": "database"
                         },
                         "data": null
                     });
@@ -39,7 +35,7 @@ module.exports = function (params, database, callback) {
                     // возврат результата
                     callback({
                         "error": { "type": "database" },
-                        "data": { 
+                        "data": {
                             "min": scores[0].min,
                             "max": scores[0].max
                         }

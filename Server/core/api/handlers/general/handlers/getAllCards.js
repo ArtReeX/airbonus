@@ -6,16 +6,16 @@ module.exports = function (params, methods, socket, database, log) {
     "use strict";
     
     // запись сообщения клиента в отладку
-    log.info("Пользователь " + socket.id + " вызвал метод getMaritalStatus с параметрами: " + params);
+    log.info("Пользователь " + socket.id + " вызвал метод getAllCards с параметрами: " + params);
     
-    methods.getMaritalStatus(params, database, function (result) {
+    methods.getAllCard(params, database, function (result) {
 
         if (result.error) {
 
             // ОБРАБОТКА ОШИБОК
 
             // отправка результата
-            log.trace("Sending method resultGetMaritalStatus results to " + socket.id + ":");
+            log.trace("Sending method resultGetAllCards results to " + socket.id + ":");
             log.trace({
                 "error": {
                     "type": result.error.type
@@ -23,7 +23,7 @@ module.exports = function (params, methods, socket, database, log) {
                 "data": null
             });
 
-            socket.emit("resultGetMaritalStatus", {
+            socket.emit("resultGetAllCards", {
                 "error": {
                     "type": result.error.type
                 },
@@ -35,7 +35,7 @@ module.exports = function (params, methods, socket, database, log) {
             // ОБРАБОТКА ОТВЕТОВ
 
             // отправка результата
-            log.trace("Sending method resultGetMaritalStatus results to " + socket.id + ":");
+            log.trace("Sending method resultGetAllCards results to " + socket.id + ":");
             log.trace({
                 "error": null,
                 "data": {
@@ -43,7 +43,7 @@ module.exports = function (params, methods, socket, database, log) {
                 }
             });
 
-            socket.emit("resultGetMaritalStatus", {
+            socket.emit("resultGetAllCards", {
                 "error": null,
                 "data": result.data
             });

@@ -6,16 +6,16 @@ module.exports = function (params, methods, socket, database, log) {
     "use strict";
     
     // запись сообщения клиента в отладку
-    log.info("Пользователь " + socket.id + " вызвал метод getCreditScore с параметрами: " + params);
+    log.info("Пользователь " + socket.id + " вызвал метод getCreditScores с параметрами: " + params);
     
-    methods.getCreditScore(params, database, function (result) {
+    methods.getCreditScores(params, database, function (result) {
 
         if (result.error) {
 
             // ОБРАБОТКА ОШИБОК
 
             // отправка результата
-            log.trace("Sending method resultGetCreditScore results to " + socket.id + ":");
+            log.trace("Sending method resultGetCreditScores results to " + socket.id + ":");
             log.trace({
                 "error": {
                     "type": result.error.type
@@ -23,7 +23,7 @@ module.exports = function (params, methods, socket, database, log) {
                 "data": null
             });
 
-            socket.emit("resultGetCreditScore", {
+            socket.emit("resultGetCreditScores", {
                 "error": {
                     "type": result.error.type
                 },
@@ -35,7 +35,7 @@ module.exports = function (params, methods, socket, database, log) {
             // ОБРАБОТКА ОТВЕТОВ
 
             // отправка результата
-            log.trace("Sending method resultGetCreditScore results to " + socket.id + ":");
+            log.trace("Sending method resultGetCreditScores results to " + socket.id + ":");
             log.trace({
                 "error": null,
                 "data": {
@@ -43,7 +43,7 @@ module.exports = function (params, methods, socket, database, log) {
                 }
             });
 
-            socket.emit("resultGetCreditScore", {
+            socket.emit("resultGetCreditScores", {
                 "error": null,
                 "data": result.data
             });

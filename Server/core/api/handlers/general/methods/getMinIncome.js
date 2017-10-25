@@ -1,36 +1,50 @@
 /*globals module*/
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-function getMinIncome(mysql, callback) {
+module.exports = function (params, database, callback) {
     'use strict';
 
-    // обращение к БД
-    mysql.getConnection(function (error, conn) {
+    // получение соединения
+    database.getConnection(function (error, connection) {
 
         if (error) {
-            log.fatal("Error MySQL connection: " + error);
+            
+            // возврат результата
+            callback({
+                "error": { "type": "database" },
+                "data": null
+            });
+            
         } else {
 
-            // основная часть
-            conn.query("SELECT value FROM consts WHERE name='Min_Income'", function (error, rows) {
-                if (error) {
-                    log.debug("Error MySQL connection: " + error);
-                } else {
-                    callback(rows[0].value);
-                }
+            // узнаём идентификаторы всех авиалиний из рейсов
+            connection.query("SELECT value FROM consts WHERE name='Min_Income'", function (error, incomes) {
 
-                // закрытие запроса
-                conn.release();
+                if (error) {
+                    
+                    // возврат результата
+                    callback({
+                        "error": { "type": "database" },
+                        "data": null
+                    });
+                    
+                } else {
+
+                    // возврат результата
+                    callback({
+                        "error": null,
+                        "data": { "income": incomes[0].min }
+                    });
+
+                }
 
             });
 
         }
+        
+        // закрытие соединения
+        connection.release();
 
     });
 
-}
-
-
-/*-------------- ЭКСПОРТ ------------------*/
-/*globals module */
-module.exports = getMinIncome;
+};

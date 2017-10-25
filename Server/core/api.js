@@ -6,7 +6,7 @@ var handlers_module = require("./api/handlers"),
 
 
 /*---------------------------- API-ОБРАБОТЧИКИ -------------------------------*/
-module.exports.set = function (websocket, database, log, async, callback) {
+module.exports.set = function (config, websocket, database, log, async, callback) {
     
     "use strict";
     
@@ -34,7 +34,7 @@ module.exports.set = function (websocket, database, log, async, callback) {
             // установка обработчиков клиентских событий
             function (done) {
 
-                handlers_module.general.set(socket_client, database, log, async, function (error) {
+                handlers_module.general.set(config, socket_client, database, log, async, function (error) {
                     if (error) { done(error); } else { done(); }
                 });
 

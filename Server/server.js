@@ -102,7 +102,7 @@ async_module.series([
         
         "use strict";
         
-        api_module.set(websocket, database, log, async_module, function (error) {
+        api_module.set(config_module.calculate, websocket, database, log, async_module, function (error) {
             
             if (error) { done(error); } else { done(); }
             

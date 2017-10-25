@@ -1,37 +1,50 @@
 /*globals module*/
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-function getIncome(mysql, callback) {
+module.exports = function (params, database, callback) {
     'use strict';
 
-    // обращение к БД
-    mysql.getConnection(function (error, conn) {
+    // получение соединения
+    database.getConnection(function (error, connection) {
 
         if (error) {
-            log.fatal("Error MySQL connection: " + error);
+            
+            // возврат результата
+            callback({
+                "error": { "type": "database" },
+                "data": null
+            });
+            
         } else {
 
-            // основная часть
-            conn.query("SELECT id,min,max from income ORDER BY min", function (error, rows) {
+            // узнаём идентификаторы всех авиалиний из рейсов
+            connection.query("SELECT id, min, max from income ORDER BY min", function (error, incomes) {
 
                 if (error) {
-                    log.debug("Error MySQL connection: " + error);
+                    
+                    // возврат результата
+                    callback({
+                        "error": { "type": "database" },
+                        "data": null
+                    });
+                    
                 } else {
-                    callback(rows);
-                }
 
-                // закрытие запроса
-                conn.release();
+                    // возврат результата
+                    callback({
+                        "error": null,
+                        "data": { "incomes": incomes }
+                    });
+
+                }
 
             });
 
         }
+        
+        // закрытие соединения
+        connection.release();
 
     });
 
-}
-
-
-/*-------------- ЭКСПОРТ ------------------*/
-/*globals module */
-module.exports = getIncome;
+};

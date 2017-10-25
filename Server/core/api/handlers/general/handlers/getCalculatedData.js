@@ -1,14 +1,14 @@
 /*globals module*/
 
 /*---------------------------- ОБРАБОТЧИК ДЛЯ API -------------------------------*/
-module.exports = function (params, methods, socket, database, log) {
+module.exports = function (params, methods, socket, database, log, async) {
     
     "use strict";
     
     // запись сообщения клиента в отладку
     log.info("Пользователь " + socket.id + " вызвал метод getCalculatedData с параметрами: " + params);
     
-    methods.getCalculatedData(params, database, function (result) {
+    methods.getCalculatedData(params, database, log, async, function (result) {
 
         if (result.error) {
 
