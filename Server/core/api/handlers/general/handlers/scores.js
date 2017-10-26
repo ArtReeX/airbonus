@@ -10,6 +10,11 @@ module.exports.get = function (socket, methods, database, log) {
     
     methods.scores.getAll(database, function (result_error, result_data) {
 
+        // изменение крайних значений
+        if (result_data.length) {
+            result_data[result_data.length - 1].max = "∞";
+        }
+        
         // формирование пакета для отправки
         var message = {
             "error": result_error ? { "type": result_error } : null,
@@ -36,7 +41,7 @@ module.exports.set = function (socket, params, methods, database, log) {
     // переменные для хранения
     var message;
     
-    methods.scores.get.byId(params, database, function (result_error, result_data) {
+    methods.scores.getById(params, database, function (result_error, result_data) {
         
         if (result_error) {
         
@@ -52,7 +57,7 @@ module.exports.set = function (socket, params, methods, database, log) {
                 
                 // формирование пакета для отправки
                 message = {
-                    "error": "paucity",
+                    "error": { "type": "paucity" },
                     "data": null
                 };
                 

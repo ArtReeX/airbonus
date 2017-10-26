@@ -1,44 +1,76 @@
 /************************ ОБРАБОТЧИКИ СООБЩЕНИЙ ОТ СЕРВЕРА ************************/
-/*globals $, document, showPageAirlines*/
+/*globals $, document, showPageAirlines, showPageIncomes*/
 
 $(document).ready(function () {
 
     'use strict';
     
     // обработка приёма списка начальных аэропортов
-    window.socket.on("resultGetAirlines", function (result) {
+    window.socket.on("scores_get", function (result) {
 
         // проверка соответствие обработчика со страницей
-        if (window.identifier === "airlines") {
+        if (window.identifier === "scores") {
 
-            // очистка списка с авиалиниями и их счётчика
-            $("#airlines-list_companies, #airlines-list_count").empty();
+            // очистка списка с вариантами кредитного рейтинга
+            $("#scores-list").empty();
 
-            if (result.data.airlines.length) {
-                
-                var airlines_count;
-                
-                for (airlines_count = 0; airlines_count < result.data.airlines.length; airlines_count += 1) {
+            if (result.data.scores.length) {
+
+                var scores_count;
+                for (scores_count = 0; scores_count < result.data.scores.length; scores_count += 1) {
                     
-                    $("#airlines-list_companies").append("<li>" + String(result.data.airlines[airlines_count].name) + "</li>");
+                    $("#scores-list").append("<option value=\"" + String(result.data.scores[scores_count].id) + "\">" + String(result.data.scores[scores_count].min) + " - " + String(result.data.scores[scores_count].max) + "</option>");
                     
                 }
-                
-                // установка счётчика авиалиний
-                $("#airlines-list_count").text("Total of " + result.data.airlines.length + " companies");
-                
-                
+                       
+            }
+
+        }
+
+    });
+    
+    // обработчик получения ответа о правильности данных от сервера
+    window.socket.on("scores_set", function (result) {
+
+        // проверка соответствие обработчика со страницей
+        if (window.identifier === "scores") {
+
+            if (result.error) {
+
+                // ОБРАБОТКА ОШИБОК
+
+                if (result.error.type === "database") {
+
+                    // показываем ошибку
+                    $("#scores-info_danger_block").show();
+                    $("#scores-info_danger").text("Database error.").show();
+
+                    // задаём таймер скрытия ошибки
+                    setTimeout(function () {
+                        $("#scores-info_danger_block").hide();
+                        $("#scores-info_danger").empty().hide();
+                    }, 2000);
+
+                } else if (result.error.type === "paucity") {
+
+                    // показываем ошибку
+                    $("#scores-info_warning_block").show();
+                    $("#scores-info_warning").text("We think you credit score is too low to be approved for most of the credit cards.").show();
+
+                    // задаём таймер скрытия ошибки
+                    setTimeout(function () {
+                        $("#scores-info_warning_block").hide();
+                        $("#scores-info_warning").empty().hide();
+                    }, 2000);
+
+                }
+
             } else {
-                
-                // скрытие списка с авиалиниями и кнопки перехода на следующую страницу
-                $("#airlines-list, #airlines-button_goto_next").hide();
-                
-                // изменение заголовка
-                $("#airlines-head p b").text("Sorry!");
-                
-                // изменение подзаголовка
-                $("#airlines-subhead p b").text("We have not found airlines connecting the airports you chose.");
-                
+
+                // ОБРАБОТКА ОТВЕТОВ
+
+                if (Boolean(result.data.next) === true) { showPageIncomes(); }
+
             }
 
         }

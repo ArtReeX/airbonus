@@ -18,21 +18,28 @@
 
         </div>
         
+        <!-- список доступных к выбору кредитных рейтингов -->
         <div class="row justify-content-center">
             
             <div class="col-12 col-lg-10  text-center">
             
-                <div class="form-group">
-
-                    <label for="scores-list" class="col lead text-center"> Select your credit score </label>
+                <div class="form-group">       
                     <select class="form-control" id="scores-list"> </select>
-
                 </div>
                 
             </div>
 
         </div>
-
+        
+        <!-- предупреждения -->
+        <div class="row justify-content-center" id="scores-info_warning_block">
+            <div class="col-md-8 alert alert-warning text-center" role="alert" id="scores-info_warning"></div>
+        </div>
+        
+        <div class="row justify-content-center" id="scores-info_danger_block">
+            <div class="col-md-8 alert alert-danger text-center" role="alert" id="scores-info_danger"></div>
+        </div>
+        
         <!-- кнопки -->
         <div class="row justify-content-between">
             

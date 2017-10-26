@@ -52,7 +52,7 @@ module.exports.set = function (socket, params, methods, database, log) {
                 
                 // формирование пакета для отправки
                 message = {
-                    "error": "paucity",
+                    "error": { "type" : "paucity" },
                     "data": null
                 };
                 

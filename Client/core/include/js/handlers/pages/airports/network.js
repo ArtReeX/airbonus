@@ -51,7 +51,6 @@ $(document).ready(function () {
             if (result.data.airports.length) {
                 
                 var airports_count;
-                
                 for (airports_count = 0; airports_count < result.data.airports.length; airports_count += 1) {
                     
                     $("#airports-to_tips").append("<option value=\"" + String(result.data.airports[airports_count].iata) + "\">" + String(result.data.airports[airports_count].iata) + "(" + String(result.data.airports[airports_count].name) + ", " + String(result.data.airports[airports_count].city) + ")" + "</option>");

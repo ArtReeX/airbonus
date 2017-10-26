@@ -1,7 +1,7 @@
 /*globals module*/
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-module.exports.getAll = function (params, database, callback) {
+module.exports.getAll = function (database, callback) {
     
     'use strict';
 
@@ -18,17 +18,7 @@ module.exports.getAll = function (params, database, callback) {
             // узнаём идентификаторы всех авиалиний из рейсов
             connection.query("SELECT id, min, max from income ORDER BY min", function (error, incomes) {
 
-                if (error) {
-                    
-                    // возврат результата
-                    callback({ "type": "database" }, null);
-                    
-                } else {
-
-                    // возврат результата
-                    callback(null, incomes);
-
-                }
+                if (error) {callback({ "type": "database" }, null); } else { callback(null, incomes); }
 
             });
 
@@ -56,7 +46,7 @@ module.exports.getById = function (params, database, callback) {
         } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query("SELECT min,max,min_credit_score FROM income WHERE id=" + params.id  + " LIMIT 1", function (error, incomes) {
+            connection.query("SELECT min,max,min_credit_score FROM income WHERE id=" + Number(params.id)  + " LIMIT 1", function (error, incomes) {
 
                 if (error) { callback({ "type": "database" }, null); } else {
 

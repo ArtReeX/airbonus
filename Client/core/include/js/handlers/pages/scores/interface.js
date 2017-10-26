@@ -17,7 +17,7 @@ $(document).ready(function () {
     $("#loaded").off("click", "#scores-button_goto_next").on("click", "#scores-button_goto_next", function () {
 
         // проверка соответствие обработчика со страницей
-        if (window.identifier === "scores") {  showPageCardsAll(); }
+        if (window.identifier === "scores") {  window.socket.emit("scores_set", Number($("#scores-list").children(":selected").val())); }
 
     });
 

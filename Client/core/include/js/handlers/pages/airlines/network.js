@@ -17,7 +17,6 @@ $(document).ready(function () {
             if (result.data.airlines.length) {
                 
                 var airlines_count;
-                
                 for (airlines_count = 0; airlines_count < result.data.airlines.length; airlines_count += 1) {
                     
                     $("#airlines-list_companies").append("<li>" + String(result.data.airlines[airlines_count].name) + "</li>");
