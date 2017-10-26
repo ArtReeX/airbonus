@@ -6,7 +6,7 @@
 
         <!-- лого страницы -->
         <div class="row justify-content-center">
-            <div id="scoresIncomes-logo"><img src="/core/include/style/images/basic/main_logo.png"></div>
+            <div id="scores-logo"><img src="/core/include/style/images/basic/main_logo.png"></div>
         </div>
 
         <!-- заголовок страницы -->
@@ -24,8 +24,8 @@
             
                 <div class="form-group">
 
-                    <label for="scoresIncomes-list_scores" class="col lead text-center"> Select your credit score </label>
-                    <select class="form-control" id="scoresIncomes-list_scores"> </select>
+                    <label for="scores-list" class="col lead text-center"> Select your credit score </label>
+                    <select class="form-control" id="scores-list"> </select>
 
                 </div>
                 
@@ -37,12 +37,12 @@
         <div class="row justify-content-between">
             
             <!-- кнопка возврата на предыдущую страницу -->
-            <div class="col-1" id="scoresIncomes-button_goto_back">
+            <div class="col-1" id="scores-button_goto_back">
                 <i class="fa fa-chevron-circle-left fa-2x" aria-hidden="true"></i>
             </div>
             
             <!-- кнопка перехода на следующую страницу -->
-            <div class="col-1 ml-auto" id="scoresIncomes-button_goto_next">
+            <div class="col-1 ml-auto" id="scores-button_goto_next">
                 <i class="fa fa-chevron-circle-right fa-2x" aria-hidden="true"></i>
             </div>
             

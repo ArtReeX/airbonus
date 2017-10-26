@@ -12,8 +12,8 @@ module.exports.get = function (socket, params, methods, database, log, async) {
 
         // формирование пакета для отправки
         var message = {
-            "error": result_error,
-            "data": { "airlines": result_data }
+            "error": result_error ? { "type": result_error } : null,
+            "data": { "calculated": result_data }
         };
         
         // отправка результата

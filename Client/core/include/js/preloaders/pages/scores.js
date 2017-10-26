@@ -1,7 +1,7 @@
 /************************ ПРЕДЗАГРУЗЧИК ************************/
 /*globals $, document, window, showPagePreloader, showPageError, setTimeout*/
 
-function showPageScoresIncomes() {
+function showPageScores() {
 
     'use strict';
     
@@ -16,7 +16,7 @@ function showPageScoresIncomes() {
             // отправка запроса на получение содержимого страницы
             $.ajax({
 
-                url: "/core/include/php/pages/scoresIncomes.php",
+                url: "/core/include/php/pages/scores.php",
 
                 dataType: "html",
 
@@ -26,7 +26,7 @@ function showPageScoresIncomes() {
 
                     // идентификация страницы
                     window.identifierPrevious = window.identifier;
-                    window.identifier = "scoresIncomes";
+                    window.identifier = "scores";
 
                     // скрытие страницы
                     $("#loaded").hide();
@@ -38,9 +38,9 @@ function showPageScoresIncomes() {
                     $("#loaded").show();
 
                     // загрузка JS-содержимого страницы
-                    $.getScript("/core/include/js/handlers/pages/scoresIncomes/network.js");
-                    $.getScript("/core/include/js/handlers/pages/scoresIncomes/interface.js");
-                    $.getScript("/core/include/js/handlers/pages/scoresIncomes/launching.js");
+                    $.getScript("/core/include/js/handlers/pages/scores/network.js");
+                    $.getScript("/core/include/js/handlers/pages/scores/interface.js");
+                    $.getScript("/core/include/js/handlers/pages/scores/launching.js");
 
                 },
 
@@ -53,7 +53,7 @@ function showPageScoresIncomes() {
 
             });
 
-        }, 1000);
+        }, 600);
 
     });
 

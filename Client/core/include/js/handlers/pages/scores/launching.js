@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     'use strict';
     
-    // запрос от сервера списка всех доступных авиалиний
-    window.socket.emit("airlines_get");
+    // запрос от сервера списка кредитных рейтингов
+    window.socket.emit("scores-get");
     
 });

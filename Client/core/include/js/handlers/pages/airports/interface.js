@@ -19,7 +19,7 @@ $(document).ready(function () {
                 // преобразование в верхний регистр
                 $("#airports-from").val($("#airports-from").val().toUpperCase());
 
-                window.socket.emit("getAirportsFrom", String($("#airports-from").val()));
+                window.socket.emit("airports_get_from", String($("#airports-from").val()));
             
             } else {
                 // скрытие списка с подсказками
@@ -44,7 +44,7 @@ $(document).ready(function () {
                 // преобразование в верхний регистр
                 $("#airports-to").val($("#airports-to").val().toUpperCase());
 
-                window.socket.emit("getAirportsTo", String($("#airports-to").val()));
+                window.socket.emit("airports_get_to", String($("#airports-to").val()));
                 
             } else {
                 // скрытие списка с подсказками
@@ -97,7 +97,7 @@ $(document).ready(function () {
             $("#airports-from_tips, #airports-to_tips").empty().hide();
             
             // отправка выбранных данных на сервер для проверки
-            window.socket.emit("setAirports", String($("#airports-from").val()), String($("#airports-to").val()));
+            window.socket.emit("airports_set", String($("#airports-from").val()), String($("#airports-to").val()));
 
         }
 

@@ -1,26 +1,51 @@
 /*globals module*/
 
 /*---------------------------- ОБРАБОТЧИК ДЛЯ API -------------------------------*/
-module.exports.get = function (socket, params, methods, database, log) {
+module.exports.getFrom = function (socket, params, methods, database, log) {
     
     "use strict";
     
     // запись сообщения клиента в отладку
-    log.info("Пользователь " + socket.id + " вызвал метод airports_get с параметрами: " + params);
+    log.info("Пользователь " + socket.id + " вызвал метод airports_get_from с параметрами: " + params);
     
     methods.airports.getByLine(params, database, function (result_error, result_data) {
 
         // формирование пакета для отправки
         var message = {
-            "error": result_error,
+            "error": result_error ? { "type": result_error } : null,
             "data": { "airports": result_data }
         };
         
         // отправка результата
-        log.trace("Отправка результата airports_get методом airports_get пользователю " + socket.id + ":");
+        log.trace("Отправка результата airports_get_from методом airports_get_from пользователю " + socket.id + ":");
         log.trace(message);
 
-        socket.emit("airports_get", message);
+        socket.emit("airports_get_from", message);
+
+    });
+    
+};
+
+module.exports.getTo = function (socket, params, methods, database, log) {
+    
+    "use strict";
+    
+    // запись сообщения клиента в отладку
+    log.info("Пользователь " + socket.id + " вызвал метод airports_get_to с параметрами: " + params);
+    
+    methods.airports.getByLine(params, database, function (result_error, result_data) {
+
+        // формирование пакета для отправки
+        var message = {
+            "error": result_error ? { "type": result_error } : null,
+            "data": { "airports": result_data }
+        };
+        
+        // отправка результата
+        log.trace("Отправка результата airports_get_to методом airports_get_to пользователю " + socket.id + ":");
+        log.trace(message);
+
+        socket.emit("airports_get_to", message);
 
     });
     
@@ -36,21 +61,21 @@ module.exports.set = function (socket, params, methods, database, log) {
     // переменные для хранения
     var message, airports = [], airports_count;
     
-    methods.getAirports.getAll(params, database, function (result_error, result_data) {
+    methods.airports.getAll(params, database, function (result_error, result_data) {
 
         if (result_error) {
             
             // формирование пакета для отправки
             message = {
-                "error": result_error,
+                "error": result_error ? { "type": result_error } : null,
                 "data": null
             };
 
         } else {
             
             // перезапись IATA-кодов а массив
-            for (airports_count = 0; airports_count < result_data.airports.length; airports_count += 1) {
-                airports.push(result_data.airports[airports_count].iata);
+            for (airports_count = 0; airports_count < result_data.length; airports_count += 1) {
+                airports.push(result_data[airports_count].iata);
             }
             
             // ОБРАБОТКА ОТВЕТОВ
@@ -59,7 +84,7 @@ module.exports.set = function (socket, params, methods, database, log) {
                 
                 // формирование пакета для отправки
                 message = {
-                    "error": "no_exist_airport",
+                    "error": { "type": "no_exist_airport" },
                     "data": null
                 };
                 
@@ -67,7 +92,7 @@ module.exports.set = function (socket, params, methods, database, log) {
                 
                 // формирование пакета для отправки
                 message = {
-                    "error": "same_airports",
+                    "error": { "type": "same_airports" },
                     "data": null
                 };
                 

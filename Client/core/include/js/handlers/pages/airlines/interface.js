@@ -1,5 +1,5 @@
 /************************ ОБРАБОТЧИКИ ИНТЕРФЕЙСА ************************/
-/*globals $, document, window, showPageAirports, showPageScoresIncomes*/
+/*globals $, document, window, showPageAirports, showPageScores*/
 
 $(document).ready(function () {
 
@@ -9,11 +9,7 @@ $(document).ready(function () {
     $("#loaded").off("click", "#airlines-button_goto_back").on("click", "#airlines-button_goto_back", function () {
 
         // проверка соответствие обработчика со страницей
-        if (window.identifier === "airlines") {
-            
-            showPageAirports();
-
-        }
+        if (window.identifier === "airlines") { showPageAirports(); }
 
     });
     
@@ -21,7 +17,7 @@ $(document).ready(function () {
     $("#loaded").off("click", "#airlines-button_goto_next").on("click", "#airlines-button_goto_next", function () {
 
         // проверка соответствие обработчика со страницей
-        if (window.identifier === "airlines") {  showPageScoresIncomes(); }
+        if (window.identifier === "airlines") {  showPageScores(); }
 
     });
 

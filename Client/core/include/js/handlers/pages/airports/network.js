@@ -6,7 +6,7 @@ $(document).ready(function () {
     'use strict';
     
     // обработка приёма списка начальных аэропортов
-    window.socket.on("resultGetAirportsFrom", function (result) {
+    window.socket.on("airports_get_from", function (result) {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "airports") {
@@ -40,7 +40,7 @@ $(document).ready(function () {
     });
     
     // обработка приёма списка конечных аэропортов
-    window.socket.on("resultGetAirportsTo", function (result) {
+    window.socket.on("airports_get_to", function (result) {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "airports") {
@@ -74,7 +74,7 @@ $(document).ready(function () {
     });
     
     // обработчик получения ответа о правильности данных от сервера
-    window.socket.on("resultSetAirports", function (result) {
+    window.socket.on("airports_set", function (result) {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "airports") {

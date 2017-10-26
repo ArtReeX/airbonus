@@ -56,7 +56,7 @@ function showPageError(errorType) { // eslint-disable-line no-unused-vars
 
             });
 
-        }, 500);
+        }, 600);
 
     });
 

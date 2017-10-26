@@ -6,22 +6,18 @@ $(document).ready(function () {
     'use strict';
 
     // обработчик нажатия кнопки для возврата на предыдущую страницу
-    $("#loaded").off("click", "#scoresIncomes-button_goto_back").on("click", "#scoresIncomes-button_goto_back", function () {
+    $("#loaded").off("click", "#scores-button_goto_back").on("click", "#scores-button_goto_back", function () {
 
         // проверка соответствие обработчика со страницей
-        if (window.identifier === "scoresIncomes") {
-            
-            showPageAirlines();
-
-        }
+        if (window.identifier === "scores") { showPageAirlines(); }
 
     });
     
     // обработчик нажатия кнопки для перехода на следующую страницу
-    $("#loaded").off("click", "#scoresIncomes-button_goto_next").on("click", "#scoresIncomes-button_goto_next", function () {
+    $("#loaded").off("click", "#scores-button_goto_next").on("click", "#scores-button_goto_next", function () {
 
         // проверка соответствие обработчика со страницей
-        if (window.identifier === "scoresIncomes") {  showPageCardsAll(); }
+        if (window.identifier === "scores") {  showPageCardsAll(); }
 
     });
 

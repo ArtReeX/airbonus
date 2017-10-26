@@ -49,9 +49,18 @@ module.exports.set = function (config, socket, database, log, async, callback) {
         } else {
             
             // запрос начальных аэропортов
-            socket.on("airports_get", function (line) {
+            socket.on("airports_get_from", function (line) {
 
-                handlers_module.airports.get(socket, {
+                handlers_module.airports.getFrom(socket, {
+                    "line" : String(line)
+                }, methods_module, database, log);
+
+            });
+            
+            // запрос конечных аэропортов
+            socket.on("airports_get_to", function (line) {
+
+                handlers_module.airports.getTo(socket, {
                     "line" : String(line)
                 }, methods_module, database, log);
 

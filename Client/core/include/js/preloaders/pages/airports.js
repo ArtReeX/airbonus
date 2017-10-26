@@ -53,7 +53,7 @@ function showPageAirports() {
 
             });
 
-        }, 1000);
+        }, 600);
 
     });
 

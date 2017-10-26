@@ -26,7 +26,7 @@ module.exports.getAll = function (params, database, callback) {
                 } else {
 
                     // возврат результата
-                    callback(null, { "incomes": incomes });
+                    callback(null, incomes);
 
                 }
 

@@ -12,7 +12,7 @@ module.exports.getAll = function (socket, methods, database, log) {
 
         // формирование пакета для отправки
         var message = {
-            "error": result_error,
+            "error": result_error ? { "type": result_error } : null,
             "data": { "cards": result_data }
         };
         
@@ -37,7 +37,7 @@ module.exports.getAmEx = function (socket, methods, database, log) {
 
         // формирование пакета для отправки
         var message = {
-            "error": result_error,
+            "error": result_error ? { "type": result_error } : null,
             "data": { "cards": result_data }
         };
         

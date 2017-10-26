@@ -53,7 +53,7 @@ function showPageAirlines() {
 
             });
 
-        }, 1000);
+        }, 600);
 
     });
 

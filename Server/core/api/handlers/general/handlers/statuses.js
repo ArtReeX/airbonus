@@ -12,7 +12,7 @@ module.exports.get = function (socket, methods, database, log) {
 
         // формирование пакета для отправки
         var message = {
-            "error": result_error,
+            "error": result_error ? { "type": result_error } : null,
             "data": { "statuses": result_data }
         };
         
