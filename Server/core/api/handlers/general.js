@@ -10,136 +10,148 @@ module.exports.set = function (config, socket, database, log, async, callback) {
     
     "use strict";
     
-    // запрос начальных аэропортов
-    socket.on("getAirportsFrom", function (line) {
+    // получение констант
+    async.parallel([
         
-        handlers_module.getAirportsFrom({
-            "line" : String(line)
-        }, methods_module, socket, database, log);
+        function (done) {
+            
+            methods_module.consts.incomeMin(database, function (error, value) {
+                
+                if (error) { done(error); } else {
+                    socket.session.consts.incomeMin = Number(value);
+                    done();
+                }
+                
+            });
+            
+        },
         
-    });
-    
-    // запрос конечных аэропортов
-    socket.on("getAirportsTo", function (line) {
+        function (done) {
+            
+            methods_module.consts.creditMin(database, function (error, value) {
+                
+                if (error) { done(error); } else {
+                    socket.session.consts.creditMin = Number(value);
+                    done();
+                }
+                
+            });
+            
+        }
         
-        handlers_module.getAirportsTo({
-            "line" : String(line)
-        }, methods_module, socket, database, log);
+    ], function (error) {
         
-    });
-    
-    // установка начального и конечного аэропорта
-    socket.on("setAirports", function (from, to) {
-        
-        handlers_module.setAirports({
-            "from" : String(from),
-            "to" : String(to)
-        }, methods_module, socket, database, log);
-        
-    });
-    
-    // запрос авиалиний
-    socket.on("getAirlines", function () {
-        
-        handlers_module.getAirlines(null, methods_module, socket, database, log);
-        
-    });
-    
-    // запрос кредитного рейтинга
-    socket.on("getCreditScores", function () {
+        if (error) {
+            
+            log.error(error);
+            log.error("Не удалось загрузить константы для пользователя " + socket.id + ".");
+            
+        } else {
+            
+            // запрос начальных аэропортов
+            socket.on("airports_get", function (line) {
 
-        handlers_module.getCreditScore(null, methods_module, socket, database, log);
-        
-    });
-    
-    // установка кредитного рейтинга
-    socket.on("setCreditScores", function (min, max) {
-        
-        handlers_module.setCreditScore({
-            "min" : Number(min),
-            "max" : Number(max)
-        }, methods_module, socket, database, log);
-        
-    });
-    
-    // запрос дохода
-    socket.on("getIncomes", function () {
-        
-        handlers_module.getCreditScore(null, methods_module, socket, database, log);
-        
-    });
-    
-    // установка дохода
-    socket.on("setIncomes", function (min, max) {
-        
-        handlers_module.setIncome({
-            "min" : Number(min),
-            "max" : Number(max)
-        }, methods_module, socket, database, log);
-        
-    });
-    
-    // установка карт пользователя
-    socket.on("setCardCount", function (count) {
+                handlers_module.airports.get(socket, {
+                    "line" : String(line)
+                }, methods_module, database, log);
 
-        handlers_module.setCardCount({
-            "count" : Number(count)
-        }, methods_module, socket, database, log);
-        
-    });
-    
-    // запрос семейного положения
-    socket.on("getMaritalStatus", function () {
-        
-        handlers_module.getMaritalStatus(null, methods_module, socket, database, log);
-        
-    });
-    
-    // запрос всех карт
-    socket.on("getAllCard", function () {
+            });
 
-        handlers_module.getAllCard(null, methods_module, socket, database, log);
-        
-    });
-    
-    // установка количества карт
-    socket.on("setAllCards", function (cards) {
+            // установка начального и конечного аэропорта
+            socket.on("airports_set", function (from, to) {
 
-        handlers_module.setAllCards({
-            "cards" : cards
-        }, methods_module, socket, database, log);
-        
-    });
-    
-    // запрос всех карт AmericanExpress
-    socket.on("getAmExCards", function () {
-        
-        handlers_module.getAmExCard(null, methods_module, socket, database, log);
-        
-    });
-    
-    // установка карт AmericanExpress
-    socket.on("setAmExCards", function (cards) {
+                handlers_module.airports.set(socket, {
+                    "from" : String(from),
+                    "to" : String(to)
+                }, methods_module, database, log);
 
-        handlers_module.setAmExCard({
-            "cards" : cards
-        }, methods_module, socket, database, log);
-        
-    });
-    
-    // установка дополнительных данных
-    socket.on("setOtherParams", function (params) {
+            });
 
-        handlers_module.setOtherParams({
-            "params" : params
-        }, methods_module, socket, database, log);
-        
-    });
-    
-    // запрос расчитаных данных
-    socket.on("getCalculatedData", function () {
+            // запрос авиалиний
+            socket.on("airlines_get", function () {
 
-        handlers_module.getCalculatedData(config, socket.session, methods_module, socket, database, log, async);
+                handlers_module.airlines.get(socket, methods_module, database, log);
+
+            });
+
+            // запрос кредитного рейтинга
+            socket.on("scores_get", function () {
+
+                handlers_module.scores.get(socket, methods_module, database, log);
+
+            });
+
+            // установка кредитного рейтинга
+            socket.on("scores_set", function (id) {
+
+                handlers_module.scores.set(socket, { "id" : Number(id) }, methods_module, database, log);
+
+            });
+
+            // запрос дохода
+            socket.on("incomes_get", function () {
+
+                handlers_module.incomes.get(socket, methods_module, database, log);
+
+            });
+
+            // установка дохода
+            socket.on("incomes_set", function (id) {
+
+                handlers_module.incomes.set(socket, { "id": Number(id) }, methods_module, database, log);
+
+            });
+
+            // запрос семейного положения
+            socket.on("statuses_get", function () {
+
+                handlers_module.statuses.get(socket, methods_module, database, log);
+
+            });
+
+            // запрос всех карт
+            socket.on("cards_get_all", function () {
+
+                handlers_module.cards.get.all(socket, methods_module, database, log);
+
+            });
+
+            // установка количества карт
+            socket.on("cards_set_all", function (cards) {
+
+                handlers_module.cards.set.all(socket, { "cards" : cards }, methods_module, log);
+
+            });
+
+            // запрос всех карт AmericanExpress
+            socket.on("cards_get_amEx", function () {
+
+                handlers_module.cards.get.amEx(socket, methods_module, database, log);
+
+            });
+
+            // установка карт AmericanExpress
+            socket.on("cards_set_amEx", function (cards) {
+
+                handlers_module.set.amEx(socket, { "cards" : cards }, methods_module, log);
+
+            });
+
+            // установка дополнительных данных
+            socket.on("others_set", function (params) {
+
+                handlers_module.others.set(socket, { "params" : params }, methods_module, database, log);
+
+            });
+
+            // запрос расчитаных данных
+            socket.on("calculated_get", function () {
+
+                handlers_module.calculated.get(socket, config, methods_module, socket, database, log, async);
+
+            });
+            
+        }
         
     });
     

@@ -9,8 +9,7 @@
             <div id="airports-logo"><img src="/core/include/style/images/basic/main_logo.png"></div>
         </div>
 
-        <!-- заголовки страницы -->
-
+        <!-- заголовок страницы -->
         <div class="row justify-content-center">
 
             <div class="col display-4 text-center">

@@ -1,7 +1,7 @@
 /*globals module*/
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-module.exports = function (params, database, callback) {
+module.exports.get = function (params, database, callback) {
     
     'use strict';
 
@@ -11,33 +11,14 @@ module.exports = function (params, database, callback) {
         if (error) {
             
             // возврат результата
-            callback({
-                "error": { "type": "database" },
-                "data": null
-            });
+            callback({ "type": "database" }, null);
             
         } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
             connection.query("SELECT name FROM airlines, routes WHERE airlines.iata=routes.airline_id AND routes.source='" + params.from + "' AND routes.destination='" + params.to + "'", function (error, airlines) {
 
-                if (error) {
-                    
-                    // возврат результата
-                    callback({
-                        "error": { "type": "database" },
-                        "data": null
-                    });
-                    
-                } else {
-
-                    // возврат результата
-                    callback({
-                        "error": null,
-                        "data": { "airlines": airlines }
-                    });
-
-                }
+                if (error) { callback({ "type": "database" }, null);  } else { callback(null, { "airlines": airlines }); }
 
             });
 

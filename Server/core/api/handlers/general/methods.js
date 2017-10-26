@@ -1,16 +1,11 @@
 /*globals module, require*/
 
 /*-------------- ЭКСПОРТ МЕТОДОВ ДЛЯ ОБРАБОТЧИКОВ API ------------------*/
-module.exports.getAirlines = require("./methods/getAirlines");
-module.exports.getAirports = require("./methods/getAirports");
-module.exports.getAirportsByLine = require("./methods/getAirportsByLine");
-module.exports.getAllCards = require("./methods/getAllCards");
-module.exports.getAmExCards = require("./methods/getAmExCards");
-module.exports.getCalculatedData = require("./methods/getCalculatedData");
-module.exports.getCreditScores = require("./methods/getCreditScores");
-module.exports.getCreditScoreById = require("./methods/getCreditScoreById");
-module.exports.getIncomes = require("./methods/getIncomes");
-module.exports.getIncomeById = require("./methods/getIncomeById");
-module.exports.getMaritalStatuses = require("./methods/getMaritalStatuses");
-module.exports.getMinCreditScores = require("./methods/getMinCreditScores");
-module.exports.getMinIncome = require("./methods/getMinIncome");
+module.exports.airlines = require("./methods/airlines");
+module.exports.airports = require("./methods/airports");
+module.exports.cards = require("./methods/cards");
+module.exports.calculated = require("./methods/calculated");
+module.exports.scores = require("./methods/scores");
+module.exports.incomes = require("./methods/incomes");
+module.exports.statuses = require("./methods/statuses");
+module.exports.consts = require("./methods/consts");

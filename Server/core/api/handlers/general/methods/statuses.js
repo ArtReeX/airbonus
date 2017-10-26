@@ -1,7 +1,7 @@
 /*globals module*/
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-module.exports = function (params, database, callback) {
+module.exports.get = function (params, database, callback) {
     
     'use strict';
 
@@ -11,33 +11,14 @@ module.exports = function (params, database, callback) {
         if (error) {
             
             // возврат результата
-            callback({
-                "error": { "type": "database" },
-                "data": null
-            });
+            callback({ "type": "database" }, null);
             
         } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
             connection.query("SELECT id, name, value FROM marital_status ORDER BY name", function (error, statuses) {
 
-                if (error) {
-                    
-                    // возврат результата
-                    callback({
-                        "error": { "type": "database" },
-                        "data": null
-                    });
-                    
-                } else {
-
-                    // возврат результата
-                    callback({
-                        "error": null,
-                        "data": { "statuses": statuses }
-                    });
-
-                }
+                if (error) { callback({ "type": "database" }, null); } else { callback(null, { "statuses": statuses }); }
 
             });
 

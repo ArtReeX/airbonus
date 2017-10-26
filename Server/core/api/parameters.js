@@ -12,13 +12,19 @@ module.exports = {
     "creditScoreMax": null,
     "incomeMin": null,
     "incomeMax": null,
-    "cardCount": null,
     "allCards": null,
     "amExCards": null,
     "statusValue": null,
     "minPeople": null,
     "maxPeople": null,
     "spendNextMonth": null,
-    "spendNextYear": null
+    "spendNextYear": null,
+    
+    "consts": {
+    
+        "incomeMin": null,
+        "creditMin": null
+        
+    }
     
 };

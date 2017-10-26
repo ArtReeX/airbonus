@@ -1,7 +1,7 @@
 /*globals module*/
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-module.exports = function (config, params, database, log, async, callback) {
+module.exports.get = function (config, params, database, log, async, callback) {
     
     'use strict';
 
@@ -916,10 +916,7 @@ module.exports = function (config, params, database, log, async, callback) {
                         ], function () {
 
                             // возврат результата
-                            callback({
-                                "error": null,
-                                "data": { "computed": data.result.sorted }
-                            });
+                            callback(null, { "computed": data.result.sorted });
 
                             // закрытие запроса
                             conn.release();

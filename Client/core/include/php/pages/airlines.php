@@ -10,7 +10,6 @@
         </div>
 
         <!-- заголовки страницы -->
-
         <div class="row justify-content-center">
 
             <div class="col display-4 text-center" id="airlines-head">
