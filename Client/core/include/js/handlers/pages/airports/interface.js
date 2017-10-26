@@ -10,7 +10,10 @@ $(document).ready(function () {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "airports") {
-
+            
+            // скрытие другого списка с подсказками
+            $("#airports-to_tips").empty().hide();
+            
             if ($.trim($("#airports-from").val()) !== "") {
             
                 // преобразование в верхний регистр
@@ -32,6 +35,9 @@ $(document).ready(function () {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "airports") {
+            
+            // скрытие другого списка с подсказками
+            $("#airports-from_tips").empty().hide();
             
             if ($.trim($("#airports-to").val()) !== "") {
             

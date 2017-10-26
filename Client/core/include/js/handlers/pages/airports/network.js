@@ -85,31 +85,37 @@ $(document).ready(function () {
 
                 if (result.error.type === "database") {
 
-                    // выводим ошибку
+                    // показываем ошибку
+                    $("#airports-info_danger_block").show();
                     $("#airports-info_danger").text("Database error.").show();
 
                     // задаём таймер скрытия ошибки
                     setTimeout(function () {
+                        $("#airports-info_danger_block").hide();
                         $("#airports-info_danger").empty().hide();
                     }, 2000);
 
                 } else if (result.error.type === "no_exist_airport") {
 
-                    // выводим ошибку
+                    // показываем ошибку
+                    $("#airports-info_warning_block").show();
                     $("#airports-info_warning").text("A non-existent airport.").show();
 
                     // задаём таймер скрытия ошибки
                     setTimeout(function () {
+                        $("#airports-info_warning_block").hide();
                         $("#airports-info_warning").empty().hide();
                     }, 2000);
 
                 } else if (result.error.type === "same_airports") {
 
-                    // выводим ошибку
+                    // показываем ошибку
+                    $("#airports-info_warning_block").show();
                     $("#airports-info_warning").text("Identical airports.").show();
 
                     // задаём таймер скрытия ошибки
                     setTimeout(function () {
+                        $("#airports-info_warning_block").hide();
                         $("#airports-info_warning").empty().hide();
                     }, 2000);
 

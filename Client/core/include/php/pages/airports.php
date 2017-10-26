@@ -52,13 +52,13 @@
         </div>
         
         <!-- предупреждения -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" id="airports-info_warning_block">
 
             <div class="col-md-8 alert alert-warning text-center" role="alert" id="airports-info_warning"></div>
 
         </div>
         
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" id="airports-info_danger_block">
 
             <div class="col-md-8 alert alert-danger text-center" role="alert" id="airports-info_danger"></div>
 

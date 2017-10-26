@@ -9,6 +9,6 @@ $(document).ready(function () {
     $("#airports-from_tips, #airports-to_tips").hide();
     
     // скрываем по умолчанию уведомления
-    $("#airports-info_warning, #airports-info_danger").hide();
+    $("#airports-info_warning_block, #airports-info_warning, #airports-info_danger_block, #airports-info_danger").hide();
     
 });
