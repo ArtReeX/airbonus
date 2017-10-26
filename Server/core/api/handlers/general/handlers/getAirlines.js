@@ -6,9 +6,12 @@ module.exports = function (params, methods, socket, database, log) {
     "use strict";
     
     // запись сообщения клиента в отладку
-    log.info("Пользователь " + socket.id + " вызвал метод getAirlines с параметрами: " + params);
+    log.info("Пользователь " + socket.id + " вызвал метод getAirlines.");
     
-    methods.getAirlines(params, database, function (result) {
+    methods.getAirlines({
+        "from": socket.session.userAirportFrom,
+        "to": socket.session.userAirportTo
+    }, database, function (result) {
 
         if (result.error) {
 

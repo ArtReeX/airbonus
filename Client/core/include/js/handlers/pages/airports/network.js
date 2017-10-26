@@ -119,12 +119,7 @@ $(document).ready(function () {
 
                 // ОБРАБОТКА ОТВЕТОВ
 
-                if (Boolean(result.data.next) === true) {
-
-                    // если пользователь авторизирован, делаем редирект
-                    showPageAirlines();
-
-                }
+                if (Boolean(result.data.next) === true) { showPageAirlines(); }
 
             }
 

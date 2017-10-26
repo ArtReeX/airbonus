@@ -76,20 +76,20 @@ module.exports = function (params, methods, socket, database, log) {
             } else {
                 
                 socket.session.userAirportFrom = String(params.from);
-                socket.session.userAirportFrom = String(params.to);
+                socket.session.userAirportTo = String(params.to);
                 
                 // отправка результата
                 log.trace("Sending method resultSetAirports results to " + socket.id + ":");
                 log.trace({
                     "error": null,
                     "data": {
-                        "result": true
+                        "next": true
                     }
                 });
 
                 socket.emit("resultSetAirports", {
                     "error": null,
-                    "data": { "next" : true }
+                    "data": { "next": true }
                 });
     
             }

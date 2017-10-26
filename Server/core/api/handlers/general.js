@@ -39,12 +39,9 @@ module.exports.set = function (config, socket, database, log, async, callback) {
     });
     
     // запрос авиалиний
-    socket.on("getAirlines", function (to, from) {
+    socket.on("getAirlines", function () {
         
-        handlers_module.getAirlines({
-            "to" : String(to),
-            "from" : String(from)
-        }, methods_module, socket, database, log);
+        handlers_module.getAirlines(null, methods_module, socket, database, log);
         
     });
     

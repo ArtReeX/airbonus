@@ -81,8 +81,8 @@ $(document).ready(function () {
 
     });
     
-    // обработчик нажатия кнопки для перехода на страницу с авиалиниями
-    $("#loaded").off("click", "#airports-button_goto_airlines").on("click", "#airports-button_goto_airlines", function () {
+    // обработчик нажатия кнопки для перехода на слудующую страницу
+    $("#loaded").off("click", "#airports-button_goto_next").on("click", "#airports-button_goto_next", function () {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "airports") {
