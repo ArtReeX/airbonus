@@ -61,12 +61,12 @@
         <div class="row justify-content-between">
             
             <!-- кнопка возврата на предыдущую страницу -->
-            <div class="col-1" id="airlines-button_goto_back">
+            <div class="col-3 col-lg-2 text-center" id="airlines-button_goto_back">
                 <i class="fa fa-chevron-circle-left fa-2x" aria-hidden="true"></i>
             </div>
             
             <!-- кнопка перехода на следующую страницу -->
-            <div class="col-1 ml-auto" id="airlines-button_goto_next">
+            <div class="col-3 col-lg-2 ml-auto text-center" id="airlines-button_goto_next">
                 <i class="fa fa-chevron-circle-right fa-2x" aria-hidden="true"></i>
             </div>
             
