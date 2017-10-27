@@ -1,5 +1,5 @@
 /************************ ОБРАБОТЧИКИ СООБЩЕНИЙ ОТ СЕРВЕРА ************************/
-/*globals $, document, showPageCards*/
+/*globals $, document, showPageCardsAll*/
 
 $(document).ready(function () {
 
@@ -69,7 +69,7 @@ $(document).ready(function () {
 
                 // ОБРАБОТКА ОТВЕТОВ
 
-                if (Boolean(result.data.next) === true) { showPageCards(); }
+                if (Boolean(result.data.next) === true) { showPageCardsAll(); }
 
             }
 
