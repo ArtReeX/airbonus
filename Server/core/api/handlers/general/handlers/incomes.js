@@ -25,7 +25,7 @@ module.exports.get = function (socket, methods, database, log) {
         log.trace("Отправка результата incomes_get методом incomes_get пользователю " + socket.id + ":");
         log.trace(message);
 
-        socket.emit("scores_get", message);
+        socket.emit("incomes_get", message);
 
     });
     
@@ -52,8 +52,8 @@ module.exports.set = function (socket, params, methods, database, log) {
             };
             
         } else {
-        
-            if (result_data.max <= socket.session.consts.creditMin || result_data.min_credit_score <= socket.session.consts.creditMin) {
+
+            if (result_data.max <= socket.session.consts.incomeMin || socket.session.creditScoreMin < result_data.min_credit_score) {
                 
                 // формирование пакета для отправки
                 message = {

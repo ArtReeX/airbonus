@@ -13,7 +13,7 @@
         <div class="row justify-content-center">
 
             <div class="col display-4 text-center">
-                <p><b> Select your credit score </b></p>
+                <p><b> Select your income </b></p>
             </div>
 
         </div>

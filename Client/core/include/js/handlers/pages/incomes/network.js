@@ -55,7 +55,7 @@ $(document).ready(function () {
 
                     // показываем ошибку
                     $("#incomes-info_warning_block").show();
-                    $("#incomes-info_warning").text("We think you credit score is too low to be approved for most of the credit cards.").show();
+                    $("#incomes-info_warning").text("We think you income or credit score is too low to be approved for most of the credit cards.").show();
 
                     // задаём таймер скрытия ошибки
                     setTimeout(function () {
