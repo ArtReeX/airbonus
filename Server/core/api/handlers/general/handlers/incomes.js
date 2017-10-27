@@ -9,7 +9,12 @@ module.exports.get = function (socket, methods, database, log) {
     log.info("Пользователь " + socket.id + " вызвал метод incomes_get.");
     
     methods.incomes.getAll(database, function (result_error, result_data) {
-
+        
+        // изменение крайних значений
+        if (result_data.length) {
+            result_data[result_data.length - 1].max = "∞";
+        }
+        
         // формирование пакета для отправки
         var message = {
             "error": result_error ? { "type": result_error } : null,
@@ -48,7 +53,7 @@ module.exports.set = function (socket, params, methods, database, log) {
             
         } else {
         
-            if (result_data.max <= socket.session.consts.creditMin) {
+            if (result_data.max <= socket.session.consts.creditMin || result_data.min_credit_score <= socket.session.consts.creditMin) {
                 
                 // формирование пакета для отправки
                 message = {

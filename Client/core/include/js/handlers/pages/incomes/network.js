@@ -1,25 +1,25 @@
 /************************ ОБРАБОТЧИКИ СООБЩЕНИЙ ОТ СЕРВЕРА ************************/
-/*globals $, document, showPageIncomes*/
+/*globals $, document, showPageCards*/
 
 $(document).ready(function () {
 
     'use strict';
     
     // обработка приёма списка начальных аэропортов
-    window.socket.on("scores_get", function (result) {
+    window.socket.on("incomes_get", function (result) {
 
         // проверка соответствие обработчика со страницей
-        if (window.identifier === "scores") {
+        if (window.identifier === "incomes") {
 
             // очистка списка с вариантами кредитного рейтинга
-            $("#scores-list").empty();
+            $("#incomes-list").empty();
 
-            if (result.data.scores.length) {
+            if (result.data.incomes.length) {
 
-                var scores_count;
-                for (scores_count = 0; scores_count < result.data.scores.length; scores_count += 1) {
+                var incomes_count;
+                for (incomes_count = 0; incomes_count < result.data.incomes.length; incomes_count += 1) {
                     
-                    $("#scores-list").append("<option value=\"" + String(result.data.scores[scores_count].id) + "\">" + String(result.data.scores[scores_count].min) + " - " + String(result.data.scores[scores_count].max) + "</option>");
+                    $("#incomes-list").append("<option value=\"" + String(result.data.incomes[incomes_count].id) + "\">" + String(result.data.incomes[incomes_count].min) + " - " + String(result.data.incomes[incomes_count].max) + "</option>");
                     
                 }
                        
@@ -30,10 +30,10 @@ $(document).ready(function () {
     });
     
     // обработчик получения ответа о правильности данных от сервера
-    window.socket.on("scores_set", function (result) {
+    window.socket.on("incomes_set", function (result) {
 
         // проверка соответствие обработчика со страницей
-        if (window.identifier === "scores") {
+        if (window.identifier === "incomes") {
 
             if (result.error) {
 
@@ -42,25 +42,25 @@ $(document).ready(function () {
                 if (result.error.type === "database") {
 
                     // показываем ошибку
-                    $("#scores-info_danger_block").show();
-                    $("#scores-info_danger").text("Database error.").show();
+                    $("#incomes-info_danger_block").show();
+                    $("#incomes-info_danger").text("Database error.").show();
 
                     // задаём таймер скрытия ошибки
                     setTimeout(function () {
-                        $("#scores-info_danger_block").hide();
-                        $("#scores-info_danger").empty().hide();
+                        $("#incomes-info_danger_block").hide();
+                        $("#incomes-info_danger").empty().hide();
                     }, 2000);
 
                 } else if (result.error.type === "paucity") {
 
                     // показываем ошибку
-                    $("#scores-info_warning_block").show();
-                    $("#scores-info_warning").text("We think you credit score is too low to be approved for most of the credit cards.").show();
+                    $("#incomes-info_warning_block").show();
+                    $("#incomes-info_warning").text("We think you credit score is too low to be approved for most of the credit cards.").show();
 
                     // задаём таймер скрытия ошибки
                     setTimeout(function () {
-                        $("#scores-info_warning_block").hide();
-                        $("#scores-info_warning").empty().hide();
+                        $("#incomes-info_warning_block").hide();
+                        $("#incomes-info_warning").empty().hide();
                     }, 2000);
 
                 }
@@ -69,7 +69,7 @@ $(document).ready(function () {
 
                 // ОБРАБОТКА ОТВЕТОВ
 
-                if (Boolean(result.data.next) === true) { showPageIncomes(); }
+                if (Boolean(result.data.next) === true) { showPageCards(); }
 
             }
 

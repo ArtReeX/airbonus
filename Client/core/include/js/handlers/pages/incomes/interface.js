@@ -1,23 +1,23 @@
 /************************ ОБРАБОТЧИКИ ИНТЕРФЕЙСА ************************/
-/*globals $, document, window, showPageAirlines*/
+/*globals $, document, window, showPageScores*/
 
 $(document).ready(function () {
 
     'use strict';
 
     // обработчик нажатия кнопки для возврата на предыдущую страницу
-    $("#loaded").off("click", "#scores-button_goto_back").on("click", "#scores-button_goto_back", function () {
+    $("#loaded").off("click", "#incomes-button_goto_back").on("click", "#incomes-button_goto_back", function () {
 
         // проверка соответствие обработчика со страницей
-        if (window.identifier === "scores") { showPageAirlines(); }
+        if (window.identifier === "incomes") { showPageScores(); }
 
     });
     
     // обработчик нажатия кнопки для перехода на следующую страницу
-    $("#loaded").off("click", "#scores-button_goto_next").on("click", "#scores-button_goto_next", function () {
+    $("#loaded").off("click", "#incomes-button_goto_next").on("click", "#incomes-button_goto_next", function () {
 
         // проверка соответствие обработчика со страницей
-        if (window.identifier === "scores") {  window.socket.emit("scores_set", Number($("#scores-list").children(":selected").val())); }
+        if (window.identifier === "incomes") {  window.socket.emit("incomes_set", Number($("#incomes-list").children(":selected").val())); }
 
     });
 
