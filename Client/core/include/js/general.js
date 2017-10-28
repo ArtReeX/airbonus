@@ -8,14 +8,14 @@ $(document).ready(function () {
     // подключение к серверу, если его нет
     if (typeof window.socket === "undefined") {
 
-        window.socket = io.connect("ws://" + String(window.config.server.address) + ":" +  String(window.config.server.port) + "\"", {
+        window.socket = io.connect("ws://" + String(window.config.server.address) + ":" +  String(window.config.server.port), {
             reconnection: true
         });
 
     }
     
     // обработчик отсутствия соединения с сервером
-    window.socket.on('connect_error', function () {
+    window.socket.on("connect_error", function () {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier !== "error") {
