@@ -12,7 +12,7 @@
         <!-- заголовок ошибки -->
         <div class="row justify-content-center">
 
-            <div class="col display-4 text-center" id="error-head">
+            <div class="col h1 text-center" id="error-head">
                 <p class="text-uppercase">
                     <b> </b>
                 </p>

@@ -12,7 +12,7 @@
         <!-- заголовок страницы -->
         <div class="row justify-content-center">
 
-            <div class="col display-4 text-center">
+            <div class="col h1 text-center">
                 <p>
                     <b> Pilot Project </b>
                 </p>

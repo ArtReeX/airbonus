@@ -12,7 +12,7 @@
         <!-- заголовки страницы -->
         <div class="row justify-content-center">
 
-            <div class="col display-4 text-center" id="airlines-head">
+            <div class="col h1 text-center" id="airlines-head">
                 <p><b> Great! We found the airlines! </b></p>
             </div>
 

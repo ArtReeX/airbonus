@@ -15,10 +15,10 @@
 
     <div class="container h-100 p-0">
 
-        <div class="row justify-content-center align-items-center h-100 p-0">
+        <div class="row justify-content-center align-items-center h-100 m-0 p-0">
 
             <!-- загруженная страница -->
-            <div class="col-12 col-md-10 col-lg-8 my-auto p-0" id="loaded"></div>
+            <div class="col-12 col-md-10 col-lg-8 my-auto m-0 p-0" id="loaded"></div>
 
         </div>
 
