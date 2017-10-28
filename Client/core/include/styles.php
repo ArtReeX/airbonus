@@ -13,3 +13,5 @@
 <link rel="stylesheet" type="text/css" href="core/include/style/css/pages/airlines.css">
 <link rel="stylesheet" type="text/css" href="core/include/style/css/pages/scores.css">
 <link rel="stylesheet" type="text/css" href="core/include/style/css/pages/incomes.css">
+<link rel="stylesheet" type="text/css" href="core/include/style/css/pages/cardsAll.css">
+<link rel="stylesheet" type="text/css" href="core/include/style/css/pages/cardsAmEx.css">

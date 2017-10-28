@@ -5,13 +5,13 @@ $(document).ready(function () {
 
     'use strict';
     
-    // обработка приёма списка начальных аэропортов
+    // обработка приёма списка доступных кредитных рейтингов
     window.socket.on("scores_get", function (result) {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "scores") {
 
-            // очистка списка с вариантами кредитного рейтинга
+            // очистка списка с вариантами доступных кредитных рейтингов
             $("#scores-list").empty();
 
             if (result.data.scores.length) {
@@ -19,7 +19,13 @@ $(document).ready(function () {
                 var scores_count;
                 for (scores_count = 0; scores_count < result.data.scores.length; scores_count += 1) {
                     
-                    $("#scores-list").append("<option value=\"" + String(result.data.scores[scores_count].id) + "\">" + String(result.data.scores[scores_count].min) + " - " + String(result.data.scores[scores_count].max) + "</option>");
+                    $("#scores-list").append("<option value='" +
+                                             String(result.data.scores[scores_count].id) +
+                                             "'>" +
+                                             String(result.data.scores[scores_count].min) +
+                                             " - " +
+                                             String(result.data.scores[scores_count].max) +
+                                             "</option>");
                     
                 }
                        

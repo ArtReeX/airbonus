@@ -14,7 +14,7 @@ $(document).ready(function () {
             // скрытие другого списка с подсказками
             $("#airports-to_tips").empty().hide();
             
-            if ($.trim($("#airports-from").val()) !== "") {
+            if ($("#airports-from").val().trim() !== "") {
             
                 // преобразование в верхний регистр
                 $("#airports-from").val($("#airports-from").val().toUpperCase());
@@ -39,7 +39,7 @@ $(document).ready(function () {
             // скрытие другого списка с подсказками
             $("#airports-from_tips").empty().hide();
             
-            if ($.trim($("#airports-to").val()) !== "") {
+            if ($("#airports-to").val().trim() !== "") {
             
                 // преобразование в верхний регистр
                 $("#airports-to").val($("#airports-to").val().toUpperCase());

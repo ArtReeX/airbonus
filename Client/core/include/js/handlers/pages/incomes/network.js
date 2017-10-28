@@ -5,13 +5,13 @@ $(document).ready(function () {
 
     'use strict';
     
-    // обработка приёма списка начальных аэропортов
+    // обработка приёма списка доступных зароботков
     window.socket.on("incomes_get", function (result) {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "incomes") {
 
-            // очистка списка с вариантами кредитного рейтинга
+            // очистка списка с вариантами дрступных заработков
             $("#incomes-list").empty();
 
             if (result.data.incomes.length) {
@@ -19,7 +19,13 @@ $(document).ready(function () {
                 var incomes_count;
                 for (incomes_count = 0; incomes_count < result.data.incomes.length; incomes_count += 1) {
                     
-                    $("#incomes-list").append("<option value=\"" + String(result.data.incomes[incomes_count].id) + "\">" + String(result.data.incomes[incomes_count].min) + " - " + String(result.data.incomes[incomes_count].max) + "</option>");
+                    $("#incomes-list").append("<option value='" +
+                                              String(result.data.incomes[incomes_count].id) +
+                                              "'>" +
+                                              String(result.data.incomes[incomes_count].min) +
+                                              " - " +
+                                              String(result.data.incomes[incomes_count].max) +
+                                              "</option>");
                     
                 }
                        

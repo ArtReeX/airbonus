@@ -121,28 +121,28 @@ module.exports.set = function (config, socket, database, log, async, callback) {
             // запрос всех карт
             socket.on("cards_get_all", function () {
 
-                handlers_module.cards.get.all(socket, methods_module, database, log);
+                handlers_module.cards.getAll(socket, methods_module, database, log);
 
             });
 
             // установка количества карт
             socket.on("cards_set_all", function (cards) {
 
-                handlers_module.cards.set.all(socket, { "cards" : cards }, methods_module, log);
+                handlers_module.cards.setAll(socket, { "cards" : cards }, methods_module, log);
 
             });
 
             // запрос всех карт AmericanExpress
             socket.on("cards_get_amEx", function () {
 
-                handlers_module.cards.get.amEx(socket, methods_module, database, log);
+                handlers_module.cards.getAmEx(socket, methods_module, database, log);
 
             });
 
             // установка карт AmericanExpress
             socket.on("cards_set_amEx", function (cards) {
 
-                handlers_module.set.amEx(socket, { "cards" : cards }, methods_module, log);
+                handlers_module.cards.setAmEx(socket, { "cards" : cards }, methods_module, log);
 
             });
 

@@ -1,7 +1,7 @@
 /*globals module*/
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-module.exports.getAll = function (params, database, callback) {
+module.exports.getAll = function (database, callback) {
     
     'use strict';
 
@@ -31,7 +31,7 @@ module.exports.getAll = function (params, database, callback) {
 
 };
 
-module.exports.getAmEx = function (params, database, callback) {
+module.exports.getAmEx = function (database, callback) {
     
     'use strict';
 

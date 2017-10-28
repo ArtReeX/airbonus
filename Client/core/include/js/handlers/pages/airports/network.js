@@ -20,7 +20,16 @@ $(document).ready(function () {
                 
                 for (airports_count = 0; airports_count < result.data.airports.length; airports_count += 1) {
                     
-                    $("#airports-from_tips").append("<option value='" + String(result.data.airports[airports_count].iata) + "'>" + String(result.data.airports[airports_count].iata) + "(" + String(result.data.airports[airports_count].name) + ", " + String(result.data.airports[airports_count].city) + ")" + "</option>");
+                    $("#airports-from_tips").append("<option value='" +
+                                                    String(result.data.airports[airports_count].iata) +
+                                                    "'>" +
+                                                    String(result.data.airports[airports_count].iata) +
+                                                    "(" +
+                                                    String(result.data.airports[airports_count].name) +
+                                                    ", " +
+                                                    String(result.data.airports[airports_count].city) +
+                                                    ")" +
+                                                    "</option>");
                     
                 }
                 

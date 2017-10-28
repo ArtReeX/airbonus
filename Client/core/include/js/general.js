@@ -11,7 +11,7 @@ $(document).ready(function () {
     // подключение к серверу, если его нет
     if (typeof window.socket === "undefined") {
 
-        window.socket = io.connect('ws://localhost:8181', {
+        window.socket = io.connect("ws://" + String(window.config.server.address) + ":" +  String(window.config.server.port) + "\"", {
             reconnection: true
         });
 
