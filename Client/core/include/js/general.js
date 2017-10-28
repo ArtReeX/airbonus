@@ -5,9 +5,6 @@ $(document).ready(function () {
     
     'use strict';
     
-    // показ основной страницы
-    showPageAirports();
-    
     // подключение к серверу, если его нет
     if (typeof window.socket === "undefined") {
 
@@ -29,5 +26,8 @@ $(document).ready(function () {
         }
 
     });
+    
+    // показ основной страницы
+    showPageAirports();
 
 });

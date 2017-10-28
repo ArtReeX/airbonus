@@ -2,10 +2,9 @@
 /*globals window*/
 
 
-// параметры клиента
+// адрес сервера
 window.config = {
     
-    // сервер
     "server": {
         "address": "localhost",
         "port": 8181

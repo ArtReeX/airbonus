@@ -20,7 +20,7 @@ $(document).ready(function () {
                 $("#airports-from").val($("#airports-from").val().toUpperCase());
 
                 window.socket.emit("airports_get_from", String($("#airports-from").val()));
-            
+
             } else {
                 // скрытие списка с подсказками
                 $("#airports-from_tips").empty().hide();
