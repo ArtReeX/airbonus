@@ -111,13 +111,6 @@ module.exports.set = function (config, socket, database, log, async, callback) {
 
             });
 
-            // запрос семейного положения
-            socket.on("statuses_get", function () {
-
-                handlers_module.statuses.get(socket, methods_module, database, log);
-
-            });
-
             // запрос всех карт
             socket.on("cards_get_all", function () {
 
@@ -145,11 +138,18 @@ module.exports.set = function (config, socket, database, log, async, callback) {
                 handlers_module.cards.setAmEx(socket, { "cards" : cards }, methods_module, log);
 
             });
+            
+            // запрос дополнительных данных
+            socket.on("others_get", function () {
 
+                handlers_module.others.get(socket, methods_module, database, log);
+
+            });
+            
             // установка дополнительных данных
             socket.on("others_set", function (params) {
 
-                handlers_module.others.set(socket, { "params" : params }, methods_module, database, log);
+                handlers_module.others.set(socket, { "params" : params }, methods_module, log);
 
             });
 

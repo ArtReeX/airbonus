@@ -1,7 +1,7 @@
 /*globals module*/
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-module.exports.get = function (params, database, callback) {
+module.exports.get = function (database, callback) {
     
     'use strict';
 

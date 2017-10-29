@@ -28,7 +28,8 @@
                 <div class="form-group">
                     
                 <input type="text" class="form-control bg-light text-center text-black" placeholder="Where from?" id="airports-from">     
-                    <select class="form-control" id="airports-from_tips"></select>     
+                    <select class="form-control" id="airports-from_tips"></select>   
+                    
                 </div>
                 
             </div>
@@ -44,6 +45,7 @@
                     
                 <input type="text" class="form-control bg-light text-center text-black" placeholder="Where to?" id="airports-to">     
                     <select class="form-control" id="airports-to_tips"></select>     
+                    
                 </div>
                 
             </div>

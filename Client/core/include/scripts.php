@@ -15,3 +15,4 @@
 <script src="core/include/js/preloaders/pages/incomes.js"></script>
 <script src="core/include/js/preloaders/pages/cardsAll.js"></script>
 <script src="core/include/js/preloaders/pages/cardsAmEx.js"></script>
+<script src="core/include/js/preloaders/pages/others.js"></script>

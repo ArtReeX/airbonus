@@ -62,7 +62,7 @@
             
             <!-- кнопка перехода на следующую страницу -->
             <div class="col-3 col-lg-2 ml-auto text-center" id="cardsAmEx-button_goto_next">
-                <i class="fa fa-chevron-circle-right fa-2x" aria-hidden="true"></i>
+                <i class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
             </div>
             
         </div>
