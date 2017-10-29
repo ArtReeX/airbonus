@@ -154,9 +154,9 @@ module.exports.set = function (config, socket, database, log, async, callback) {
             });
 
             // запрос расчитаных данных
-            socket.on("calculated_get", function () {
+            socket.on("computation_get", function () {
 
-                handlers_module.calculated.get(socket, config, methods_module, socket, database, log, async);
+                handlers_module.computation.get(socket, config, methods_module, database, log, async);
 
             });
             

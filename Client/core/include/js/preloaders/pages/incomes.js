@@ -34,13 +34,13 @@ function showPageIncomes() {
                     // загрузка HTML-содержимого страницы
                     $("#loaded").html(html);
 
-                    // показ страницы
-                    $("#loaded").show();
-
                     // загрузка JS-содержимого страницы
                     $.getScript("/core/include/js/handlers/pages/incomes/network.js");
                     $.getScript("/core/include/js/handlers/pages/incomes/interface.js");
                     $.getScript("/core/include/js/handlers/pages/incomes/launching.js");
+                    
+                    // показ страницы
+                    $("#loaded").show();
 
                 },
 

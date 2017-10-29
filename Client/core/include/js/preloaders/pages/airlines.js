@@ -34,13 +34,13 @@ function showPageAirlines() {
                     // загрузка HTML-содержимого страницы
                     $("#loaded").html(html);
 
-                    // показ страницы
-                    $("#loaded").show();
-
                     // загрузка JS-содержимого страницы
                     $.getScript("/core/include/js/handlers/pages/airlines/network.js");
                     $.getScript("/core/include/js/handlers/pages/airlines/interface.js");
                     $.getScript("/core/include/js/handlers/pages/airlines/launching.js");
+                    
+                    // показ страницы
+                    $("#loaded").show();
 
                 },
 

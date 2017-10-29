@@ -34,13 +34,13 @@ function showPageCardsAll() {
                     // загрузка HTML-содержимого страницы
                     $("#loaded").html(html);
 
-                    // показ страницы
-                    $("#loaded").show();
-
                     // загрузка JS-содержимого страницы
                     $.getScript("/core/include/js/handlers/pages/cardsAll/network.js");
                     $.getScript("/core/include/js/handlers/pages/cardsAll/interface.js");
                     $.getScript("/core/include/js/handlers/pages/cardsAll/launching.js");
+                    
+                    // показ страницы
+                    $("#loaded").show();
 
                 },
 

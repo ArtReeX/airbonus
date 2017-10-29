@@ -16,3 +16,4 @@
 <link rel="stylesheet" type="text/css" href="core/include/style/css/pages/cardsAll.css">
 <link rel="stylesheet" type="text/css" href="core/include/style/css/pages/cardsAmEx.css">
 <link rel="stylesheet" type="text/css" href="core/include/style/css/pages/others.css">
+<link rel="stylesheet" type="text/css" href="core/include/style/css/pages/computation.css">

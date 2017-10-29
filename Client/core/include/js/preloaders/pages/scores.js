@@ -34,13 +34,13 @@ function showPageScores() {
                     // загрузка HTML-содержимого страницы
                     $("#loaded").html(html);
 
-                    // показ страницы
-                    $("#loaded").show();
-
                     // загрузка JS-содержимого страницы
                     $.getScript("/core/include/js/handlers/pages/scores/network.js");
                     $.getScript("/core/include/js/handlers/pages/scores/interface.js");
                     $.getScript("/core/include/js/handlers/pages/scores/launching.js");
+                    
+                    // показ страницы
+                    $("#loaded").show();
 
                 },
 

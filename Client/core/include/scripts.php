@@ -16,3 +16,4 @@
 <script src="core/include/js/preloaders/pages/cardsAll.js"></script>
 <script src="core/include/js/preloaders/pages/cardsAmEx.js"></script>
 <script src="core/include/js/preloaders/pages/others.js"></script>
+<script src="core/include/js/preloaders/pages/computation.js"></script>

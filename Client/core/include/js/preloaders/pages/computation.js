@@ -1,7 +1,7 @@
 /************************ ПРЕДЗАГРУЗЧИК ************************/
 /*globals $, document, window, showPagePreloader, showPageError, setTimeout*/
 
-function showPageAirports() {
+function showPageComputation() {
 
     'use strict';
     
@@ -16,7 +16,7 @@ function showPageAirports() {
             // отправка запроса на получение содержимого страницы
             $.ajax({
 
-                url: "/core/include/php/pages/airports.php",
+                url: "/core/include/php/pages/computation.php",
 
                 dataType: "html",
 
@@ -26,22 +26,21 @@ function showPageAirports() {
 
                     // идентификация страницы
                     window.identifierPrevious = window.identifier;
-                    window.identifier = "airports";
+                    window.identifier = "computation";
 
                     // скрытие страницы
                     $("#loaded").hide();
 
                     // загрузка HTML-содержимого страницы
                     $("#loaded").html(html);
-
+                    
                     // загрузка JS-содержимого страницы
-                    $.getScript("/core/include/js/handlers/pages/airports/network.js");
-                    $.getScript("/core/include/js/handlers/pages/airports/interface.js");
-                    $.getScript("/core/include/js/handlers/pages/airports/launching.js");
+                    $.getScript("/core/include/js/handlers/pages/computation/network.js");
+                    $.getScript("/core/include/js/handlers/pages/computation/interface.js");
+                    $.getScript("/core/include/js/handlers/pages/computation/launching.js");
                     
                     // показ страницы
                     $("#loaded").show();
-
                 },
 
                 error: function () {

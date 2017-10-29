@@ -1,5 +1,5 @@
 /************************ ОБРАБОТЧИКИ СООБЩЕНИЙ ОТ СЕРВЕРА ************************/
-/*globals $, document, showPageCalculated*/
+/*globals $, document, showPageComputation*/
 
 $(document).ready(function () {
 
@@ -73,7 +73,7 @@ $(document).ready(function () {
 
                 // ОБРАБОТКА ОТВЕТОВ
 
-                if (Boolean(result.data.next) === true) { showPageCalculated(); }
+                if (Boolean(result.data.next) === true) { showPageComputation(); }
 
             }
 
