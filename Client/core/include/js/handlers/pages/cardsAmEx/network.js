@@ -20,7 +20,7 @@ $(document).ready(function () {
                 for (cards_count = 0; cards_count < result.data.cards.length; cards_count += 1) {
                     
                     $("#cardsAmEx-table").append("<tr value=" + String(result.data.cards[cards_count].id) + ">" +
-                                                    "<th scope='row'>" + String(result.data.cards[cards_count].name) + "</th>" +
+                                                    "<td>" + String(result.data.cards[cards_count].name) + "</td>" +
                                                     "<td> <img src='http://" +
                                                     String(window.config.server.address) + ":" + String(window.config.server.port) +
                                                     "/client/images/cards/" +

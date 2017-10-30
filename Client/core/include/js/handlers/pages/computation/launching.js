@@ -11,7 +11,7 @@ $(document).ready(function () {
     // скрываем заголовок о отсутствии вариантов
     $("#computation-header_empty").hide();
     
-    // запрос от сервера списка всех карт
+    // запрос от сервера списка всех вычисленных вариантов
     window.socket.emit("computation_get");
     
 });

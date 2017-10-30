@@ -681,8 +681,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                             // добавление объекта
                             data.result.unsorted.push({
-                                variant: table.slice(),
-                                text: 'Unfortunately, you regular monthly spending is lower than required to receive a bonus. Assuming you can make some large purchases sooner, we have calculated for you the following card combination to ensure free travel.'
+                                "variant": table.slice(),
+                                "low": true
                             });
 
                         }

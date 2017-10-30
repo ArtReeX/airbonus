@@ -23,14 +23,14 @@
             
             <div class="col p-0 text-center">
                 
-                <table class="table table-bordered">
+                <table class="table table-responsive table-active table-bordered">
 
                     <!-- заголовок таблицы -->
                     <thead>
                     <tr>
-                      <th scope="col">Name</th>
-                      <th scope="col">View</th>
-                      <th scope="col">Mile</th>
+                      <th>Name</th>
+                      <th>View</th>
+                      <th>Mile</th>
                     </tr>
                     </thead>
 
