@@ -19,7 +19,7 @@ module.exports.get = function (socket, config, methods, database, log, async) {
         // изменение количества отдаваемых результатов
         if (result_data.length > 5) { result_data.length = 5; }
         
-        // изменение названия повторяющихся карт
+        // изменение параметров повторяющихся карт
         for (cards_count = 0; cards_count < result_data.length; cards_count += 1) {
             
             for (variant_count_one = 0; variant_count_one < result_data[cards_count].variant.length; variant_count_one += 1) {
