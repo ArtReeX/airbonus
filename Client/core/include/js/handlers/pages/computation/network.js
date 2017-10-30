@@ -11,15 +11,28 @@ $(document).ready(function () {
         // проверка соответствие обработчика со страницей
         if (window.identifier === "computation") {
 
-            // очистка таблицы с картами
-            $("#computation-table").empty();
+            // очистка блока с содержимым таблиц
+            $("#computation-result_tables").empty();
 
             if (result.data.computation.length) {
-
+                
                 var computation_count;
                 for (computation_count = 0; computation_count < result.data.computation.length; computation_count += 1) {
                     
+                    // добавление заголовка таблицы
+                    $("#computation-result_tables").append("<div class='row justify-content-center'>" +
+                                                           "<div class='col h1 text-center'>" +
+                                                           "<p class='text-uppercase'>" +
+                                                           "<b> Variant " +
+                                                           computation_count +
+                                                           " <b><p>" +
+                                                           "</div></div>");
                     
+                    // добавление информации о недостатке бюджета
+                    $("#computation-result_tables").append("<div class='row justify-content-center'>" +
+                                                           "<div class='col lead text-center'>" +
+                                                           "Unfortunately, you regular monthly spending is lower than required to receive a bonus. Assuming you can make some large purchases sooner, we have calculated for you the following card combination to ensure free travel." +
+                                                           "</div></div>");
                     
                 }
                 

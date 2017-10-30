@@ -18,6 +18,9 @@
 
         </div>
         
+        <!-- блок с содержимым таблиц -->      
+        <div id="computation-result_tables"> </div>
+        
         <!-- предупреждения -->
         <div class="row justify-content-center" id="computation-info_warning_block">
             <div class="col-md-8 alert alert-warning text-center" role="alert" id="computation-info_warning"></div>
