@@ -29,6 +29,13 @@ module.exports.get = function (socket, config, methods, database, log, async) {
                     if (result_data[cards_count].variant[variant_count_two].card === result_data[cards_count].variant[variant_count_one].card) {
                         
                         result_data[cards_count].variant[variant_count_two].card = result_data[cards_count].variant[variant_count_two].card + " (Same card)";
+                        result_data[cards_count].variant[variant_count_two].fee1 = result_data[cards_count].variant[variant_count_two].amount = "-";
+                        
+                    }
+                    
+                    if (result_data[cards_count].variant[variant_count_one].have === true) {
+                        
+                        result_data[cards_count].variant[variant_count_one].fee1 = result_data[cards_count].variant[variant_count_one].amount = "-";
                         
                     }
             
