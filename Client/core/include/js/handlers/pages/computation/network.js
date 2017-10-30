@@ -21,10 +21,10 @@ $(document).ready(function () {
                     
                     // добавление заголовка таблицы
                     $("#computation-result_tables").append("<div class='row justify-content-center'>" +
-                                                           "<div class='col h1 text-center'>" +
+                                                           "<div class='col h2 text-center'>" +
                                                            "<p class='text-uppercase'>" +
                                                            "<b> Variant " +
-                                                           computation_count +
+                                                           Number(computation_count + 1) +
                                                            " <b><p>" +
                                                            "</div></div>");
                     

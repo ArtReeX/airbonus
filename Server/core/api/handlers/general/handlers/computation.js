@@ -9,7 +9,10 @@ module.exports.get = function (socket, config, methods, database, log, async) {
     log.info("Пользователь " + socket.id + " вызвал метод computation_get.");
     
     methods.computation.get(config, socket.session, database, log, async, function (result_error, result_data) {
-
+        
+        // изменение количества отдаваемых результатов
+        if (result_data.length > 5) { result_data.length = 5; }
+        
         // формирование пакета для отправки
         var message = {
             "error": result_error ? { "type": result_error } : null,
