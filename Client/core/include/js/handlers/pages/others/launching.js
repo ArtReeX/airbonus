@@ -18,7 +18,7 @@ $(document).ready(function () {
             $("#others-passengers_min, #others-passengers_max").empty();
             
             var count;
-            for (count = 1; count <= 5; count += 1) {
+            for (count = 0; count <= 5; count += 1) {
                 $("#others-passengers_min, #others-passengers_max").append("<option value='" + count + "'>" + count + "</option>");
             }
 
