@@ -63,7 +63,7 @@
         
         <!-- кнопки -->
         <div class="row justify-content-center">
-            <button class="col-8 col-md-6 btn btn-primary btn-sm" id="airports-button_goto_next" ><p><b> GO </b></p></button>
+            <button class="col-6 col-lg-4 btn btn-primary" id="airports-button_goto_next" ><b> GO </b></button>
         </div>
 
     </div>
