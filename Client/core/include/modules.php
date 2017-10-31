@@ -1,5 +1,8 @@
 <!--************************ МОДУЛИ ************************-->
 
+<!-- ПОДКЛЮЧЕНИЕ МОДУЛЯ AngularJS -->
+<script src="core/include/libs/frameworks/angular/angular.min.js"></script>
+
 <!-- ПОДКЛЮЧЕНИЕ МОДУЛЯ Socket.IO -->
 <script src="core/include/libs/modules/socket.io.js"></script>
 
