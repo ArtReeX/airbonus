@@ -30,6 +30,9 @@ $(document).ready(function () {
                 }
                        
             }
+            
+            // показ обработанного содержимого
+            $("#scores-list").show();
 
         }
 

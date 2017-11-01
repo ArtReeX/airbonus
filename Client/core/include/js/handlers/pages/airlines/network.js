@@ -26,6 +26,9 @@ $(document).ready(function () {
                 // установка счётчика авиалиний
                 $("#airlines-list_count").text("Total of " + result.data.airlines.length + " companies");
                 
+                // показ обработанного содержимого
+                $("#airlines-list").show();
+                
                 
             } else {
                 

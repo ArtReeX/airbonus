@@ -5,9 +5,6 @@ $(document).ready(function () {
 
     'use strict';
     
-    // скрываем по умолчанию уведомления
-    $("#others-info_warning_block, #others-info_warning, #others-info_danger_block, #others-info_danger").hide();
-    
     // заполнение списка с выбором минимального количества пассажиров
     function othersPassengersInit() {
                 
@@ -21,7 +18,10 @@ $(document).ready(function () {
             for (count = 0; count <= 5; count += 1) {
                 $("#others-passengers_min, #others-passengers_max").append("<option value='" + count + "'>" + count + "</option>");
             }
-
+            
+            // показ обработанного содержимого
+            $("#others-passengers_min, #others-passengers_max").show();
+            
         }
         
     }

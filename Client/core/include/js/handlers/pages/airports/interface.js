@@ -56,13 +56,13 @@ $(document).ready(function () {
     });
     
     // обработчик выбора из списка подсказки к начальному аэропорту
-    $("#loaded").off("change", "#airports-from_tips").on("change", "#airports-from_tips", function () {
+    $("#loaded").off("click", "#airports-from_tips .list-group-item").on("click", "#airports-from_tips .list-group-item", function () {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "airports") {
-            
+
             // перенос значения из списка подсказок в поле ввода
-            $("#airports-from").val($("#airports-from_tips").children(":selected").val().toUpperCase());
+            $("#airports-from").val($(this).attr("value").toUpperCase());
             
             // скрытие списка с подсказками
             $("#airports-from_tips").empty().hide();
@@ -72,13 +72,13 @@ $(document).ready(function () {
     });
     
     // обработчик выбора из списка подсказки к конечному аэропорту
-    $("#loaded").off("change", "#airports-to_tips").on("change", "#airports-to_tips", function () {
+    $("#loaded").off("click", "#airports-to_tips .list-group-item").on("click", "#airports-to_tips .list-group-item", function () {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "airports") {
             
             // перенос значения из списка подсказок в поле ввода
-            $("#airports-to").val($("#airports-to_tips").children(":selected").val().toUpperCase());
+            $("#airports-to").val($(this).attr("value").toUpperCase());
             
             // скрытие списка с подсказками
             $("#airports-to_tips").empty().hide();

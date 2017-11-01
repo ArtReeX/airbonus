@@ -20,6 +20,15 @@
 
         </div>
         
+        <!-- подзаголовок страницы -->
+        <div class="row justify-content-center">
+
+            <div class="col lead text-center">
+                <p> To find free tickets please choose your departure and destination airports. </p>
+            </div>
+
+        </div>
+        
         <!-- поле ввода начального аэропорта -->
         <div class="row justify-content-center">
 
@@ -28,7 +37,7 @@
                 <div class="form-group">
                     
                 <input type="text" class="form-control bg-light text-center text-black" placeholder="Where from?" id="airports-from">     
-                    <select class="form-control" id="airports-from_tips"></select>   
+                    <ul class="list-group list-group-flush" style="max-height: 200px; overflow-y: auto;" id="airports-from_tips" style="display: none;"></ul>   
                     
                 </div>
                 
@@ -44,7 +53,7 @@
                 <div class="form-group">
                     
                 <input type="text" class="form-control bg-light text-center text-black" placeholder="Where to?" id="airports-to">     
-                    <select class="form-control" id="airports-to_tips"></select>     
+                    <ul class="list-group list-group-flush" style="max-height: 200px; overflow-y: auto;"  id="airports-to_tips" style="display: none;"></ul>     
                     
                 </div>
                 
@@ -53,12 +62,12 @@
         </div>
         
         <!-- предупреждения -->
-        <div class="row justify-content-center" id="airports-info_warning_block">
-            <div class="col-md-8 alert alert-warning text-center" role="alert" id="airports-info_warning"></div>
+        <div class="row justify-content-center" id="airports-info_warning_block" style="display: none;">
+            <div class="col-md-8 alert alert-warning text-center" role="alert" id="airports-info_warning" style="display: none;"></div>
         </div>
         
-        <div class="row justify-content-center" id="airports-info_danger_block">
-            <div class="col-md-8 alert alert-danger text-center" role="alert" id="airports-info_danger"></div>
+        <div class="row justify-content-center" id="airports-info_danger_block" style="display: none;">
+            <div class="col-md-8 alert alert-danger text-center" role="alert" id="airports-info_danger" style="display: none;"></div>
         </div>
         
         <!-- кнопки -->

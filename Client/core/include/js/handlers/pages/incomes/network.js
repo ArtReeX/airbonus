@@ -30,6 +30,9 @@ $(document).ready(function () {
                 }
                        
             }
+            
+            // показ обработанного содержимого
+            $("#incomes-list").show();
 
         }
 

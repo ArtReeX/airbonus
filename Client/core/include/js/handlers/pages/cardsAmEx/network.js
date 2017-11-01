@@ -31,6 +31,9 @@ $(document).ready(function () {
                 }
                 
             }
+            
+            // показ обработанного содержимого
+            $("#cardsAmEx-table").show();
 
         }
 

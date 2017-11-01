@@ -31,6 +31,9 @@ $(document).ready(function () {
                 }
                 
             }
+            
+            // показ обработанного содержимого
+            $("#cardsAll-table").show();
 
         }
 

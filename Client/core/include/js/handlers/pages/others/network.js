@@ -28,6 +28,9 @@ $(document).ready(function () {
                 }
                 
             }
+            
+            // показ обработанного содержимого
+            $("#others-statuses_list").show();
 
         }
 

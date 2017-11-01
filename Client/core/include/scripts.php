@@ -11,6 +11,7 @@
 <!-- ОСНОВНЫЕ СТРАНИЦЫ -->
 <script src="core/include/js/preloaders/pages/airports.js"></script>
 <script src="core/include/js/preloaders/pages/airlines.js"></script>
+<script src="core/include/js/preloaders/pages/preScores.js"></script>
 <script src="core/include/js/preloaders/pages/scores.js"></script>
 <script src="core/include/js/preloaders/pages/incomes.js"></script>
 <script src="core/include/js/preloaders/pages/cardsAll.js"></script>

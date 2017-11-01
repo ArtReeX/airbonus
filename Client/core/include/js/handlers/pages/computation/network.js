@@ -102,6 +102,9 @@ $(document).ready(function () {
                     
                 }
                 
+                // показ обработанного содержимого
+                $("#computation-result_tables").show();
+                
             } else { $("#computation-header_empty").show(); }
 
         }

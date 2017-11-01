@@ -19,22 +19,22 @@
         </div>
         
         <!-- блок с содержимым таблиц -->      
-        <div id="computation-result_tables"> </div>
+        <div id="computation-result_tables" style="display: none;"> </div>
         
         <!-- предупреждения -->
-        <div class="row justify-content-center" id="computation-info_warning_block">
-            <div class="col-md-8 alert alert-warning text-center" role="alert" id="computation-info_warning"></div>
+        <div class="row justify-content-center" id="computation-info_warning_block" style="display: none;">
+            <div class="col-md-8 alert alert-warning text-center" role="alert" id="computation-info_warning" style="display: none;"></div>
         </div>
         
-        <div class="row justify-content-center" id="computation-info_danger_block">
-            <div class="col-md-8 alert alert-danger text-center" role="alert" id="computation-info_danger"></div>
+        <div class="row justify-content-center" id="computation-info_danger_block" style="display: none;">
+            <div class="col-md-8 alert alert-danger text-center" role="alert" id="computation-info_danger" style="display: none;"></div>
         </div>
         
         <!-- кнопки -->
         <div class="row justify-content-between">
             
             <!-- кнопка возврата на предыдущую страницу -->
-            <div class="col-3 col-lg-2 text-center" id="computation-button_goto_back">
+            <div class="col-3 col-lg-2 text-primary text-center" id="computation-button_goto_back">
                 <i class="fa fa-chevron-circle-left fa-2x" aria-hidden="true"></i>
             </div>
             

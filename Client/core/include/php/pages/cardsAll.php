@@ -35,7 +35,7 @@
                     </thead>
 
                     <!-- варианты карт -->
-                    <tbody id="cardsAll-table"></tbody>
+                    <tbody id="cardsAll-table" style="display: none;"></tbody>
 
                 </table>
                 
@@ -44,24 +44,24 @@
         </div>
         
         <!-- предупреждения -->
-        <div class="row justify-content-center" id="cardsAll-info_warning_block">
-            <div class="col-md-8 alert alert-warning text-center" role="alert" id="cardsAll-info_warning"></div>
+        <div class="row justify-content-center" id="cardsAll-info_warning_block" style="display: none;">
+            <div class="col-md-8 alert alert-warning text-center" role="alert" id="cardsAll-info_warning" style="display: none;"></div>
         </div>
         
-        <div class="row justify-content-center" id="cardsAll-info_danger_block">
-            <div class="col-md-8 alert alert-danger text-center" role="alert" id="cardsAll-info_danger"></div>
+        <div class="row justify-content-center" id="cardsAll-info_danger_block" style="display: none;">
+            <div class="col-md-8 alert alert-danger text-center" role="alert" id="cardsAll-info_danger" style="display: none;"></div>
         </div>
         
         <!-- кнопки -->
         <div class="row justify-content-between">
             
             <!-- кнопка возврата на предыдущую страницу -->
-            <div class="col-3 col-lg-2 text-center" id="cardsAll-button_goto_back">
+            <div class="col-3 col-lg-2 text-primary text-center" id="cardsAll-button_goto_back">
                 <i class="fa fa-chevron-circle-left fa-2x" aria-hidden="true"></i>
             </div>
             
             <!-- кнопка перехода на следующую страницу -->
-            <div class="col-3 col-lg-2 ml-auto text-center" id="cardsAll-button_goto_next">
+            <div class="col-3 col-lg-2 ml-auto text-primary text-center" id="cardsAll-button_goto_next">
                 <i class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
             </div>
             
