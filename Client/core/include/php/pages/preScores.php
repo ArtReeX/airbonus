@@ -24,7 +24,7 @@
             <div class="col lead text-center">
                 <p> 
                     You can find your credit score at : - -.
-                    <br> Note: Banks usually checks the credit score of credit card applicants. 
+                    <br> <span class="badge badge-secondary"> Note: </span> Banks usually checks the credit score of credit card applicants. 
                 </p>
             </div>
 
