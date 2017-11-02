@@ -6,7 +6,7 @@ $(document).ready(function () {
     'use strict';
     
     // обработка приёма списка всех вычисленных вариантов
-    window.socket.on("computation_get", function (result) {
+    window.socket.off("computation_get").on("computation_get", function (result) {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "computation") {

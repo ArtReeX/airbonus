@@ -6,7 +6,7 @@ $(document).ready(function () {
     'use strict';
     
     // обработка приёма списка всех карт
-    window.socket.on("cards_get_amEx", function (result) {
+    window.socket.off("cards_get_amEx").on("cards_get_amEx", function (result) {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "cardsAmEx") {
@@ -41,7 +41,7 @@ $(document).ready(function () {
     });
     
     // обработчик получения ответа о правильности данных от сервера
-    window.socket.on("cards_set_amEx", function (result) {
+    window.socket.off("cards_set_amEx").on("cards_set_amEx", function (result) {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "cardsAmEx") {

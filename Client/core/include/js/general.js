@@ -15,7 +15,7 @@ $(document).ready(function () {
     }
     
     // обработчик отсутствия соединения с сервером
-    window.socket.on("connect_error", function () {
+    window.socket.off("connect_error").on("connect_error", function () {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier !== "error") {

@@ -6,7 +6,7 @@ $(document).ready(function () {
     'use strict';
     
     // обработка приёма списка доступных зароботков
-    window.socket.on("incomes_get", function (result) {
+    window.socket.off("incomes_get").on("incomes_get", function (result) {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "incomes") {
@@ -39,7 +39,7 @@ $(document).ready(function () {
     });
     
     // обработчик получения ответа о правильности данных от сервера
-    window.socket.on("incomes_set", function (result) {
+    window.socket.off("incomes_set").on("incomes_set", function (result) {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "incomes") {

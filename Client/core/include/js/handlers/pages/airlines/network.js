@@ -6,7 +6,7 @@ $(document).ready(function () {
     'use strict';
     
     // обработка приёма списка начальных аэропортов
-    window.socket.on("airlines_get", function (result) {
+    window.socket.off("airlines_get").on("airlines_get", function (result) {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "airlines") {

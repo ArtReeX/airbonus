@@ -6,7 +6,7 @@ $(document).ready(function () {
     'use strict';
     
     // обработка приёма списка всех карт
-    window.socket.on("others_get", function (result) {
+    window.socket.off("others_get").on("others_get", function (result) {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "others") {
@@ -37,7 +37,7 @@ $(document).ready(function () {
     });
     
     // обработчик получения ответа о правильности данных от сервера
-    window.socket.on("others_set", function (result) {
+    window.socket.off("others_set").on("others_set", function (result) {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "others") {

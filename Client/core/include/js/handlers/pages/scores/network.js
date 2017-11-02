@@ -6,7 +6,7 @@ $(document).ready(function () {
     'use strict';
     
     // обработка приёма списка доступных кредитных рейтингов
-    window.socket.on("scores_get", function (result) {
+    window.socket.off("scores_get").on("scores_get", function (result) {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "scores") {
@@ -39,7 +39,7 @@ $(document).ready(function () {
     });
     
     // обработчик получения ответа о правильности данных от сервера
-    window.socket.on("scores_set", function (result) {
+    window.socket.off("scores_set").on("scores_set", function (result) {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "scores") {
