@@ -25,7 +25,8 @@ $(document).ready(function () {
                                                     String(window.config.server.address) + ":" + String(window.config.server.port) +
                                                     "/client/images/cards/" +
                                                     String(result.data.cards[cards_count].image) + "'> </td>" +
-                                                    "<td> <input type='number' class='form-control bg-light text-center text-black'> </td>" +
+                                                    "<td> <input type='checkbox' class='cardsAmEx-table_card_have form-check-input'> </td>" +
+                                                    "<td> <input type='number' class='cardsAmEx-table_card_mile form-control bg-light text-center text-black'> </td>" +
                                                 "</tr>");
                     
                 }

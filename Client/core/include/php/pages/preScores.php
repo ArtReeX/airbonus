@@ -23,7 +23,9 @@
 
             <div class="col lead text-center">
                 <p> 
-                    You can find your credit score at : - -.
+                    You can find your credit score at:  
+                    <a href="https://www.annualcreditreport.com/" target="_blank"> AnnualCreditReport.com </a>
+                    <br> (the only website authorized to fill orders for your free annual credit report).
                     <br> <span class="badge badge-secondary"> Note: </span> Banks usually checks the credit score of credit card applicants. 
                 </p>
             </div>

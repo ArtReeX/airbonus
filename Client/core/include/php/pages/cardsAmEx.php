@@ -28,9 +28,10 @@
                     <!-- заголовок таблицы -->
                     <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>View</th>
-                      <th>Mile</th>
+                        <th>Name</th>
+                        <th>View</th>
+                        <th>Have</th>
+                        <th>Mile</th>
                     </tr>
                     </thead>
                     

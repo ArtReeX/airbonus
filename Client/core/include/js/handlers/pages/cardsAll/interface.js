@@ -22,12 +22,13 @@ $(document).ready(function () {
             var cards_count, selected_cards = [];
             for (cards_count = 0; cards_count < $("#cardsAll-table tr").length; cards_count += 1) {
 
-                // добавление только тех карт, для которых введено количество бонусов
-                if (Number($($("#cardsAll-table tr")[cards_count]).find("input").val().trim()) > 0) {
+                // добавление только тех карт, для которых введено количество бонусов и стоит галочка активности
+                if ($($("#cardsAll-table tr")[cards_count]).find(".cardsAll-table_card_have").is(":checked") &&
+                        Number($($("#cardsAll-table tr")[cards_count]).find(".cardsAll-table_card_mile").val().trim()) >= 0) {
                     
                     selected_cards.push({
                         "card": Number($($("#cardsAll-table tr")[cards_count]).attr("value").trim()),
-                        "bonus": Number($($("#cardsAll-table tr")[cards_count]).find("input").val().trim())
+                        "bonus": Number($($("#cardsAll-table tr")[cards_count]).find(".cardsAll-table_card_mile").val().trim())
                     });
 
                 }
