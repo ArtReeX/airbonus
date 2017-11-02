@@ -20,7 +20,9 @@ function showPageError(errorType) { // eslint-disable-line no-unused-vars
 
                 dataType: "html",
 
-                async: true,
+                cache: true,
+
+                async: false,
 
                 success: function (html) {
 

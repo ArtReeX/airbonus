@@ -39,6 +39,19 @@ $(document).ready(function () {
         }, 10000);
 
         return;
+    } else if (window.errorType === "scripts_exist") {
+
+        $('#error-head b').text("Scripts not found");
+        $('#error-subHead p').text("- you will be redirected to the main page after 10 seconds");
+
+        // переподключение через N секунд
+        setTimeout(function () {
+
+            showPageAirports();
+
+        }, 10000);
+
+        return;
     }
     
 

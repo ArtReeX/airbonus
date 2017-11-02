@@ -20,7 +20,9 @@ function showPageIncomes() {
 
                 dataType: "html",
 
-                async: true,
+                cache: true,
+
+                async: false,
 
                 success: function (html) {
 
@@ -35,9 +37,9 @@ function showPageIncomes() {
                     $("#loaded").html(html);
 
                     // загрузка JS-содержимого страницы
-                    $.getScript("/core/include/js/handlers/pages/incomes/network.js");
-                    $.getScript("/core/include/js/handlers/pages/incomes/interface.js");
-                    $.getScript("/core/include/js/handlers/pages/incomes/launching.js");
+                    $.getScript("/core/include/js/handlers/pages/incomes/network.js").fail(function () { showPageError("scripts_exist"); });
+                    $.getScript("/core/include/js/handlers/pages/incomes/interface.js").fail(function () { showPageError("scripts_exist"); });
+                    $.getScript("/core/include/js/handlers/pages/incomes/launching.js").fail(function () { showPageError("scripts_exist"); });
                     
                     // показ страницы
                     $("#loaded").show();

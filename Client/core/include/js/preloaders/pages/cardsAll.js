@@ -20,7 +20,9 @@ function showPageCardsAll() {
 
                 dataType: "html",
 
-                async: true,
+                cache: true,
+
+                async: false,
 
                 success: function (html) {
 
@@ -35,9 +37,9 @@ function showPageCardsAll() {
                     $("#loaded").html(html);
 
                     // загрузка JS-содержимого страницы
-                    $.getScript("/core/include/js/handlers/pages/cardsAll/network.js");
-                    $.getScript("/core/include/js/handlers/pages/cardsAll/interface.js");
-                    $.getScript("/core/include/js/handlers/pages/cardsAll/launching.js");
+                    $.getScript("/core/include/js/handlers/pages/cardsAll/network.js").fail(function () { showPageError("scripts_exist"); });
+                    $.getScript("/core/include/js/handlers/pages/cardsAll/interface.js").fail(function () { showPageError("scripts_exist"); });
+                    $.getScript("/core/include/js/handlers/pages/cardsAll/launching.js").fail(function () { showPageError("scripts_exist"); });
                     
                     // показ страницы
                     $("#loaded").show();

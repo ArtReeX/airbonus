@@ -19,8 +19,10 @@ function showPageAirports() {
                 url: "/core/include/php/pages/airports.php",
 
                 dataType: "html",
+                
+                cache: true,
 
-                async: true,
+                async: false,
 
                 success: function (html) {
 
@@ -35,9 +37,9 @@ function showPageAirports() {
                     $("#loaded").html(html);
 
                     // загрузка JS-содержимого страницы
-                    $.getScript("/core/include/js/handlers/pages/airports/network.js");
-                    $.getScript("/core/include/js/handlers/pages/airports/interface.js");
-                    $.getScript("/core/include/js/handlers/pages/airports/launching.js");
+                    $.getScript("/core/include/js/handlers/pages/airports/network.js").fail(function () { showPageError("scripts_exist"); });
+                    $.getScript("/core/include/js/handlers/pages/airports/interface.js").fail(function () { showPageError("scripts_exist"); });
+                    $.getScript("/core/include/js/handlers/pages/airports/launching.js").fail(function () { showPageError("scripts_exist"); });
                     
                     // показ страницы
                     $("#loaded").show();

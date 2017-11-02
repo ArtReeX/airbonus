@@ -20,7 +20,9 @@ function showPageScores() {
 
                 dataType: "html",
 
-                async: true,
+                cache: true,
+
+                async: false,
 
                 success: function (html) {
 
@@ -35,9 +37,9 @@ function showPageScores() {
                     $("#loaded").html(html);
 
                     // загрузка JS-содержимого страницы
-                    $.getScript("/core/include/js/handlers/pages/scores/network.js");
-                    $.getScript("/core/include/js/handlers/pages/scores/interface.js");
-                    $.getScript("/core/include/js/handlers/pages/scores/launching.js");
+                    $.getScript("/core/include/js/handlers/pages/scores/network.js").fail(function () { showPageError("scripts_exist"); });
+                    $.getScript("/core/include/js/handlers/pages/scores/interface.js").fail(function () { showPageError("scripts_exist"); });
+                    $.getScript("/core/include/js/handlers/pages/scores/launching.js").fail(function () { showPageError("scripts_exist"); });
                     
                     // показ страницы
                     $("#loaded").show();

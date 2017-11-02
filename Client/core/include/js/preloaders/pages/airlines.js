@@ -20,7 +20,9 @@ function showPageAirlines() {
 
                 dataType: "html",
 
-                async: true,
+                cache: true,
+
+                async: false,
 
                 success: function (html) {
 
@@ -35,9 +37,9 @@ function showPageAirlines() {
                     $("#loaded").html(html);
 
                     // загрузка JS-содержимого страницы
-                    $.getScript("/core/include/js/handlers/pages/airlines/network.js");
-                    $.getScript("/core/include/js/handlers/pages/airlines/interface.js");
-                    $.getScript("/core/include/js/handlers/pages/airlines/launching.js");
+                    $.getScript("/core/include/js/handlers/pages/airlines/network.js").fail(function () { showPageError("scripts_exist"); });
+                    $.getScript("/core/include/js/handlers/pages/airlines/interface.js").fail(function () { showPageError("scripts_exist"); });
+                    $.getScript("/core/include/js/handlers/pages/airlines/launching.js").fail(function () { showPageError("scripts_exist"); });
                     
                     // показ страницы
                     $("#loaded").show();
