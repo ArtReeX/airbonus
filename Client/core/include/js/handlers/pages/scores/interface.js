@@ -1,5 +1,5 @@
 /************************ ОБРАБОТЧИКИ ИНТЕРФЕЙСА ************************/
-/*globals $, document, window, showPageAirlines*/
+/*globals $, document, window, showPagePreScores*/
 
 $(document).ready(function () {
 
@@ -9,7 +9,7 @@ $(document).ready(function () {
     $("#loaded").off("click", "#scores-button_goto_back").on("click", "#scores-button_goto_back", function () {
 
         // проверка соответствие обработчика со страницей
-        if (window.identifier === "scores") { showPageAirlines(); }
+        if (window.identifier === "scores") { showPagePreScores(); }
 
     });
     
