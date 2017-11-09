@@ -36,12 +36,11 @@ module.exports.getByLine = function (params, database, callback) {
         if (error) { callback({ "type": "database" }, null); } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query("SELECT iata, name, city FROM airports WHERE iata RLIKE '^" + params.line + "' OR city RLIKE '^" + params.line +
-                "' OR name RLIKE '^" + params.line + "' ORDER BY iata", function (error, airports) {
+            connection.query("SELECT iata, name, city FROM airports WHERE iata RLIKE ? OR city RLIKE ? OR name RLIKE ? ORDER BY iata", ["^" + params.line], function (error, airports) {
 
-                    if (error) { callback({ "type": "database" }, null); } else { callback(null, airports); }
+                if (error) { callback({ "type": "database" }, null); } else { callback(null, airports); }
 
-                });
+            });
 
         }
         

@@ -16,7 +16,7 @@ module.exports.creditMin = function (database, callback) {
         } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query("SELECT value FROM consts WHERE name='Min_Credit_Score'", function (error, scores) {
+            connection.query("SELECT value FROM consts WHERE name = ?", ["Min_Credit_Score"], function (error, scores) {
 
                 if (error) { callback({ "type": "database" }, null); } else { callback(null, scores[0].value); }
 
@@ -46,7 +46,7 @@ module.exports.incomeMin = function (database, callback) {
         } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query("SELECT value FROM consts WHERE name='Min_Income'", function (error, incomes) {
+            connection.query("SELECT value FROM consts WHERE name = ?", ["Min_Income"], function (error, incomes) {
 
                 if (error) { callback({ "type": "database" }, null); } else { callback(null, incomes[0].value); }
 

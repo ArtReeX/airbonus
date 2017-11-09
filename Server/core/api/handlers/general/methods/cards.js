@@ -46,7 +46,7 @@ module.exports.getAmEx = function (database, callback) {
         } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query("SELECT cards.id, cards.name, cards.image FROM cards, consts WHERE cards.bank_id=consts.value AND consts.name='AmEx_Bank_ID'", function (error, cards) {
+            connection.query("SELECT cards.id, cards.name, cards.image FROM cards, consts WHERE cards.bank_id = consts.value AND consts.name = ?", ["AmEx_Bank_ID"], function (error, cards) {
 
                 if (error) { callback({ "type": "database" }, null); } else { callback(null, cards); }
 

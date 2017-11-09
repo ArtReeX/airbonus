@@ -41,7 +41,7 @@ module.exports.getById = function (params, database, callback) {
         if (error) { callback({ "type": "database" }, null); } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query("SELECT min, max FROM credit_score WHERE id=" + Number(params.id) + " LIMIT 1", function (error, scores) {
+            connection.query("SELECT min, max FROM credit_score WHERE id = ? LIMIT 1", [params.id], function (error, scores) {
 
                 if (error) { callback({ "type": "database" }, null); } else {
 
