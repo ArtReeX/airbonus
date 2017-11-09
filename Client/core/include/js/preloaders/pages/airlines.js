@@ -16,7 +16,7 @@ function showPageAirlines() {
             // отправка запроса на получение содержимого страницы
             $.ajax({
 
-                url: "/core/include/php/pages/airlines.php",
+                url: "/core/include/html/pages/airlines.html",
 
                 dataType: "html",
 

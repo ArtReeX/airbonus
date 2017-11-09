@@ -16,7 +16,7 @@ function showPageScores() {
             // отправка запроса на получение содержимого страницы
             $.ajax({
 
-                url: "/core/include/php/pages/scores.php",
+                url: "/core/include/html/pages/scores.html",
 
                 dataType: "html",
 

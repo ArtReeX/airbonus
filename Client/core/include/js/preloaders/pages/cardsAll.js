@@ -16,7 +16,7 @@ function showPageCardsAll() {
             // отправка запроса на получение содержимого страницы
             $.ajax({
 
-                url: "/core/include/php/pages/cardsAll.php",
+                url: "/core/include/html/pages/cardsAll.html",
 
                 dataType: "html",
 

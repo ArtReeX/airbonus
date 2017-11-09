@@ -16,7 +16,7 @@ function showPageOthers() {
             // отправка запроса на получение содержимого страницы
             $.ajax({
 
-                url: "/core/include/php/pages/others.php",
+                url: "/core/include/html/pages/others.html",
 
                 dataType: "html",
 

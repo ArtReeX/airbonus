@@ -16,7 +16,7 @@ function showPageError(errorType) { // eslint-disable-line no-unused-vars
             // отправка запроса на получение содержимого страницы
             $.ajax({
 
-                url: "/core/include/php/pages/error.php",
+                url: "/core/include/html/pages/error.html",
 
                 dataType: "html",
 

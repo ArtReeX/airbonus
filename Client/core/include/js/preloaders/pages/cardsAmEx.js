@@ -16,7 +16,7 @@ function showPageCardsAmEx() {
             // отправка запроса на получение содержимого страницы
             $.ajax({
 
-                url: "/core/include/php/pages/cardsAmEx.php",
+                url: "/core/include/html/pages/cardsAmEx.html",
 
                 dataType: "html",
 

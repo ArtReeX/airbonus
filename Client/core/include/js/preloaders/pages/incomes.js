@@ -16,7 +16,7 @@ function showPageIncomes() {
             // отправка запроса на получение содержимого страницы
             $.ajax({
 
-                url: "/core/include/php/pages/incomes.php",
+                url: "/core/include/html/pages/incomes.html",
 
                 dataType: "html",
 
