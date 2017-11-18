@@ -36,9 +36,7 @@ function showPageCardsAmEx() {
                     // загрузка HTML-содержимого страницы
                     $("#loaded").html(html);
 
-                    // загрузка JS-содержимого страницы
-                    $.getScript("/core/include/js/handlers/pages/cardsAmEx/network.js").fail(function () { showPageError("scripts_exist"); });
-                    $.getScript("/core/include/js/handlers/pages/cardsAmEx/interface.js").fail(function () { showPageError("scripts_exist"); });
+                    // запуск скриптов после окончания загрузки страницы
                     $.getScript("/core/include/js/handlers/pages/cardsAmEx/launching.js").fail(function () { showPageError("scripts_exist"); });
                     
                     // показ страницы

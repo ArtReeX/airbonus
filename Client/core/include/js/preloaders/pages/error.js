@@ -39,9 +39,7 @@ function showPageError(errorType) { // eslint-disable-line no-unused-vars
                     // загрузка HTML-содержимого страницы
                     $("#loaded").html(html);
 
-                    // загрузка JS-содержимого страницы
-                    $.getScript("/core/include/js/handlers/pages/error/network.js");
-                    $.getScript("/core/include/js/handlers/pages/error/interface.js");
+                    // запуск скриптов после окончания загрузки страницы
                     $.getScript("/core/include/js/handlers/pages/error/launching.js");
                     
                     // показ страницы
