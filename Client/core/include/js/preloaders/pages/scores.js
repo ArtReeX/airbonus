@@ -22,7 +22,7 @@ function showPageScores() {
 
                 cache: true,
 
-                async: false,
+                async: true,
 
                 success: function (html) {
 

@@ -16,7 +16,7 @@ function showPagePreloader(errorType) { // eslint-disable-line no-unused-vars
 
             cache: true,
 
-            async: false,
+            async: true,
 
             success: function (html) {
 
