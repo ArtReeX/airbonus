@@ -10,7 +10,7 @@ function showPagePreloader(errorType) { // eslint-disable-line no-unused-vars
         // отправка запроса на получение содержимого страницы
         $.ajax({
 
-            url: "/core/include/html/pages/preloader.html",
+            url: "/core/include/php/pages/preloader.php",
 
             dataType: "html",
 

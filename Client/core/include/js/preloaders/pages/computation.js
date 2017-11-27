@@ -16,7 +16,7 @@ function showPageComputation() {
             // отправка запроса на получение содержимого страницы
             $.ajax({
 
-                url: "/core/include/html/pages/computation.html",
+                url: "/core/include/php/pages/computation.php",
 
                 dataType: "html",
 

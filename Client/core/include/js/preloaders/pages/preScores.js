@@ -16,7 +16,7 @@ function showPagePreScores() {
             // отправка запроса на получение содержимого страницы
             $.ajax({
 
-                url: "/core/include/html/pages/preScores.html",
+                url: "/core/include/php/pages/preScores.php",
 
                 dataType: "html",
 
