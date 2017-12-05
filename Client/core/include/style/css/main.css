@@ -3,21 +3,23 @@
 /* шрифты */
 
 @font-face {
-  font-family: "Gotham Pro Light";
-  src: url(../fonts/GothamProLight.woff);
+    font-family: "Gotham Pro Light";
+    src: url(../fonts/GothamProLight.woff);
 }
 
 /* страница */
 
 html,
 body {
-    
+
     font-family: "Gotham Pro Light" !important;
-    
+
     height: 100%;
+    min-height: 100%;
+
     margin: 0;
     padding: 0;
-    
+
     overflow-x: hidden;
 }
 
@@ -40,9 +42,10 @@ body {
     border-radius: 25px;
     background-color: #d0913e;
 }
+
 .btn:active {
     background-color: #ffbf6b;
-} 
+}
 
 .btn-link {
     border-radius: 0px;
@@ -58,6 +61,7 @@ input {
 
 
 /* предупреждения */
+
 .alert {
     border-radius: 0px !important;
 }
@@ -71,4 +75,33 @@ input {
 
 .logo {
     margin-top: -80%;
+}
+
+
+/* цвета */
+
+.bg-header {
+    background-color: #799c95;
+}
+
+.bg-content {
+    background-color: #4e8398;
+}
+
+.bg-footer {
+    background-color: #0a3446;
+}
+
+
+/* содержимое */
+
+.wrapper {
+    min-height: 80% !important;
+}
+
+
+/* футер */
+
+.footer {
+    min-height: 20% !important;
 }

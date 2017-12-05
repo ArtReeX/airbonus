@@ -3,7 +3,7 @@
 <div class="container-fluid h-100 m-0 p-0">
 
     <!-- верхняя часть страницы -->
-    <div class="container-fluid m-0 p-0" style="background-color: #4e8398">
+    <div class="wrapper container-fluid bg-content">
     
         <!-- лого страницы -->
         <?php include("../plugins/logo.php"); ?>

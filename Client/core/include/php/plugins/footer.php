@@ -1,5 +1,5 @@
 <!-- нижняя часть страницы -->
-<div class="container-fluid m-0 p-0" style="background-color: #0a3446">
+<div class="footer container-fluid m-0 p-0 bg-footer">
 
     <!-- ссылки -->
     <div class="row justify-content-center m-0 p-4 text-center text-white">

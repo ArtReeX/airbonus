@@ -1,37 +1,38 @@
-<!-- размытый фон -->
-<div class="blur-content">
+<!-- содержимое страницы -->
+<div class="container-fluid h-100 m-0 p-0">
 
-    <!-- содержимое страницы -->
-    <div class="container">
-
+    <!-- верхняя часть страницы -->
+    <div class="container-fluid h-100 m-0 p-0">
+    
         <!-- лого страницы -->
-        <div class="row justify-content-center">
-            <div id="error-logo"><img src="/core/include/style/images/basic/main_logo.png"></div>
-        </div>
+        <?php include("../plugins/logo.php"); ?>
 
-        <!-- заголовок ошибки -->
-        <div class="row justify-content-center">
+        <!-- заголовок страницы -->
+        <div class="row justify-content-center p-4">
 
-            <div class="col h1 text-center" id="error-head">
-                <p class="text-uppercase">
-                    <b> </b>
-                </p>
+            <div class="col-12 col-md-8 col-lg-6 lead text-center text-dark" id="error-head">
+                <h1 class="text-uppercase"><b></b></h1>
             </div>
 
         </div>
-
+        
         <!-- разделитель -->
-        <hr class="my-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <hr class="my-4">
+            </div>
+        </div>
+        
+        
+        <!-- подзаголовок страницы -->
+        <div class="row justify-content-center p-4">
 
-        <!-- подзаголовок ошибки -->
-        <div class="row justify-content-right text-right">
-
-            <div class="col lead text-right" id="error-subHead">
-                <p> </p>
+            <div class="col-12 col-md-8 col-lg-6 lead text-right text-dark" id="error-subHead">
+                <p></p>
             </div>
 
         </div>
-
+    
     </div>
 
 </div>
