@@ -19,7 +19,7 @@ $(document).ready(function () {
                 var airlines_count;
                 for (airlines_count = 0; airlines_count < result.data.airlines.length; airlines_count += 1) {
                     
-                    $("#airlines-list_companies").append("<li>" + String(result.data.airlines[airlines_count].name) + "</li>");
+                    $("#airlines-list_companies").append("<li class='list-group-item' style='background-color: #4e8398;'>" + String(result.data.airlines[airlines_count].name) + "</li>");
                     
                 }
                 
@@ -36,10 +36,10 @@ $(document).ready(function () {
                 $("#airlines-list, #airlines-button_goto_next").hide();
                 
                 // изменение заголовка
-                $("#airlines-head p b").text("Sorry!");
+                $("#airlines-head h1").text("Sorry!");
                 
                 // изменение подзаголовка
-                $("#airlines-subhead p b").text("We have not found airlines connecting the airports you chose.");
+                $("#airlines-subhead p").text("We have not found airlines connecting the airports you chose.");
                 
             }
 

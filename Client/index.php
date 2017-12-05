@@ -13,12 +13,12 @@
 
     <body>
 
-        <div class="container h-100 p-0">
+        <div class="container-fluid h-100 m-0 p-0">
 
-            <div class="row justify-content-center align-items-center h-100 m-0 p-0">
+            <div class="row justify-content-center h-100 m-0 p-0">
 
                 <!-- загруженная страница -->
-                <div class="col-12 col-lg-12 my-auto m-0 p-0" id="loaded"></div>
+                <div class="col-12 col-lg-12 m-0 p-0" id="loaded"></div>
 
             </div>
 

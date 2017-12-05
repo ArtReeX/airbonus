@@ -1,13 +1,24 @@
 /************************ ОСНОВНОЕ ************************/
 
+/* шрифты */
+
+@font-face {
+  font-family: "Gotham Pro Light";
+  src: url(../fonts/GothamProLight.woff);
+}
 
 /* страница */
 
 html,
 body {
+    
+    font-family: "Gotham Pro Light" !important;
+    
     height: 100%;
     margin: 0;
     padding: 0;
+    
+    overflow-x: hidden;
 }
 
 
@@ -23,16 +34,37 @@ body {
 }
 
 
-/* размытый фон под загруженной страницой */
+/* кнопка */
 
-.blur-content {
-    background-color: rgba(255, 255, 255, 0.3);
-    min-width: 300px;
+.btn {
+    border-radius: 25px;
+    background-color: #d0913e;
+}
+.btn:active {
+    background-color: #ffbf6b;
+} 
+
+.btn-link {
+    border-radius: 0px;
+    background-color: #54717e;
 }
 
 
-/* блок */
+/* поле ввода */
 
-.row {
-    padding: 1%;
+input {
+    border-radius: 0px !important;
+}
+
+
+/* предупреждения */
+.alert {
+    border-radius: 0px !important;
+}
+
+
+/* логотип */
+
+.logo{
+    margin-top: -10%;
 }
