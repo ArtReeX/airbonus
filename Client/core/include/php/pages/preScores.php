@@ -33,7 +33,7 @@
         <!-- кнопки -->
         <div class="row justify-content-center m-0 p-0 pb-2 text-center text-white">
 
-            <div class="col-10 col-lg-8">
+            <div class="col-12 col-md-8 col-lg-6">
             
                 <div class="container-fluid">
                     
