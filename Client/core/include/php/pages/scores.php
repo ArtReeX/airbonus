@@ -1,30 +1,28 @@
-<!-- размытый фон -->
-<div class="blur-content">
+<!-- содержимое страницы -->
+<div class="container-fluid h-100 m-0 p-0">
 
-    <!-- содержимое страницы -->
-    <div class="container">
-
+    <!-- верхняя часть страницы -->
+    <div class="wrapper container-fluid m-0 p-0 bg-content">
+    
         <!-- лого страницы -->
-        <div class="row justify-content-center">
-            <div id="scores-logo"><img src="/core/include/style/images/basic/main_logo.png"></div>
-        </div>
+        <?php include("../plugins/logo.php"); ?>
 
         <!-- заголовок страницы -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center p-4">
 
-            <div class="col h1 text-center">
-                <p><b> Select your credit score </b></p>
+            <div class="col-12 col-md-8 col-lg-6 lead text-center text-white">
+                <h3> Select your credit score. </h3>
             </div>
 
         </div>
         
         <!-- список доступных к выбору кредитных рейтингов -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center p-2">
             
-            <div class="col-12 col-lg-10  text-center">
+            <div class="col-12 col-md-8 col-lg-6 text-center">
             
                 <div class="form-group">       
-                    <select class="form-control" id="scores-list" style="display: none;"> </select>
+                    <select class="form-control hidden" id="scores-list"> </select>
                 </div>
                 
             </div>
@@ -32,29 +30,38 @@
         </div>
         
         <!-- предупреждения -->
-        <div class="row justify-content-center" id="scores-info_warning_block" style="display: none;">
-            <div class="col-md-8 alert alert-warning text-center" role="alert" id="scores-info_warning" style="display: none;"></div>
+        <div class="row justify-content-center p-2 hidden" id="airports-info_warning_block">
+            <div class="col-12 col-md-8 col-lg-6 alert alert-warning text-center none" role="alert" id="scores-info_warning"></div>
         </div>
-        
-        <div class="row justify-content-center" id="scores-info_danger_block" style="display: none;">
-            <div class="col-md-8 alert alert-danger text-center" role="alert" id="scores-info_danger"  style="display: none;"></div>
+
+        <div class="row justify-content-center p-2 hidden" id="airports-info_danger_block">
+            <div class="col-12 col-md-8 col-lg-6 alert alert-danger text-center none" role="alert" id="scores-info_danger"></div>
         </div>
         
         <!-- кнопки -->
-        <div class="row justify-content-between">
-            
-            <!-- кнопка возврата на предыдущую страницу -->
-            <div class="col-3 col-lg-2 text-primary text-center" id="scores-button_goto_back">
-                <i class="fa fa-chevron-circle-left fa-2x" aria-hidden="true"></i>
-            </div>
-            
-            <!-- кнопка перехода на следующую страницу -->
-            <div class="col-3 col-lg-2 ml-auto text-primary text-center" id="scores-button_goto_next">
-                <i class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
-            </div>
-            
-        </div>
+        <div class="row justify-content-center m-0 p-0 pb-2 text-center text-white">
 
+            <div class="col-12 col-md-8 col-lg-6">
+            
+                <div class="container-fluid">
+                    
+                    <div class="row justify-content-center m-auto text-center">
+                        
+                        <button class="col-5 col-md-3 col-lg-2 btn text-white" id="scores-button_goto_back" ><b> BACK </b></button>
+                        
+                        <button class="col-5 col-md-3 col-lg-2 ml-auto btn text-white" id="scores-button_goto_next" ><b> NEXT </b></button>
+                        
+                    </div>
+                
+                </div>
+            
+            </div>
+
+        </div>
+    
     </div>
+    
+    <!-- нижняя часть страницы -->
+    <?php include("../plugins/footer.php"); ?>
 
 </div>

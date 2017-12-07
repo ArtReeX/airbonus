@@ -23,14 +23,14 @@
         </div>
 
         <!-- поле ввода начального аэропорта -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center p-2">
 
             <div class="col-12 col-md-10 col-lg-8">
 
-                <div class="form-group m-0 p-0">
+                <div class="form-group">
 
                     <input type="text" class="form-control bg-light text-left text-black" placeholder="Where from?" id="airports-from">     
-                    <ul class="list-group list-group-flush" style="max-height: 200px; overflow-y: auto; display: none;" id="airports-from_tips"></ul>   
+                    <ul class="list-group list-group-flush selector-tips none" id="airports-from_tips"></ul>   
 
                 </div>
 
@@ -39,14 +39,14 @@
         </div>
 
         <!-- поле ввода конечного аэропорта -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center p-2">
 
             <div class="col-12 col-md-10 col-lg-8">
 
-                <div class="form-group m-0 p-0">
+                <div class="form-group">
 
                     <input type="text" class="form-control bg-light text-left text-black" placeholder="Where to?" id="airports-to">     
-                    <ul class="list-group list-group-flush" style="max-height: 200px; overflow-y: auto; display: none;"  id="airports-to_tips"></ul>     
+                    <ul class="list-group list-group-flush selector-tips none" id="airports-to_tips"></ul>     
 
                 </div>
 
@@ -55,12 +55,12 @@
         </div>
 
         <!-- предупреждения -->
-        <div class="row justify-content-center p-2" id="airports-info_warning_block" style="display: none;">
-            <div class="col-12 col-md-8 col-lg-6 alert alert-warning text-center" role="alert" id="airports-info_warning" style="display: none;"></div>
+        <div class="row justify-content-center p-2 hidden" id="airports-info_warning_block">
+            <div class="col-12 col-md-8 col-lg-6 alert alert-warning text-center none" role="alert" id="airports-info_warning"></div>
         </div>
 
-        <div class="row justify-content-center p-2" id="airports-info_danger_block" style="display: none;">
-            <div class="col-12 col-md-8 col-lg-6 alert alert-danger text-center" role="alert" id="airports-info_danger" style="display: none;"></div>
+        <div class="row justify-content-center p-2 hidden" id="airports-info_danger_block">
+            <div class="col-12 col-md-8 col-lg-6 alert alert-danger text-center none" role="alert" id="airports-info_danger"></div>
         </div>
 
         <!-- кнопки -->

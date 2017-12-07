@@ -105,3 +105,22 @@ input {
 .footer {
     min-height: 20% !important;
 }
+
+
+/* отображение */
+
+.none {
+    display: none;
+}
+
+
+/* селектор */
+
+select {
+    border-radius: 0px !important;
+}
+
+.selector-tips {
+    max-height: 200px;
+    overflow-y: auto;
+}
