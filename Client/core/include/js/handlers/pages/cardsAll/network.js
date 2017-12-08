@@ -23,9 +23,31 @@ $(document).ready(function () {
                                                 
                                                     "<div class='card mb-3 bg-content border-primary text-white'>" +
                                                         
-                                                        "<div class='card-header lead'>" + String(result.data.cards[cards_count].name) + "</div>" +
+                                                        "<div class='card-header'>" +
+                                                
+                                                            "<div class='container-fluid'>" +
+                                                
+                                                                "<div class='row'>" +
+                                                                
+                                                                    "<div class='col-10'>" +
+                                                
+                                                                        String(result.data.cards[cards_count].name) +
+                                                
+                                                                    "</div>" +
+                                                
+                                                                    "<div class='col-2 d-lg-none text-center'>" +
+                                                                        
+                                                                        "<i class='fa fa-chevron-down' aria-hidden='true'></i>" +
+                                                
+                                                                    "</div>" +
+                                                
+                                                                "</div>" +
+                                                
+                                                            "</div>" +
+                                                
+                                                        "</div>" +
                                                     
-                                                        "<div class='card-body'>" +
+                                                        "<div class='card-body d-none-not-strict d-lg-block'>" +
                                                             
                                                             "<div class='container-fluid'>" +
                                                                 

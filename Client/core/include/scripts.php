@@ -67,6 +67,8 @@
 <script src="core/include/js/handlers/pages/scores/network.js"></script>
 <script src="core/include/js/handlers/pages/scores/interface.js"></script>
 
+<!-- ОСНОВНЫЕ СКРИПТЫ -->
+<script src="core/include/js/general.js"></script>
 
 <!-- ЗАПУСКАЕМЫЕ СКРИПТЫ -->
 <script src="core/include/js/start.js"></script>

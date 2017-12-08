@@ -139,9 +139,16 @@ select {
 }
 
 
-/* таблица */
+/* карточки */
 
-.table.no-border tr td,
-.table.no-border tr th {
-    border-width: 0;
+.card {
+    border-radius: 0px !important;
 }
+
+
+/* видимость */
+
+.d-none-not-strict {
+    display: none;
+}
+
