@@ -16,6 +16,11 @@
 
         </div>
         
+        <!-- шаг -->
+        <div class="row justify-content-center mt-4 text-center text-white">
+            <p> Step 3 of 6 </p>
+        </div>
+        
         <!-- список доступных к выбору кредитных рейтингов -->
         <div class="row justify-content-center p-2">
             

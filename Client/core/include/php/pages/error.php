@@ -1,5 +1,5 @@
 <!-- содержимое страницы -->
-<div class="container-fluid h-100 m-0 p-0 bg-white">
+<div class="container-fluid h-100 m-0 p-0 bg-text">
 
     <!-- верхняя часть страницы -->
     <div class="container-fluid h-100 m-0 p-0">

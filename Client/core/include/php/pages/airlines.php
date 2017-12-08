@@ -26,7 +26,7 @@
         </div>
 
         <!-- список с авиалиниями  -->
-        <div class="row justify-content-center" id="airlines-list" style="display: none;">
+        <div class="row justify-content-center hidden" id="airlines-list">
 
             <div class="col-12 col-lg-8">
 

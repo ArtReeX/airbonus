@@ -19,15 +19,72 @@ $(document).ready(function () {
                 var cards_count;
                 for (cards_count = 0; cards_count < result.data.cards.length; cards_count += 1) {
                     
-                    $("#cardsAll-table").append("<tr value=" + String(result.data.cards[cards_count].id) + ">" +
-                                                    "<td>" + String(result.data.cards[cards_count].name) + "</td>" +
-                                                    "<td> <img src='http://" +
-                                                    String(window.config.server.address) + ":" + String(window.config.server.port) +
-                                                    "/client/images/cards/" +
-                                                    String(result.data.cards[cards_count].image) + "'> </td>" +
-                                                    "<td> <input type='checkbox' class='cardsAll-table_card_have form-check-input'> </td>" +
-                                                    "<td> <input type='number' class='cardsAll-table_card_mile form-control bg-light text-center text-black'> </td>" +
-                                                "</tr>");
+                    $("#cardsAll-table").append("<div class='col-12 col-lg-6' value=" + String(result.data.cards[cards_count].id) + ">" +
+                                                
+                                                    "<div class='card mb-3 bg-content border-primary text-white'>" +
+                                                        
+                                                        "<div class='card-header lead'>" + String(result.data.cards[cards_count].name) + "</div>" +
+                                                    
+                                                        "<div class='card-body'>" +
+                                                            
+                                                            "<div class='container-fluid'>" +
+                                                                
+                                                                    "<div class='row justify-content-center'>" +
+                                                                
+                                                                            "<div class='col-12 col-md-6'>" +
+                                                                
+                                                                                "<img class='img-fluid cardsAll-table img' src='http://" +
+                                                                                String(window.config.server.address) + ":" + String(window.config.server.port) +
+                                                                                "/client/images/cards/" +
+                                                                                String(result.data.cards[cards_count].image) + "'>" +
+                                                
+                                                                            "</div>" +
+                                                
+                                                                            "<div class='col-12 col-md-6 mt-4'>" +
+                                                
+                                                                                "<div class='row justify-content-center'>" +
+                                                
+                                                                                    "<div class='col-4 col-md-12 m-0 p-0'>" +
+
+                                                                                        "<div class='form-group row justify-content-center m-0 p-0'>" +
+
+                                                                                            "<div class='col-7 m-0 p-0'> Have: </div>" +
+
+                                                                                            "<div class='col-4 m-0 p-0 ml-1'>" +
+                                                                                            "<input type='checkbox' class='input-checkbox cardsAll-table_card_have'>" +
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+                                                                                    "</div>" +
+
+                                                                                    "<div class='col-8 col-md-12 m-0 p-0'>" +
+
+                                                                                         "<div class='form-group row justify-content-center m-0 p-0'>" +
+
+                                                                                            "<div class='col-7 m-0 p-0'> Mile: </div>" +
+
+                                                                                            "<div class='col-4 m-0 p-0 ml-1'>" +
+                                                                                            "<input type='number' class='input-form cardsAll-table_card_mile form-control bg-light text-left text-black'>" +
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+                                                                                    "</div>" +
+                                                                
+                                                                                "</div>" +
+                                                
+                                                                            "</div>" +
+                                                
+                                                                    "</div>" +
+                                                
+                                                            "</div>" +
+                                                
+                                                        "</div>" +
+                                                
+                                                    "</div>" +
+                                                
+                                                "<div>");
                     
                 }
                 

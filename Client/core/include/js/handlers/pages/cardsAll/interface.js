@@ -18,21 +18,22 @@ $(document).ready(function () {
 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "cardsAll") {
-            
-            var cards_count, selected_cards = [];
-            for (cards_count = 0; cards_count < $("#cardsAll-table tr").length; cards_count += 1) {
 
+            var selected_cards = [];
+            $("#cardsAll-table > div").each(function (count, element) {
+                
                 // добавление только тех карт, для которых введено количество бонусов и стоит галочка активности
-                if ($($("#cardsAll-table tr")[cards_count]).find(".cardsAll-table_card_have").is(":checked") &&
-                        Number($($("#cardsAll-table tr")[cards_count]).find(".cardsAll-table_card_mile").val().trim()) >= 0) {
+                if ($(element).find(".cardsAll-table_card_have").is(":checked") &&
+                        Number($(element).find(".cardsAll-table_card_mile").val().trim()) >= 0) {
                     
                     selected_cards.push({
-                        "card": Number($($("#cardsAll-table tr")[cards_count]).attr("value").trim()),
-                        "bonus": Number($($("#cardsAll-table tr")[cards_count]).find(".cardsAll-table_card_mile").val().trim())
+                        "card": Number($(element).attr("value").trim()),
+                        "bonus": Number($(element).find(".cardsAll-table_card_mile").val().trim())
                     });
 
                 }
-            }
+                
+            });
 
             window.socket.emit("cards_set_all", selected_cards);
         }

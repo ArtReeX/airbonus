@@ -23,7 +23,7 @@
         </div>
 
         <!-- поле ввода начального аэропорта -->
-        <div class="row justify-content-center p-2">
+        <div class="row justify-content-center p-1">
 
             <div class="col-12 col-md-10 col-lg-8">
 
@@ -39,7 +39,7 @@
         </div>
 
         <!-- поле ввода конечного аэропорта -->
-        <div class="row justify-content-center p-2">
+        <div class="row justify-content-center p-1">
 
             <div class="col-12 col-md-10 col-lg-8">
 

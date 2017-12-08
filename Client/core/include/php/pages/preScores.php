@@ -2,7 +2,7 @@
 <div class="container-fluid h-100 m-0 p-0">
 
     <!-- верхняя часть страницы -->
-    <div class="wrapper container-fluid m-0 p-0 bg-white">
+    <div class="wrapper container-fluid m-0 p-0 bg-text">
     
         <!-- лого страницы -->
         <?php include("../plugins/logo.php"); ?>
