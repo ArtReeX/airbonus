@@ -60,7 +60,9 @@ input {
 }
 
 .input-form {
-    height: 60%;
+    height: 60% !important;
+    font-size: 100% !important;
+    padding: .30rem .10rem !important;
 }
 
 .input-checkbox {
