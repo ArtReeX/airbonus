@@ -16,10 +16,9 @@ $(document).ready(function () {
 
             if (result.data.cards.length) {
 
-                var cards_count;
-                for (cards_count = 0; cards_count < result.data.cards.length; cards_count += 1) {
+                result.data.cards.forEach(function (card) {
                     
-                    $("#cardsAll-table").append("<div class='col-12 col-lg-6' value=" + String(result.data.cards[cards_count].id) + ">" +
+                    $("#cardsAll-table").append("<div class='col-12 col-lg-6' value=" + String(card.id) + ">" +
                                                 
                                                     "<div class='card mb-3 bg-content border-primary text-white'>" +
                                                         
@@ -29,9 +28,9 @@ $(document).ready(function () {
                                                 
                                                                 "<div class='row'>" +
                                                                 
-                                                                    "<div class='col-10'>" +
+                                                                    "<div class='col-10 col-lg-12 lead'>" +
                                                 
-                                                                        String(result.data.cards[cards_count].name) +
+                                                                        String(card.name) +
                                                 
                                                                     "</div>" +
                                                 
@@ -53,16 +52,20 @@ $(document).ready(function () {
                                                                 
                                                                     "<div class='row justify-content-center'>" +
                                                                 
-                                                                            "<div class='col-12 col-md-6'>" +
+                                                                            "<div class='col-12 col-md-4'>" +
                                                                 
                                                                                 "<img class='img-fluid cardsAll-table img' src='http://" +
                                                                                 String(window.config.server.address) + ":" + String(window.config.server.port) +
                                                                                 "/client/images/cards/" +
-                                                                                String(result.data.cards[cards_count].image) + "'>" +
+                                                                                String(card.image) + "'>" +
                                                 
                                                                             "</div>" +
+                                                                            
                                                 
-                                                                            "<div class='col-12 col-md-6 mt-4'>" +
+                                                                            "<div class='col d-md-none m-2'></div>" +
+                                                
+                                                
+                                                                            "<div class='col-12 col-md-8'>" +
                                                 
                                                                                 "<div class='row justify-content-center'>" +
                                                 
@@ -108,7 +111,7 @@ $(document).ready(function () {
                                                 
                                                 "<div>");
                     
-                }
+                });
                 
             }
             

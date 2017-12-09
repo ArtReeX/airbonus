@@ -16,12 +16,11 @@ $(document).ready(function () {
 
             if (result.data.airlines.length) {
                 
-                var airlines_count;
-                for (airlines_count = 0; airlines_count < result.data.airlines.length; airlines_count += 1) {
+                result.data.airlines.forEach(function (airline) {
                     
-                    $("#airlines-list_companies").append("<li class='list-group-item' style='background-color: #4e8398;'>" + String(result.data.airlines[airlines_count].name) + "</li>");
+                    $("#airlines-list_companies").append("<li class='list-group-item' style='background-color: #4e8398;'>" + String(airline.name) + "</li>");
                     
-                }
+                });
                 
                 // установка счётчика авиалиний
                 $("#airlines-list_count").text("Total of " + result.data.airlines.length + " companies");

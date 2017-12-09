@@ -16,23 +16,21 @@ $(document).ready(function () {
 
             if (result.data.airports.length) {
                 
-                var airports_count;
-                
-                for (airports_count = 0; airports_count < result.data.airports.length; airports_count += 1) {
+                result.data.airports.forEach(function (airport) {
                     
                     $("#airports-from_tips").append("<li class='list-group-item list-group-item-action' value='" +
-                                                    String(result.data.airports[airports_count].iata) +
+                                                    String(airport.iata) +
                                                     "'>" +
-                                                    String(result.data.airports[airports_count].iata) +
+                                                    String(airport.iata) +
                                                     "(" +
-                                                    String(result.data.airports[airports_count].name) +
+                                                    String(airport.name) +
                                                     ", " +
-                                                    String(result.data.airports[airports_count].city) +
+                                                    String(airport.city) +
                                                     ")" +
                                                     "</li>");
                     
-                }
-                
+                });
+ 
                 // показ списка с подсказками
                 $("#airports-from_tips").show();
                 
@@ -56,21 +54,20 @@ $(document).ready(function () {
 
             if (result.data.airports.length) {
                 
-                var airports_count;
-                for (airports_count = 0; airports_count < result.data.airports.length; airports_count += 1) {
+                result.data.airports.forEach(function (airport) {
                     
                     $("#airports-to_tips").append("<li class='list-group-item list-group-item-action' value='" +
-                                                    String(result.data.airports[airports_count].iata) +
+                                                    String(airport.iata) +
                                                     "'>" +
-                                                    String(result.data.airports[airports_count].iata) +
+                                                    String(airport.iata) +
                                                     "(" +
-                                                    String(result.data.airports[airports_count].name) +
+                                                    String(airport.name) +
                                                     ", " +
-                                                    String(result.data.airports[airports_count].city) +
+                                                    String(airport.city) +
                                                     ")" +
                                                     "</li>");
                     
-                }
+                });
                 
                 // показ списка с подсказками
                 $("#airports-to_tips").show();

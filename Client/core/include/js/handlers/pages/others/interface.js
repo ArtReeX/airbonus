@@ -36,7 +36,7 @@ $(document).ready(function () {
     });
     
     // обработчик выбора минимального количества пассажиров
-    $('#others-passengers_min').change(function () {
+    $("#loaded").off("change", "#others-passengers_min").on("change", "#others-passengers_min", function () {
                 
         // проверка соответствие обработчика со страницей
         if (window.identifier === "others") {

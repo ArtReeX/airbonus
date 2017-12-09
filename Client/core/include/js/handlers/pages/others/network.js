@@ -16,16 +16,15 @@ $(document).ready(function () {
 
             if (result.data.others.statuses.length) {
 
-                var statuses_count;
-                for (statuses_count = 0; statuses_count < result.data.others.statuses.length; statuses_count += 1) {
+                result.data.others.statuses.forEach(function (status) {
                     
                     $("#others-statuses_list").append("<option value='" +
-                                                      String(result.data.others.statuses[statuses_count].id) +
+                                                      String(status.id) +
                                                       "'>" +
-                                                      String(result.data.others.statuses[statuses_count].name) +
+                                                      String(status.name) +
                                                       "</option>");
 
-                }
+                });
                 
             }
             

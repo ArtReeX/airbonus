@@ -6,7 +6,7 @@
 window.config = {
     
     "server": {
-        "address": "airbonus.emsy.org",
+        "address": "localhost",
         "port": 8181
     }
     

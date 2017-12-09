@@ -30,7 +30,7 @@
                 
                     <div class="row justify-content-center">
                     
-                        <div class="col-12 col-lg-6 lead text-left"> 
+                        <div class="col-12 col-lg-6 text-left"> 
                             <p> Your marital status <p> 
                         </div>
 
@@ -59,7 +59,7 @@
                 
                     <div class="row justify-content-center">
             
-                        <div class="col-12 col-lg-6 lead text-left"> 
+                        <div class="col-12 col-lg-6 text-left"> 
                             <p> Minimum number of passengers travelling with you including your spouse <p> 
                         </div>
 
@@ -88,14 +88,14 @@
                 
                     <div class="row justify-content-center">
             
-                        <div class="col-12 col-lg-6 lead text-left"> 
+                        <div class="col-12 col-lg-6 text-left"> 
                             <p> Maximum number of passengers travelling with you including your spouse <p> 
                         </div>
 
                         <div class="col-12 col-lg-3 ml-auto text-right">
 
                             <div class="form-group">       
-                                <select class="form-control" id="others-passengers_max" style="display: none;"> </select>
+                                <select class="form-control hidden" id="others-passengers_max"> </select>
                             </div>
 
                         </div>
@@ -117,7 +117,7 @@
                 
                     <div class="row justify-content-center">
             
-                        <div class="col-12 col-lg-6 lead text-left"> 
+                        <div class="col-12 col-lg-6 text-left"> 
                             <p> Amount you spend monthly <p> 
                         </div>
 
@@ -146,7 +146,7 @@
                 
                     <div class="row justify-content-center">
             
-                        <div class="col-12 col-lg-6 lead text-left"> 
+                        <div class="col-12 col-lg-6 text-left"> 
                             <p> Amount you plan to spend in the next 12 months <p> 
                         </div>
 

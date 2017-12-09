@@ -16,18 +16,17 @@ $(document).ready(function () {
 
             if (result.data.scores.length) {
 
-                var scores_count;
-                for (scores_count = 0; scores_count < result.data.scores.length; scores_count += 1) {
+                result.data.scores.forEach(function (score) {
                     
                     $("#scores-list").append("<option value='" +
-                                             String(result.data.scores[scores_count].id) +
+                                             String(score.id) +
                                              "'>" +
-                                             String(result.data.scores[scores_count].min) +
+                                             String(score.min) +
                                              " - " +
-                                             String(result.data.scores[scores_count].max) +
+                                             String(score.max) +
                                              "</option>");
                     
-                }
+                });
                        
             }
             

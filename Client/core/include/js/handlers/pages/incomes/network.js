@@ -16,18 +16,17 @@ $(document).ready(function () {
 
             if (result.data.incomes.length) {
 
-                var incomes_count;
-                for (incomes_count = 0; incomes_count < result.data.incomes.length; incomes_count += 1) {
+                result.data.incomes.forEach(function (income) {
                     
                     $("#incomes-list").append("<option value='" +
-                                              String(result.data.incomes[incomes_count].id) +
+                                              String(income.id) +
                                               "'>" +
-                                              String(result.data.incomes[incomes_count].min) +
+                                              String(income.min) +
                                               " - " +
-                                              String(result.data.incomes[incomes_count].max) +
+                                              String(income.max) +
                                               "</option>");
                     
-                }
+                });
                        
             }
             
