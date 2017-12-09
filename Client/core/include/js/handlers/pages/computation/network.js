@@ -38,67 +38,6 @@ $(document).ready(function () {
                         
                     }
                     
-                    /*// добавление заголовка таблицы варианта
-                    $("#computation-result_tables").append("<div class='row justify-content-center'>" +
-                                                           "<div class='col p-0 text-center'>" +
-                                                           "<table class='table table-responsive table-active table-bordered'>" +
-                                                           "<thead>" +
-                                                           "<tr>" +
-                                                           "<th>Card</th>" +
-                                                           "<th>Airline</th>" +
-                                                           "<th>From</th>" +
-                                                           "<th>To</th>" +
-                                                           "<th>Tickets</th>" +
-                                                           "<th>Year fee/Amount to spend</th>" +
-                                                           "<th>Mile</th>" +
-                                                           "<th>Your card</th>" +
-                                                           "</tr>" +
-                                                           "</thead>" +
-                                                           "<tbody id='computation-result_tables_variant_" + computation_count + "'></tbody>" +
-                                                           "<table></div></div>");
-
-                    // добавление карт в таблицу вариантов
-                    computation.variant.forEach(function (variant) {
-                    
-                        $("#computation-result_tables_variant_" + computation_count).append("<tr>" +
-                                                                                            "<td>" +
-                                                                                            "<a href='" +
-                                                                                            variant.link + "'target='_blank'>" +
-                                                                                            variant.card +
-                                                                                            "</a>" +
-                                                                                            "<br>" +
-                                                                                            "<img style='width: 40%; margin-left: 30%; margin-right: 30%;' src='http://" +
-                                                                                            String(window.config.server.address) + ":" + String(window.config.server.port) +
-                                                                                            "/client/images/cards/" +
-                                                                                            String(variant.image) +
-                                                                                            "'>" +
-                                                                                            "</td>" +
-                                                                                            "<td>" +
-                                                                                            variant.airline +
-                                                                                            "</td>" +
-                                                                                            "<td>" +
-                                                                                            variant.from +
-                                                                                            "</td>" +
-                                                                                            "<td>" +
-                                                                                            variant.to +
-                                                                                            "</td>" +
-                                                                                            "<td>" +
-                                                                                            variant.tickets +
-                                                                                            "</td>" +
-                                                                                            "<td>" +
-                                                                                            variant.fee1 +
-                                                                                            "/" +
-                                                                                            variant.amount +
-                                                                                            "</td>" +
-                                                                                            "<td>" +
-                                                                                            variant.mile +
-                                                                                            "</td>" +
-                                                                                            "<td>" +
-                                                                                            (variant.have ? "Yes" : "No") +
-                                                                                            "</td>" +
-                                                                                            "</tr>");
-                    });*/
-                    
                     // определение блока
                     $("#computation-result_tables").append("<div class='row p-3' id='computation-result_tables_variant_" + computation_count + "'></div>");
                     
@@ -190,6 +129,10 @@ $(document).ready(function () {
                                                                 
                                                                                 "</div>" +
                                                                                             
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                           
+                                                                                            
                                                                                 "<div class='row justify-content-center'>" +
                                                 
                                                                                     "<div class='col-12 col-md-12'>" +
@@ -208,6 +151,10 @@ $(document).ready(function () {
                                                                 
                                                                                 "</div>" +
                                                                                             
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                            
+                                                                                            
                                                                                 "<div class='row justify-content-center'>" +
                                                 
                                                                                     "<div class='col-12 col-md-12'>" +
@@ -225,6 +172,10 @@ $(document).ready(function () {
                                                                                     "</div>" +
                                                                 
                                                                                 "</div>" +
+                                                                                          
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                           
                                                                                             
                                                                                 "<div class='row justify-content-center'>" +
                                                 
@@ -244,6 +195,10 @@ $(document).ready(function () {
                                                                 
                                                                                 "</div>" +
                                                                                             
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                            
+                                                                                            
                                                                                 "<div class='row justify-content-center'>" +
                                                 
                                                                                     "<div class='col-12 col-md-12'>" +
@@ -261,6 +216,10 @@ $(document).ready(function () {
                                                                                     "</div>" +
                                                                 
                                                                                 "</div>" +
+                                                                                           
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                           
                                                                                             
                                                                                 "<div class='row justify-content-center'>" +
                                                 
@@ -279,6 +238,10 @@ $(document).ready(function () {
                                                                                     "</div>" +
                                                                 
                                                                                 "</div>" +
+                                                                                          
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                          
                                                                                             
                                                                                 "<div class='row justify-content-center'>" +
                                                 
@@ -297,6 +260,10 @@ $(document).ready(function () {
                                                                                     "</div>" +
                                                                 
                                                                                 "</div>" +
+                                                                                           
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                           
                                                                                             
                                                                                 "<div class='row justify-content-center'>" +
                                                 

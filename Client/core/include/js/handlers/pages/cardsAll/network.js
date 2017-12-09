@@ -63,33 +63,40 @@ $(document).ready(function () {
                                                                             
                                                 
                                                                             "<div class='col d-md-none m-2'></div>" +
-                                                
-                                                
+                                                                            
                                                                             "<div class='col-12 col-md-8'>" +
                                                 
                                                                                 "<div class='row justify-content-center'>" +
                                                 
-                                                                                    "<div class='col-4 col-md-12 m-0 p-0'>" +
+                                                                                    "<div class='col-12 col-md-12'>" +
 
-                                                                                        "<div class='form-group row justify-content-center m-0 p-0'>" +
+                                                                                        "<div class='row justify-content-center'>" +
 
-                                                                                            "<div class='col-7 m-0 p-0'> Have: </div>" +
+                                                                                            "<div class='col-8'> Have: </div>" +
 
-                                                                                            "<div class='col-4 m-0 p-0 ml-1'>" +
+                                                                                            "<div class='col-4 ml-auto'>" +
                                                                                             "<input type='checkbox' class='input-checkbox cardsAll-table_card_have'>" +
                                                                                             "</div>" +
 
                                                                                         "</div>" +
 
                                                                                     "</div>" +
+                                                                
+                                                                                "</div>" +
+                                                                                            
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                
+                                                
+                                                                                "<div class='row justify-content-center'>" +
+                                                
+                                                                                    "<div class='col-12 col-md-12'>" +
 
-                                                                                    "<div class='col-8 col-md-12 m-0 p-0'>" +
+                                                                                        "<div class='row justify-content-center'>" +
 
-                                                                                         "<div class='form-group row justify-content-center m-0 p-0'>" +
+                                                                                            "<div class='col-8'> Mile:  </div>" +
 
-                                                                                            "<div class='col-7 m-0 p-0'> Mile: </div>" +
-
-                                                                                            "<div class='col-4 m-0 p-0 ml-1'>" +
+                                                                                            "<div class='col-4 ml-auto'>" +
                                                                                             "<input type='number' class='input-form cardsAll-table_card_mile form-control bg-light text-left text-black'>" +
                                                                                             "</div>" +
 
@@ -98,9 +105,9 @@ $(document).ready(function () {
                                                                                     "</div>" +
                                                                 
                                                                                 "</div>" +
-                                                
+                                                                            
                                                                             "</div>" +
-                                                
+                                                                        
                                                                     "</div>" +
                                                 
                                                             "</div>" +
