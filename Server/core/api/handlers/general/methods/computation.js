@@ -69,7 +69,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
         // выбор прямых рейсов
         selectDirectRoutes = function (conn, done) {
 
-            conn.query("SELECT airlines.name, routes.airline_id, routes.mile, routes.price, routes.source, routes.destination FROM routes, airlines WHERE airlines.iata = routes.airline_id AND routes.source='" + params.userAirportFrom + "' AND routes.destination='" + params.userAirportTo + "' ORDER BY routes.mile", function (error, routes) {
+            conn.query("SELECT airlines.name, routes_per_region.airline_iata, routes_per_region.price_miles, regions.miles, routes_per_region.source, routes_per_region.destination FROM routes_per_region, airlines, regions WHERE airlines.iata = routes_per_region.airline_iata AND routes_per_region.source='" + params.userAirportFrom + "' AND routes_per_region.destination='" + params.userAirportTo + "' AND routes_per_region.region = regions.region AND routes_per_region.airline_iata = regions.airline_iata ORDER BY routes_per_region.price_miles", function (error, routes) {
 
                 if (error) {
                     log.debug("Error MySQL connection: " + error);
@@ -86,7 +86,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
         // выбор обратных рейсов
         selectBackRoutes = function (conn, done) {
 
-            conn.query("SELECT airlines.name, routes.airline_id, routes.mile, routes.price, routes.source, routes.destination FROM routes, airlines WHERE airlines.iata = routes.airline_id AND routes.source='" + params.userAirportTo + "' AND routes.destination='" + params.userAirportFrom + "' ORDER BY routes.mile", function (error, routes) {
+            conn.query("SELECT airlines.name, routes_per_region.airline_iata, routes_per_region.price_miles, regions.miles, routes_per_region.source, routes_per_region.destination FROM routes_per_region, airlines, regions WHERE airlines.iata = routes_per_region.airline_iata AND routes_per_region.source='" + params.userAirportTo + "' AND routes_per_region.destination='" + params.userAirportFrom + "' AND routes_per_region.region = regions.region AND routes_per_region.airline_iata = regions.airline_iata ORDER BY routes_per_region.price_miles", function (error, routes) {
 
                 if (error) {
                     log.debug("Error MySQL connection: " + error);
@@ -191,11 +191,9 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                     // проверка достаточности оплаты от мин. (1) к макс. количеству людей
                     for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
-
-                        // 
                         
                         // проверка на возможность покупки разного количества билетов за бонусы
-                        if (data.cards.available[card_count].bonus_cur >= (data.routes.direct[route_count].mile * people_count) && data.cards.available[card_count].airline_iata === data.routes.direct[route_count].airline_id) {
+                        if (data.cards.available[card_count].bonus_cur >= (data.routes.direct[route_count].price_miles * people_count) && data.cards.available[card_count].airline_iata === data.routes.direct[route_count].airline_iata) {
 
                             // добавление записи
                             data.routes_cost.available.direct.push({
@@ -206,7 +204,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 to: data.routes.direct[route_count].destination,
                                 fee1: Number(data.cards.available[card_count].fee1),
                                 amount: 0,
-                                mile: Number(data.routes.direct[route_count].mile) * people_count,
+                                mile: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
                                 tickets_direct: Number(people_count),
                                 tickets_back: 0,
                                 link: data.cards.available[card_count].link,
@@ -226,7 +224,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                         // проверка на возможность покупки разного количества билетов за бонусы
-                        if (data.cards.available[card_count].bonus_cur >= (data.routes.back[route_count].mile * people_count) && data.cards.available[card_count].airline_iata === data.routes.back[route_count].airline_id) {
+                        if (data.cards.available[card_count].bonus_cur >= (data.routes.back[route_count].price_miles * people_count) && data.cards.available[card_count].airline_iata === data.routes.back[route_count].airline_iata) {
 
                             // добавление записи
                             data.routes_cost.available.back.push({
@@ -237,7 +235,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 to: data.routes.back[route_count].destination,
                                 fee1: Number(data.cards.available[card_count].fee1),
                                 amount: 0,
-                                mile: Number(data.routes.back[route_count].mile) * people_count,
+                                mile: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * people_count,
                                 tickets_direct: 0,
                                 tickets_back: Number(people_count),
                                 link: data.cards.available[card_count].link,
@@ -348,7 +346,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                         // проверка на возможность покупки разного количества билетов за бонусы
-                        if (data.cards.free[card_count].bonus_cur >= (data.routes.direct[route_count].mile * people_count) && data.cards.free[card_count].airline_iata === data.routes.direct[route_count].airline_id) {
+                        if (data.cards.free[card_count].bonus_cur >= (data.routes.direct[route_count].price_miles * people_count) && data.cards.free[card_count].airline_iata === data.routes.direct[route_count].airline_iata) {
 
                             // добавление записи
                             data.routes_cost.free.direct.push({
@@ -359,7 +357,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 to: data.routes.direct[route_count].destination,
                                 fee1: Number(data.cards.free[card_count].fee1),
                                 amount: Number(data.cards.free[card_count].amount),
-                                mile: Number(data.routes.direct[route_count].mile) * people_count,
+                                mile: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
                                 tickets_direct: Number(people_count),
                                 tickets_back: 0,
                                 link: data.cards.free[card_count].link,
@@ -379,7 +377,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                         // проверка на возможность покупки разного количества билетов за бонусы
-                        if (data.cards.free[card_count].bonus_cur >= (data.routes.back[route_count].mile * people_count) && data.cards.free[card_count].airline_iata === data.routes.back[route_count].airline_id) {
+                        if (data.cards.free[card_count].bonus_cur >= (data.routes.back[route_count].price_miles * people_count) && data.cards.free[card_count].airline_iata === data.routes.back[route_count].airline_iata) {
 
                             // добавление записи
                             data.routes_cost.free.back.push({
@@ -390,7 +388,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 to: data.routes.back[route_count].destination,
                                 fee1: Number(data.cards.free[card_count].fee1),
                                 amount: Number(data.cards.free[card_count].amount),
-                                mile: Number(data.routes.back[route_count].mile) * people_count,
+                                mile: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * people_count,
                                 tickets_direct: 0,
                                 tickets_back: Number(people_count),
                                 link: data.cards.free[card_count].link,
@@ -419,8 +417,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
             var i;
             for (i = 0; i < data.routes.direct.length; i += 1) {
 
-                if (data.authorized_airlines.indexOf("'" + data.routes.direct[i].airline_id + "'") === -1) {
-                    data.authorized_airlines.push("'" + data.routes.direct[i].airline_id + "'");
+                if (data.authorized_airlines.indexOf("'" + data.routes.direct[i].airline_iata + "'") === -1) {
+                    data.authorized_airlines.push("'" + data.routes.direct[i].airline_iata + "'");
                 }
 
                 if (i === data.routes.direct.length - 1) {
@@ -439,8 +437,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
             var i;
             for (i = 0; i < data.routes.back.length; i += 1) {
 
-                if (data.authorized_airlines.indexOf("'" + data.routes.back[i].airline_id + "'") === -1) {
-                    data.authorized_airlines.push("'" + data.routes.back[i].airline_id + "'");
+                if (data.authorized_airlines.indexOf("'" + data.routes.back[i].airline_iata + "'") === -1) {
+                    data.authorized_airlines.push("'" + data.routes.back[i].airline_iata + "'");
                 }
 
                 if (i === data.routes.back.length - 1) {
