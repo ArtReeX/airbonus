@@ -1,8 +1,8 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.2.58.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 04.01.2018 22:53:08
--- Версия сервера: 5.5.52-MariaDB
+-- Дата скрипта: 05.01.2018 3:26:29
+-- Версия сервера: 5.5.53
 -- Версия клиента: 4.1
 --
 
@@ -3067,8 +3067,8 @@ INSERT INTO banks VALUES
 -- Вывод данных для таблицы cards
 --
 INSERT INTO cards VALUES
-(1, 1, 'DL', 'Gold Delta SkyMiles', 30000, 75000, 1000, 90, 0, 95, 0, 'SkyMiles', 0, 'https://www.americanexpress.com/us/credit-cards/card/delta-skymiles/25330?linknav=US-Acq-CCSG-Cardmember-CardsLanding-DeltaGold-CardArt-Pos3', '1.png'),
-(2, 1, 'DL', 'Platinum Delta SkyMiles', 35000, 35000, 1000, 90, 195, 195, 0, 'SkyMiles', 0, 'https://www.americanexpress.com/us/credit-cards/card/platinum-delta-skymiles/25330?linknav=US-Acq-CCSG-Cardmember-CardDetails-DeltaGold-DeltaPlatinum-CardArt-Pos1', '2.png'),
+(1, 1, 'Dl', 'Gold Delta SkyMiles', 30000, 75000, 1000, 90, 0, 95, 0, 'SkyMiles', 0, 'https://www.americanexpress.com/us/credit-cards/card/delta-skymiles/25330?linknav=US-Acq-CCSG-Cardmember-CardsLanding-DeltaGold-CardArt-Pos3', '1.png'),
+(2, 1, 'Dl', 'Platinum Delta SkyMiles', 35000, 35000, 1000, 90, 195, 195, 0, 'SkyMiles', 0, 'https://www.americanexpress.com/us/credit-cards/card/platinum-delta-skymiles/25330?linknav=US-Acq-CCSG-Cardmember-CardDetails-DeltaGold-DeltaPlatinum-CardArt-Pos1', '2.png'),
 (3, 2, 'AS', 'Alaska Airlines VISA Signature', 30000, 40000, 1000, 90, 75, 75, 36, 'Alaska Miles', 3, 'https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/', '3.png'),
 (4, 2, 'OZ', 'Asiana VISA Signature', 30000, 30000, 3000, 90, 99, 99, 120, 'Asiana Club Miles', 3, 'https://secure.bankofamerica.com/applynow/welcome.go', '4.png'),
 (5, 2, 'NK', 'Spirit Airlines World MC', 15000, 15000, 1, 90, 0, 59, 3, 'FREE SPIRIT', 3, 'https://www.bankofamerica.com/credit-cards/products/spirit-airlines-credit-card/', '5.png'),

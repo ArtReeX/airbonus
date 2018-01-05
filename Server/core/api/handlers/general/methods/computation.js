@@ -110,6 +110,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                 // переписываем имеющиеся карты в массив
                 function (done) {
+                    
                     var i;
                     for (i = 0; i < params.allCards.length; i += 1) {
                         user_cards.push(params.allCards[i].card);
