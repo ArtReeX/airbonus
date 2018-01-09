@@ -131,7 +131,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     if (user_cards.length && data.authorized_airlines.length) {
 
                         // делаем запрос на выбор всех карт, которые есть у пользователя
-                        conn.query("SELECT cards.id, cards.name, cards.bonus_cur, cards.bonus_max, cards.amount, cards.fee1, cards.link, cards.image, cards.airline_iata, cards.id FROM cards WHERE cards.id IN ? AND cards.airline_iata IN ? ORDER BY cards.amount", [user_cards, data.authorized_airlines], function (error, available_cards) {
+                        conn.query("SELECT cards.id, cards.name, cards.bonus_cur, cards.bonus_max, cards.amount, cards.fee1, cards.link, cards.image, cards.airline_iata, cards.id FROM cards WHERE cards.id IN (" + user_cards + ") AND cards.airline_iata IN (" + data.authorized_airlines + ") ORDER BY cards.amount", function (error, available_cards) {
 
                             if (error) {
                                 log.debug("Error MySQL connection: " + error);
