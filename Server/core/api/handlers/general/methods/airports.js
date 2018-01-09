@@ -11,7 +11,7 @@ module.exports.getAll = function (params, database, callback) {
         if (error) { callback({ "type": "database" }, null); } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query("SELECT iata, name, city FROM airports ORDER BY iata", function (error, airports) {
+            connection.query("SELECT iata, airport_name, city FROM my_airports ORDER BY iata", function (error, airports) {
 
                 if (error) { callback({ "type": "database" }, null); } else { callback(null, airports); }
 
@@ -36,7 +36,7 @@ module.exports.getByLine = function (params, database, callback) {
         if (error) { callback({ "type": "database" }, null); } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query("SELECT iata, name, city FROM airports WHERE iata RLIKE ? OR city RLIKE ? OR name RLIKE ? ORDER BY iata", ["^" + params.line, "^" + params.line, "^" + params.line], function (error, airports) {
+            connection.query("SELECT iata, airport_name, city FROM my_airports WHERE iata RLIKE ? OR city RLIKE ? OR airport_name RLIKE ? ORDER BY iata", ["^" + params.line, "^" + params.line, "^" + params.line], function (error, airports) {
 
                 if (error) { callback({ "type": "database" }, null); } else { callback(null, airports); }
 

@@ -16,7 +16,7 @@ module.exports.get = function (params, database, callback) {
         } else {
 
             // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query("SELECT name FROM airlines, routes WHERE airlines.iata = routes.airline_id AND routes.source = ? AND routes.destination = ?", [params.from, params.to], function (error, airlines) {
+            connection.query("SELECT airlines.name FROM airlines, routes_per_region WHERE airlines.iata = routes_per_region.airline_iata AND routes_per_region.source = ? AND routes_per_region.destination = ?", [params.from, params.to], function (error, airlines) {
 
                 if (error) { callback({ "type": "database" }, null);  } else { callback(null, airlines); }
 

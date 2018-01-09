@@ -23,7 +23,7 @@ $(document).ready(function () {
                                                     "'>" +
                                                     String(airport.iata) +
                                                     "(" +
-                                                    String(airport.name) +
+                                                    String(airport.airport_name) +
                                                     ", " +
                                                     String(airport.city) +
                                                     ")" +
@@ -61,7 +61,7 @@ $(document).ready(function () {
                                                     "'>" +
                                                     String(airport.iata) +
                                                     "(" +
-                                                    String(airport.name) +
+                                                    String(airport.airport_name) +
                                                     ", " +
                                                     String(airport.city) +
                                                     ")" +

@@ -69,7 +69,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
         // выбор прямых рейсов
         selectDirectRoutes = function (conn, done) {
 
-            conn.query("SELECT airlines.name, routes_per_region.airline_iata, routes_per_region.price_miles, regions.miles, routes_per_region.source, routes_per_region.destination FROM routes_per_region, airlines, regions WHERE airlines.iata = routes_per_region.airline_iata AND routes_per_region.source='" + params.userAirportFrom + "' AND routes_per_region.destination='" + params.userAirportTo + "' AND routes_per_region.region = regions.region AND routes_per_region.airline_iata = regions.airline_iata ORDER BY routes_per_region.price_miles", function (error, routes) {
+            conn.query("SELECT airlines.name, routes_per_region.airline_iata, routes_per_region.price_miles, regions.miles, routes_per_region.source, routes_per_region.destination FROM routes_per_region, airlines, regions WHERE airlines.iata = routes_per_region.airline_iata AND routes_per_region.source = ? AND routes_per_region.destination = ? AND routes_per_region.region = regions.region AND routes_per_region.airline_iata = regions.airline_iata ORDER BY routes_per_region.price_miles", [params.userAirportFrom, params.userAirportTo], function (error, routes) {
 
                 if (error) {
                     log.debug("Error MySQL connection: " + error);
@@ -86,7 +86,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
         // выбор обратных рейсов
         selectBackRoutes = function (conn, done) {
 
-            conn.query("SELECT airlines.name, routes_per_region.airline_iata, routes_per_region.price_miles, regions.miles, routes_per_region.source, routes_per_region.destination FROM routes_per_region, airlines, regions WHERE airlines.iata = routes_per_region.airline_iata AND routes_per_region.source='" + params.userAirportTo + "' AND routes_per_region.destination='" + params.userAirportFrom + "' AND routes_per_region.region = regions.region AND routes_per_region.airline_iata = regions.airline_iata ORDER BY routes_per_region.price_miles", function (error, routes) {
+            conn.query("SELECT airlines.name, routes_per_region.airline_iata, routes_per_region.price_miles, regions.miles, routes_per_region.source, routes_per_region.destination FROM routes_per_region, airlines, regions WHERE airlines.iata = routes_per_region.airline_iata AND routes_per_region.source = ? AND routes_per_region.destination = ? AND routes_per_region.region = regions.region AND routes_per_region.airline_iata = regions.airline_iata ORDER BY routes_per_region.price_miles", [params.userAirportTo, params.userAirportFrom], function (error, routes) {
 
                 if (error) {
                     log.debug("Error MySQL connection: " + error);
@@ -131,7 +131,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     if (user_cards.length && data.authorized_airlines.length) {
 
                         // делаем запрос на выбор всех карт, которые есть у пользователя
-                        conn.query("SELECT cards.id, cards.name, cards.bonus_cur, cards.bonus_max, cards.amount, cards.fee1, cards.link, cards.image, cards.airline_iata, cards.id FROM cards WHERE cards.id IN (" + user_cards + ") AND cards.airline_iata IN (" + data.authorized_airlines + ") ORDER BY cards.amount", function (error, available_cards) {
+                        conn.query("SELECT cards.id, cards.name, cards.bonus_cur, cards.bonus_max, cards.amount, cards.fee1, cards.link, cards.image, cards.airline_iata, cards.id FROM cards WHERE cards.id IN ? AND cards.airline_iata IN ? ORDER BY cards.amount", [user_cards, data.authorized_airlines], function (error, available_cards) {
 
                             if (error) {
                                 log.debug("Error MySQL connection: " + error);
@@ -586,7 +586,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 return;
             }
 
-            var sum_amount, sum_fee1, sum_tickets_direct, sum_tickets_back, array_count, table_count, table = [], tickets;
+            var array_count, table_count, table = [], tickets;
             
             for (array_count = 0; array_count < combined_array.length; array_count += 1) {
 
