@@ -1,0 +1,340 @@
+[2018-01-09 20:32:51.818] [INFO] default - Сервер успешно запущен.
+[2018-01-09 20:32:57.124] [INFO] default - Пользователь PhAMOTLtlVvpCIxnAAAA, IP: ::1 подключился.
+[2018-01-09 20:33:01.542] [INFO] default - Пользователь PhAMOTLtlVvpCIxnAAAA вызвал метод airports_get_from с параметрами: [object Object]
+[2018-01-09 20:33:01.549] [TRACE] default - Отправка результата airports_get_from методом airports_get_from пользователю PhAMOTLtlVvpCIxnAAAA:
+[2018-01-09 20:33:01.550] [TRACE] default - { error: null,
+  data: 
+   { airports: 
+      [ [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object] ] } }
+[2018-01-09 20:33:01.736] [INFO] default - Пользователь PhAMOTLtlVvpCIxnAAAA вызвал метод airports_get_from с параметрами: [object Object]
+[2018-01-09 20:33:01.740] [TRACE] default - Отправка результата airports_get_from методом airports_get_from пользователю PhAMOTLtlVvpCIxnAAAA:
+[2018-01-09 20:33:01.741] [TRACE] default - { error: null,
+  data: 
+   { airports: 
+      [ [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object] ] } }
+[2018-01-09 20:33:02.357] [INFO] default - Пользователь PhAMOTLtlVvpCIxnAAAA вызвал метод airports_get_from с параметрами: [object Object]
+[2018-01-09 20:33:02.360] [TRACE] default - Отправка результата airports_get_from методом airports_get_from пользователю PhAMOTLtlVvpCIxnAAAA:
+[2018-01-09 20:33:02.361] [TRACE] default - { error: null,
+  data: 
+   { airports: [ [Object], [Object], [Object], [Object], [Object], [Object] ] } }
+[2018-01-09 20:33:02.683] [INFO] default - Пользователь PhAMOTLtlVvpCIxnAAAA вызвал метод airports_get_from с параметрами: [object Object]
+[2018-01-09 20:33:02.684] [TRACE] default - Отправка результата airports_get_from методом airports_get_from пользователю PhAMOTLtlVvpCIxnAAAA:
+[2018-01-09 20:33:02.685] [TRACE] default - { error: null,
+  data: 
+   { airports: [ [Object], [Object], [Object], [Object], [Object] ] } }
+[2018-01-09 20:33:02.922] [INFO] default - Пользователь PhAMOTLtlVvpCIxnAAAA вызвал метод airports_get_from с параметрами: [object Object]
+[2018-01-09 20:33:02.925] [TRACE] default - Отправка результата airports_get_from методом airports_get_from пользователю PhAMOTLtlVvpCIxnAAAA:
+[2018-01-09 20:33:02.926] [TRACE] default - { error: null, data: { airports: [ [Object] ] } }
+[2018-01-09 20:33:06.537] [INFO] default - Пользователь PhAMOTLtlVvpCIxnAAAA вызвал метод airports_get_to с параметрами: [object Object]
+[2018-01-09 20:33:06.540] [TRACE] default - Отправка результата airports_get_to методом airports_get_to пользователю PhAMOTLtlVvpCIxnAAAA:
+[2018-01-09 20:33:06.541] [TRACE] default - { error: null,
+  data: 
+   { airports: 
+      [ [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object] ] } }
+[2018-01-09 20:33:06.871] [INFO] default - Пользователь PhAMOTLtlVvpCIxnAAAA вызвал метод airports_get_to с параметрами: [object Object]
+[2018-01-09 20:33:06.874] [TRACE] default - Отправка результата airports_get_to методом airports_get_to пользователю PhAMOTLtlVvpCIxnAAAA:
+[2018-01-09 20:33:06.875] [TRACE] default - { error: null, data: { airports: [] } }
+[2018-01-09 20:33:07.199] [INFO] default - Пользователь PhAMOTLtlVvpCIxnAAAA вызвал метод airports_get_to с параметрами: [object Object]
+[2018-01-09 20:33:07.202] [TRACE] default - Отправка результата airports_get_to методом airports_get_to пользователю PhAMOTLtlVvpCIxnAAAA:
+[2018-01-09 20:33:07.203] [TRACE] default - { error: null, data: { airports: [] } }
+[2018-01-09 20:33:20.362] [INFO] default - Пользователь PhAMOTLtlVvpCIxnAAAA вызвал метод airports_get_to с параметрами: [object Object]
+[2018-01-09 20:33:20.373] [TRACE] default - Отправка результата airports_get_to методом airports_get_to пользователю PhAMOTLtlVvpCIxnAAAA:
+[2018-01-09 20:33:20.375] [TRACE] default - { error: null, data: { airports: [] } }
+[2018-01-09 20:33:34.726] [INFO] default - Пользователь PhAMOTLtlVvpCIxnAAAA отключился.
+[2018-01-09 22:52:26.682] [INFO] default - Сервер успешно запущен.
+[2018-01-09 22:52:31.661] [INFO] default - Пользователь 2k1aoJOsjpjvV1SbAAAA, IP: ::1 подключился.
+[2018-01-09 22:52:33.461] [INFO] default - Пользователь 2k1aoJOsjpjvV1SbAAAA вызвал метод airports_get_from с параметрами: [object Object]
+[2018-01-09 22:52:33.464] [TRACE] default - Отправка результата airports_get_from методом airports_get_from пользователю 2k1aoJOsjpjvV1SbAAAA:
+[2018-01-09 22:52:33.464] [TRACE] default - { error: null,
+  data: 
+   { airports: 
+      [ [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object] ] } }
+[2018-01-09 22:52:33.886] [INFO] default - Пользователь 2k1aoJOsjpjvV1SbAAAA вызвал метод airports_get_from с параметрами: [object Object]
+[2018-01-09 22:52:33.889] [TRACE] default - Отправка результата airports_get_from методом airports_get_from пользователю 2k1aoJOsjpjvV1SbAAAA:
+[2018-01-09 22:52:33.889] [TRACE] default - { error: null,
+  data: { airports: [ [Object], [Object], [Object] ] } }
+[2018-01-09 22:52:37.174] [INFO] default - Пользователь 2k1aoJOsjpjvV1SbAAAA вызвал метод airports_get_from с параметрами: [object Object]
+[2018-01-09 22:52:37.184] [TRACE] default - Отправка результата airports_get_from методом airports_get_from пользователю 2k1aoJOsjpjvV1SbAAAA:
+[2018-01-09 22:52:37.185] [TRACE] default - { error: null, data: { airports: [ [Object], [Object] ] } }
+[2018-01-09 22:52:41.081] [INFO] default - Пользователь 2k1aoJOsjpjvV1SbAAAA вызвал метод airports_get_to с параметрами: [object Object]
+[2018-01-09 22:52:41.085] [TRACE] default - Отправка результата airports_get_to методом airports_get_to пользователю 2k1aoJOsjpjvV1SbAAAA:
+[2018-01-09 22:52:41.086] [TRACE] default - { error: null,
+  data: 
+   { airports: 
+      [ [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object] ] } }
+[2018-01-09 22:52:41.720] [INFO] default - Пользователь 2k1aoJOsjpjvV1SbAAAA вызвал метод airports_get_to с параметрами: [object Object]
+[2018-01-09 22:52:41.729] [TRACE] default - Отправка результата airports_get_to методом airports_get_to пользователю 2k1aoJOsjpjvV1SbAAAA:
+[2018-01-09 22:52:41.731] [TRACE] default - { error: null,
+  data: { airports: [ [Object], [Object], [Object] ] } }
+[2018-01-09 22:52:42.314] [INFO] default - Пользователь 2k1aoJOsjpjvV1SbAAAA вызвал метод airports_get_to с параметрами: [object Object]
+[2018-01-09 22:52:42.318] [TRACE] default - Отправка результата airports_get_to методом airports_get_to пользователю 2k1aoJOsjpjvV1SbAAAA:
+[2018-01-09 22:52:42.320] [TRACE] default - { error: null, data: { airports: [ [Object] ] } }
+[2018-01-09 22:52:58.786] [INFO] default - Пользователь 2k1aoJOsjpjvV1SbAAAA вызвал метод airports_get_to с параметрами: [object Object]
+[2018-01-09 22:52:58.789] [TRACE] default - Отправка результата airports_get_to методом airports_get_to пользователю 2k1aoJOsjpjvV1SbAAAA:
+[2018-01-09 22:52:58.791] [TRACE] default - { error: null,
+  data: { airports: [ [Object], [Object], [Object] ] } }
+[2018-01-09 22:52:59.589] [INFO] default - Пользователь 2k1aoJOsjpjvV1SbAAAA вызвал метод airports_get_to с параметрами: [object Object]
+[2018-01-09 22:52:59.594] [TRACE] default - Отправка результата airports_get_to методом airports_get_to пользователю 2k1aoJOsjpjvV1SbAAAA:
+[2018-01-09 22:52:59.595] [TRACE] default - { error: null, data: { airports: [ [Object] ] } }
+[2018-01-09 22:55:43.787] [INFO] default - Пользователь 2k1aoJOsjpjvV1SbAAAA вызвал метод airports_get_from с параметрами: [object Object]
+[2018-01-09 22:55:43.795] [TRACE] default - Отправка результата airports_get_from методом airports_get_from пользователю 2k1aoJOsjpjvV1SbAAAA:
+[2018-01-09 22:55:43.796] [TRACE] default - { error: null,
+  data: 
+   { airports: 
+      [ [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object] ] } }
+[2018-01-09 22:55:43.946] [INFO] default - Пользователь 2k1aoJOsjpjvV1SbAAAA вызвал метод airports_get_from с параметрами: [object Object]
+[2018-01-09 22:55:43.950] [TRACE] default - Отправка результата airports_get_from методом airports_get_from пользователю 2k1aoJOsjpjvV1SbAAAA:
+[2018-01-09 22:55:43.951] [TRACE] default - { error: null,
+  data: 
+   { airports: 
+      [ [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object] ] } }
+[2018-01-09 22:55:44.324] [INFO] default - Пользователь 2k1aoJOsjpjvV1SbAAAA вызвал метод airports_get_from с параметрами: [object Object]
+[2018-01-09 22:55:44.328] [TRACE] default - Отправка результата airports_get_from методом airports_get_from пользователю 2k1aoJOsjpjvV1SbAAAA:
+[2018-01-09 22:55:44.329] [TRACE] default - { error: null,
+  data: 
+   { airports: 
+      [ [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object] ] } }
+[2018-01-09 22:55:46.833] [INFO] default - Пользователь 2k1aoJOsjpjvV1SbAAAA вызвал метод airports_set с параметрами: [object Object]
+[2018-01-09 22:55:46.835] [TRACE] default - Отправка результата airports_set методом airports_set пользователю 2k1aoJOsjpjvV1SbAAAA:
+[2018-01-09 22:55:46.836] [TRACE] default - { error: null, data: { next: true } }
+[2018-01-09 22:55:47.471] [INFO] default - Пользователь 2k1aoJOsjpjvV1SbAAAA вызвал метод airlines_get.
+[2018-01-09 22:55:47.475] [TRACE] default - Отправка результата airlines_get методом airlines_get пользователю 2k1aoJOsjpjvV1SbAAAA:
+[2018-01-09 22:55:47.475] [TRACE] default - { error: null, data: { airlines: [] } }
+[2018-01-09 23:02:27.497] [INFO] default - Пользователь 2k1aoJOsjpjvV1SbAAAA отключился.
+[2018-01-09 23:02:51.205] [INFO] default - Пользователь ICD1HXJkGgJMve3GAAAB, IP: ::1 подключился.
+[2018-01-09 23:02:52.430] [INFO] default - Пользователь ICD1HXJkGgJMve3GAAAB вызвал метод airports_get_from с параметрами: [object Object]
+[2018-01-09 23:02:52.433] [TRACE] default - Отправка результата airports_get_from методом airports_get_from пользователю ICD1HXJkGgJMve3GAAAB:
+[2018-01-09 23:02:52.434] [TRACE] default - { error: null,
+  data: 
+   { airports: 
+      [ [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object] ] } }
+[2018-01-09 23:02:52.617] [INFO] default - Пользователь ICD1HXJkGgJMve3GAAAB вызвал метод airports_get_from с параметрами: [object Object]
+[2018-01-09 23:02:52.619] [TRACE] default - Отправка результата airports_get_from методом airports_get_from пользователю ICD1HXJkGgJMve3GAAAB:
+[2018-01-09 23:02:52.620] [TRACE] default - { error: null,
+  data: 
+   { airports: 
+      [ [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object] ] } }
+[2018-01-09 23:02:53.577] [INFO] default - Пользователь ICD1HXJkGgJMve3GAAAB вызвал метод airports_get_from с параметрами: [object Object]
+[2018-01-09 23:02:53.581] [TRACE] default - Отправка результата airports_get_from методом airports_get_from пользователю ICD1HXJkGgJMve3GAAAB:
+[2018-01-09 23:02:53.584] [TRACE] default - { error: null,
+  data: 
+   { airports: 
+      [ [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object] ] } }
+[2018-01-09 23:02:56.227] [INFO] default - Пользователь ICD1HXJkGgJMve3GAAAB вызвал метод airports_get_to с параметрами: [object Object]
+[2018-01-09 23:02:56.231] [TRACE] default - Отправка результата airports_get_to методом airports_get_to пользователю ICD1HXJkGgJMve3GAAAB:
+[2018-01-09 23:02:56.233] [TRACE] default - { error: null,
+  data: 
+   { airports: 
+      [ [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object],
+        [Object] ] } }
+[2018-01-09 23:02:56.453] [INFO] default - Пользователь ICD1HXJkGgJMve3GAAAB вызвал метод airports_get_to с параметрами: [object Object]
+[2018-01-09 23:02:56.457] [TRACE] default - Отправка результата airports_get_to методом airports_get_to пользователю ICD1HXJkGgJMve3GAAAB:
+[2018-01-09 23:02:56.461] [TRACE] default - { error: null,
+  data: { airports: [ [Object], [Object], [Object] ] } }
+[2018-01-09 23:02:56.619] [INFO] default - Пользователь ICD1HXJkGgJMve3GAAAB вызвал метод airports_get_to с параметрами: [object Object]
+[2018-01-09 23:02:56.625] [TRACE] default - Отправка результата airports_get_to методом airports_get_to пользователю ICD1HXJkGgJMve3GAAAB:
+[2018-01-09 23:02:56.628] [TRACE] default - { error: null, data: { airports: [ [Object] ] } }
+[2018-01-09 23:02:56.806] [INFO] default - Пользователь ICD1HXJkGgJMve3GAAAB вызвал метод airports_get_to с параметрами: [object Object]
+[2018-01-09 23:02:56.810] [TRACE] default - Отправка результата airports_get_to методом airports_get_to пользователю ICD1HXJkGgJMve3GAAAB:
+[2018-01-09 23:02:56.812] [TRACE] default - { error: null, data: { airports: [ [Object] ] } }
