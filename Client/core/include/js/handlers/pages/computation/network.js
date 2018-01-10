@@ -13,11 +13,11 @@ $(document).ready(function () {
 
             // очистка блока с содержимым таблиц
             $("#computation-result_tables").empty();
+            
+            // скрытие предзагрузчика
+            $("#computation-preloader").hide();
 
             if (result.data.computation.length) {
-                
-                // скрытие предзагрузчика
-                $("#computation-preloader").hide();
                 
                 // обработка данных
                 result.data.computation.forEach(function (computation, computation_count) {
