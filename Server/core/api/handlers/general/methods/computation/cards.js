@@ -52,6 +52,12 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
             return true;
         },
         
+        cardSortAlhoritm = function (card_one, card_two) {
+                    
+            return card_one.bonus_cur - card_two.bonus_cur;
+                    
+        },
+        
         // рекурсивный алгоритм обработки данных
         calcRecursive = function (step, bounding_count, temp_array, temp_array_params, converion_factors, current_card, start_conversion_cards) {
             
@@ -155,7 +161,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                                 cards[cards_db_count].have = false;
                             }
                             
-                            cards_all = cards;
+                            cards_all = cards.sort(cardSortAlhoritm);
                             
                             callback();
                             
@@ -250,7 +256,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                 }
                 
                 // запуск рекурсивного алгоритма вычисления
-                calcRecursive(0, 0, [], {sum_bonus_cur : 0, sum_amount : 0, sum_fee1 : 0}, conversion_factors, cards_use_in_computation[cards_use_count], start_conversion_cards);
+                calcRecursive(0, 0, [], {sum_bonus_cur : 0, sum_amount : 0, sum_fee1 : 0}, conversion_factors, cards_use_in_computation[cards_use_count], start_conversion_cards.sort(cardSortAlhoritm));
                 
                 // очистка идентификаторов карт, которые могут быть до преобразования
                 start_conversion_id.splice(0, start_conversion_id.length);
