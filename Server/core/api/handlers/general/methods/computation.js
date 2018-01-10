@@ -809,19 +809,12 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 temp_array.pop();
             }
         },
-        
-        // сортировка массива с ценами
-        sortCost = function (cost_one, cost_two) {
-            
-            return Number(cost_two.params.bonus_cur) - Number(cost_one.params.bonus_cur);
-            
-        },
 
         // конечное вычисление данных
         calcResultData = function (done) {
 
             // слияние массивов с ценами по отсортированому порядку
-            var combined_array = data.routes_cost.available.direct.concat(data.routes_cost.available.back, data.routes_cost.free.direct, data.routes_cost.free.back, data.routes_cost.conversion.direct, data.routes_cost.conversion.back).sort(sortCost),
+            var combined_array = data.routes_cost.available.direct.concat(data.routes_cost.available.back, data.routes_cost.free.direct, data.routes_cost.free.back, data.routes_cost.conversion.direct, data.routes_cost.conversion.back),
                 
                 // критерии расчёта
                 criterion_calc = {
