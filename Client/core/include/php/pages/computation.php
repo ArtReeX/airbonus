@@ -16,7 +16,24 @@
 
         </div>
         
-        <!-- список доступных к выбору карт -->
+        <!-- предзагрузчик -->
+        <div class="row justify-content-center p-1">
+            
+            <div class="col-12 col-md-10 m-0 p-0">
+                    
+                <div class="row justify-content-center">
+
+                    <div class="col-3 col-md-2 col-lg-1 m-0 p-0">
+                        <div id="computation-preloader"><img class="img-fluid" src="/core/include/style/images/basic/loading_circle.gif"></div>
+                    </div>
+
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        <!-- список вычисленных карт карт -->
         <div class="row justify-content-center p-1">
             
             <div class="col-12 col-md-10 m-0 p-0">

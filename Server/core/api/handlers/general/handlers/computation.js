@@ -17,7 +17,7 @@ module.exports.get = function (socket, config, methods, database, log, async) {
             variant_count_two;
         
         // изменение количества отдаваемых результатов
-        if (result_data.length > 5) { result_data.length = 5; }
+        if (result_data.length > config.max_variants) { result_data.length = config.max_variants; }
         
         // изменение параметров повторяющихся карт
         for (cards_count = 0; cards_count < result_data.length; cards_count += 1) {
@@ -25,10 +25,10 @@ module.exports.get = function (socket, config, methods, database, log, async) {
             for (variant_count_one = 0; variant_count_one < result_data[cards_count].variant.length; variant_count_one += 1) {
             
                 for (variant_count_two = variant_count_one + 1; variant_count_two < result_data[cards_count].variant.length; variant_count_two += 1) {
-            
+                    
                     if (result_data[cards_count].variant[variant_count_two].card === result_data[cards_count].variant[variant_count_one].card) {
                         
-                        result_data[cards_count].variant[variant_count_two].card = result_data[cards_count].variant[variant_count_two].card + " (Same card)";
+                        result_data[cards_count].variant[variant_count_two].card += " (Same card)";
                         result_data[cards_count].variant[variant_count_two].fee1 = result_data[cards_count].variant[variant_count_two].amount = "-";
                         
                     }

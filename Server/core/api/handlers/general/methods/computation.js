@@ -1,4 +1,7 @@
-/*globals module*/
+/*globals module, require*/
+
+/*-------------- ЭКСПОРТ МЕТОДОВ ------------------*/
+var cards_module = require("./computation/cards");
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
 module.exports.get = function (config, params, database, log, async, callback) {
@@ -34,7 +37,10 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 available: [],
 
                 // доступные карты
-                free: []
+                free: [],
+                
+                // преобразованные карты
+                conversion: []
                 
             },
 
@@ -59,6 +65,15 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     direct: [],
 
                     // стоимости обратных рейсов свободных карт
+                    back: []
+                },
+                
+                conversion: {
+                    
+                    // стоимости прямых рейсов рассчитаных бонусных карт
+                    direct: [],
+
+                    // стоимости прямых рейсов рассчитаных бонусных карт
                     back: []
                 }
                 
@@ -131,30 +146,56 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     if (user_cards.length && data.authorized_airlines.length) {
 
                         // делаем запрос на выбор всех карт, которые есть у пользователя
-                        conn.query("SELECT cards.id, cards.name, cards.bonus_cur, cards.bonus_max, cards.amount, cards.fee1, cards.link, cards.image, cards.airline_iata, cards.id FROM cards WHERE cards.id IN (" + user_cards + ") AND cards.airline_iata IN (" + data.authorized_airlines + ") ORDER BY cards.amount", function (error, available_cards) {
+                        conn.query("SELECT cards.id, cards.name, cards.program_id, cards.bonus_cur, cards.amount, cards.fee1, cards.link, cards.image, cards.airline_iata, cards.id FROM cards WHERE cards.id IN (" + user_cards + ") AND cards.airline_iata IN (" + data.authorized_airlines + ") ORDER BY cards.amount", function (error, available_cards) {
 
                             if (error) {
                                 log.debug("Error MySQL connection: " + error);
                                 done();
                             } else {
-
-                                data.cards.available = available_cards;
                                 
                                 // счётчики
-                                var card_count, card_mile, act_count;
+                                var cards_db_count, card_mile, act_count;
+                                
+                                // обозначение карт как имеющиеся
+                                for (cards_db_count = 0; cards_db_count < available_cards.length; cards_db_count += 1) {
+                                    available_cards[cards_db_count].have = true;
+                                }
+                            
+                                // перезапись карт для удобства рассчётов
+                                for (cards_db_count = 0; cards_db_count < available_cards.length; cards_db_count += 1) {
+
+                                    data.cards.available.push({
+
+                                        // текущая карта
+                                        card: available_cards[cards_db_count],
+
+                                        // параметры
+                                        params: {
+
+                                            amount : available_cards[cards_db_count].amount,
+                                            fee1 : available_cards[cards_db_count].fee1,
+                                            bonus_cur : available_cards[cards_db_count].bonus_cur
+                                        },
+
+                                        // преобразованные карты
+                                        converted_cards : []
+
+                                    });
+
+                                }
                                 
                                 // определение установленного пользователем значения бонусов для каждой из карт
-                                for (card_count = 0; card_count < data.cards.available.length; card_count += 1) {
+                                for (cards_db_count = 0; cards_db_count < data.cards.available.length; cards_db_count += 1) {
                                     
                                     for (act_count = 0; act_count < params.allCards.length; act_count += 1) {
                                         
-                                        if (Number(data.cards.available[card_count].id) === Number(params.allCards[act_count].card)) {
-                                            data.cards.available[card_count].bonus_cur = params.allCards[act_count].bonus;
+                                        if (Number(data.cards.available[cards_db_count].card.id) === Number(params.allCards[act_count].card)) {
+                                            data.cards.available[cards_db_count].card.bonus_cur = data.cards.available[cards_db_count].params.bonus_cur = params.allCards[act_count].bonus;
                                         }
                                         
                                     }
                                     
-                                    if (card_count === data.cards.available.length - 1) {
+                                    if (cards_db_count === data.cards.available.length - 1) {
                                         done();
                                     }
                                 }
@@ -194,23 +235,28 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
                         
                         // проверка на возможность покупки разного количества билетов за бонусы
-                        if (data.cards.available[card_count].bonus_cur >= (data.routes.direct[route_count].price_miles * people_count) && data.cards.available[card_count].airline_iata === data.routes.direct[route_count].airline_iata) {
+                        if (data.cards.available[card_count].params.bonus_cur >= (data.routes.direct[route_count].price_miles * people_count) && data.cards.available[card_count].card.airline_iata === data.routes.direct[route_count].airline_iata) {
 
                             // добавление записи
                             data.routes_cost.available.direct.push({
-                                card: data.cards.available[card_count].name,
-                                card_id: Number(data.cards.available[card_count].id),
+                                card: data.cards.available[card_count].card.name,
+                                card_id: Number(data.cards.available[card_count].card.id),
                                 airline: data.routes.direct[route_count].name,
                                 from: data.routes.direct[route_count].source,
                                 to: data.routes.direct[route_count].destination,
-                                fee1: Number(data.cards.available[card_count].fee1),
+                                fee1: Number(data.cards.available[card_count].card.fee1),
                                 amount: 0,
                                 mile: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
                                 tickets_direct: Number(people_count),
                                 tickets_back: 0,
-                                link: data.cards.available[card_count].link,
-                                image: data.cards.available[card_count].image,
-                                have: true
+                                link: data.cards.available[card_count].card.link,
+                                image: data.cards.available[card_count].card.image,
+                                have: data.cards.available[card_count].card.have,
+                                conversion: false,
+                        
+                                params: data.cards.available[card_count].params,
+                        
+                                converted_cards : []
                             });
                         }
                     }
@@ -225,23 +271,28 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                         // проверка на возможность покупки разного количества билетов за бонусы
-                        if (data.cards.available[card_count].bonus_cur >= (data.routes.back[route_count].price_miles * people_count) && data.cards.available[card_count].airline_iata === data.routes.back[route_count].airline_iata) {
+                        if (data.cards.available[card_count].params.bonus_cur >= (data.routes.back[route_count].price_miles * people_count) && data.cards.available[card_count].card.airline_iata === data.routes.back[route_count].airline_iata) {
 
                             // добавление записи
                             data.routes_cost.available.back.push({
-                                card: data.cards.available[card_count].name,
-                                card_id: Number(data.cards.available[card_count].id),
+                                card: data.cards.available[card_count].card.name,
+                                card_id: Number(data.cards.available[card_count].card.id),
                                 airline: data.routes.back[route_count].name,
                                 from: data.routes.back[route_count].source,
                                 to: data.routes.back[route_count].destination,
-                                fee1: Number(data.cards.available[card_count].fee1),
+                                fee1: Number(data.cards.available[card_count].card.fee1),
                                 amount: 0,
                                 mile: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * people_count,
                                 tickets_direct: 0,
                                 tickets_back: Number(people_count),
-                                link: data.cards.available[card_count].link,
-                                image: data.cards.available[card_count].image,
-                                have: true
+                                link: data.cards.available[card_count].card.link,
+                                image: data.cards.available[card_count].card.image,
+                                have: data.cards.available[card_count].card.have,
+                                conversion: false,
+                        
+                                params: data.cards.available[card_count].params,
+                        
+                                converted_cards : []
                             });
                         }
                     }
@@ -291,7 +342,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     if (user_cards.length) {
 
                         if (data.authorized_airlines.length) {
-                            query = "SELECT cards.id, cards.name, cards.bonus_cur, cards.bonus_max, cards.amount, cards.fee1, cards.link, cards.image, cards.airline_iata FROM cards WHERE cards.id NOT IN (" + user_cards + ") AND cards.airline_iata IN (" + data.authorized_airlines + ") ORDER BY cards.fee1";
+                            query = "SELECT cards.id, cards.name, cards.program_id, cards.bonus_cur, cards.amount, cards.fee1, cards.link, cards.image, cards.airline_iata FROM cards WHERE cards.id NOT IN (" + user_cards + ") AND cards.airline_iata IN (" + data.authorized_airlines + ") ORDER BY cards.fee1";
                         } else {
                             done();
                             return;
@@ -300,7 +351,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     } else {
 
                         if (data.authorized_airlines.length) {
-                            query = "SELECT cards.id, cards.name, cards.bonus_cur, cards.bonus_max, cards.amount, cards.fee1, cards.link, cards.image, cards.airline_iata FROM cards WHERE cards.airline_iata IN (" + data.authorized_airlines + ") ORDER BY cards.fee1";
+                            query = "SELECT cards.id, cards.name, cards.program_id, cards.bonus_cur, cards.amount, cards.fee1, cards.link, cards.image, cards.airline_iata FROM cards WHERE cards.airline_iata IN (" + data.authorized_airlines + ") ORDER BY cards.fee1";
                         } else {
                             done();
                             return;
@@ -314,8 +365,38 @@ module.exports.get = function (config, params, database, log, async, callback) {
                             log.debug("Error MySQL connection: " + error);
                             done();
                         } else {
-                            data.cards.free = free_cards;
+                            
+                            // обозначение карт как не имеющиеся
+                            var cards_db_count;
+                            for (cards_db_count = 0; cards_db_count < free_cards.length; cards_db_count += 1) {
+                                free_cards[cards_db_count].have = false;
+                            }
+                            
+                            // перезапись карт для удобства рассчётов
+                            for (cards_db_count = 0; cards_db_count < free_cards.length; cards_db_count += 1) {
+                                
+                                data.cards.free.push({
+                                    
+                                    // текущая карта
+                                    card: free_cards[cards_db_count],
+
+                                    // параметры
+                                    params: {
+
+                                        amount : free_cards[cards_db_count].amount,
+                                        fee1 : free_cards[cards_db_count].fee1,
+                                        bonus_cur : free_cards[cards_db_count].bonus_cur
+                                    },
+
+                                    // преобразованные карты
+                                    converted_cards : []
+                                    
+                                });
+                                
+                            }
+                                
                             done();
+                            
                         }
 
                     });
@@ -347,23 +428,28 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                         // проверка на возможность покупки разного количества билетов за бонусы
-                        if (data.cards.free[card_count].bonus_cur >= (data.routes.direct[route_count].price_miles * people_count) && data.cards.free[card_count].airline_iata === data.routes.direct[route_count].airline_iata) {
+                        if (data.cards.free[card_count].params.bonus_cur >= (data.routes.direct[route_count].price_miles * people_count) && data.cards.free[card_count].card.airline_iata === data.routes.direct[route_count].airline_iata) {
 
                             // добавление записи
                             data.routes_cost.free.direct.push({
-                                card: data.cards.free[card_count].name,
-                                card_id: Number(data.cards.free[card_count].id),
+                                card: data.cards.free[card_count].card.name,
+                                card_id: Number(data.cards.free[card_count].card.id),
                                 airline: data.routes.direct[route_count].name,
                                 from: data.routes.direct[route_count].source,
                                 to: data.routes.direct[route_count].destination,
-                                fee1: Number(data.cards.free[card_count].fee1),
-                                amount: Number(data.cards.free[card_count].amount),
+                                fee1: Number(data.cards.free[card_count].card.fee1),
+                                amount: Number(data.cards.free[card_count].card.amount),
                                 mile: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
                                 tickets_direct: Number(people_count),
                                 tickets_back: 0,
-                                link: data.cards.free[card_count].link,
-                                image: data.cards.free[card_count].image,
-                                have: false
+                                link: data.cards.free[card_count].card.link,
+                                image: data.cards.free[card_count].card.image,
+                                have: data.cards.free[card_count].card.have,
+                                conversion: false,
+                        
+                                params: data.cards.free[card_count].params,
+                        
+                                converted_cards : []
                             });
                         }
                     }
@@ -378,23 +464,28 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                         // проверка на возможность покупки разного количества билетов за бонусы
-                        if (data.cards.free[card_count].bonus_cur >= (data.routes.back[route_count].price_miles * people_count) && data.cards.free[card_count].airline_iata === data.routes.back[route_count].airline_iata) {
+                        if (data.cards.free[card_count].params.bonus_cur >= (data.routes.back[route_count].price_miles * people_count) && data.cards.free[card_count].card.airline_iata === data.routes.back[route_count].airline_iata) {
 
                             // добавление записи
                             data.routes_cost.free.back.push({
-                                card: data.cards.free[card_count].name,
-                                card_id: Number(data.cards.free[card_count].id),
+                                card: data.cards.free[card_count].card.name,
+                                card_id: Number(data.cards.free[card_count].card.id),
                                 airline: data.routes.back[route_count].name,
                                 from: data.routes.back[route_count].source,
                                 to: data.routes.back[route_count].destination,
-                                fee1: Number(data.cards.free[card_count].fee1),
-                                amount: Number(data.cards.free[card_count].amount),
+                                fee1: Number(data.cards.free[card_count].card.fee1),
+                                amount: Number(data.cards.free[card_count].card.amount),
                                 mile: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * people_count,
                                 tickets_direct: 0,
                                 tickets_back: Number(people_count),
-                                link: data.cards.free[card_count].link,
-                                image: data.cards.free[card_count].image,
-                                have: false
+                                link: data.cards.free[card_count].card.link,
+                                image: data.cards.free[card_count].card.image,
+                                have: data.cards.free[card_count].card.have,
+                                conversion: false,
+                        
+                                params: data.cards.free[card_count].params,
+                        
+                                converted_cards : []
                             });
                         }
                     }
@@ -455,7 +546,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
         checkBonusesInCards = function (table) {
             
             // счётчики
-            var table_count, check_count, sum_card_count, all_card_count, all_cards = data.cards.available.concat(data.cards.free), total_cards = [];
+            var table_count, check_count, sum_card_count, all_card_count, all_cards = data.cards.available.concat(data.cards.free, data.cards.conversion), total_cards = [];
             
             // перезапись данных стоимостей карт из таблицы
             for (table_count = 0; table_count < table.length; table_count += 1) {
@@ -473,7 +564,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 if (check_count < total_cards.length) {
                     
                     // если такой элемент найден
-                    total_cards[check_count].sum_mile += table[table_count].mile;
+                    total_cards[check_count].sum_mile += table[table_count].params.mile;
                 
                 } else {
                     
@@ -483,7 +574,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                         // идентификатор
                         id: Number(table[table_count].card_id),
                         // количество миль
-                        sum_mile: Number(table[table_count].mile)
+                        sum_mile: Number(table[table_count].params.mile)
                         
                     });
                 }
@@ -497,10 +588,10 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 for (all_card_count = 0; all_card_count < all_cards.length; all_card_count += 1) {
                     
                     // если такой элемент найден
-                    if (total_cards[sum_card_count].id === all_cards[all_card_count].id) {
+                    if (total_cards[sum_card_count].id === all_cards[all_card_count].card.id) {
                         
                         // если бонусов на карте не достаточно, возращаем отрицательный результат
-                        if (total_cards[sum_card_count].sum_mile > all_cards[all_card_count].bonus_cur) {
+                        if (Number(total_cards[sum_card_count].sum_mile) > Number(all_cards[all_card_count].params.bonus_cur)) {
                             return false;
                         }
                         
@@ -579,25 +670,23 @@ module.exports.get = function (config, params, database, log, async, callback) {
         },
 
         // рекурсивный алгоритм обработки данных
-        calcRecursive = function (combined_array, step, recursion_depth, temp_array, temp_array_params, criterion_calc, need_tickets, done) {
+        calcRecursive = function (combined_array, step, bounding_count, recursion_depth_computation, temp_array, temp_array_params, criterion_calc, need_tickets, done) {
             
             // проверка на конец глубины рекурсии
-            if (step === recursion_depth || data.result.unsorted.length >= 100) {
-                return;
-            }
-
+            if (step === recursion_depth_computation || data.result.unsorted.length >= config.max_variants_recursion_computation) { return; }
+            
             var array_count, table_count, table = [], tickets;
             
-            for (array_count = 0; array_count < combined_array.length; array_count += 1) {
+            for (array_count = bounding_count; array_count < combined_array.length; array_count += 1) {
 
                 //---------------- добавление элемента во временный массив -------------------//
                 temp_array.push(combined_array[array_count]);
-              
+                
                 //---------------- добавление параметров ------------------//
-                temp_array_params.sum_amount += combined_array[array_count].amount;
-                temp_array_params.sum_fee1 += combined_array[array_count].fee1;
-                temp_array_params.sum_tickets_direct += combined_array[array_count].tickets_direct;
-                temp_array_params.sum_tickets_back += combined_array[array_count].tickets_back;
+                temp_array_params.sum_amount += Number(combined_array[array_count].params.amount);
+                temp_array_params.sum_fee1 += Number(combined_array[array_count].params.fee1);
+                temp_array_params.sum_tickets_direct += Number(combined_array[array_count].tickets_direct);
+                temp_array_params.sum_tickets_back += Number(combined_array[array_count].tickets_back);
  
                 //---------------- проверка результата -------------------//
                 
@@ -614,18 +703,26 @@ module.exports.get = function (config, params, database, log, async, callback) {
                         }
                         
                         table.push({
-                            card: temp_array[table_count].card,
-                            card_id: temp_array[table_count].card_id,
-                            airline: temp_array[table_count].airline,
-                            from: temp_array[table_count].from,
-                            to: temp_array[table_count].to,
-                            fee1: temp_array[table_count].fee1,
-                            amount: temp_array[table_count].amount,
-                            mile: temp_array[table_count].mile,
-                            tickets: tickets,
-                            link: temp_array[table_count].link,
-                            image: temp_array[table_count].image,
-                            have: temp_array[table_count].have
+                            card : temp_array[table_count].card,
+                            card_id : temp_array[table_count].card_id,
+                            airline : temp_array[table_count].airline,
+                            from : temp_array[table_count].from,
+                            to : temp_array[table_count].to,
+                            fee1 : temp_array[table_count].fee1,
+                            amount : temp_array[table_count].amount,
+                            mile : temp_array[table_count].mile,
+                            tickets : tickets,
+                            link : temp_array[table_count].link,
+                            image : temp_array[table_count].image,
+                            have : temp_array[table_count].have,
+                            
+                            params : temp_array[table_count].params,
+                        
+                            converted_cards : temp_array[table_count].converted_cards,
+                            
+                            conversion: temp_array[table_count].conversion
+                            
+                            
                         });
                     }
                     
@@ -660,18 +757,24 @@ module.exports.get = function (config, params, database, log, async, callback) {
                             }
 
                             table.push({
-                                card: temp_array[table_count].card,
-                                card_id: temp_array[table_count].card_id,
-                                airline: temp_array[table_count].airline,
-                                from: temp_array[table_count].from,
-                                to: temp_array[table_count].to,
-                                fee1: temp_array[table_count].fee1,
-                                amount: temp_array[table_count].amount,
-                                mile: temp_array[table_count].mile,
-                                tickets: tickets,
-                                link: temp_array[table_count].link,
-                                image: temp_array[table_count].image,
-                                have: temp_array[table_count].have
+                                card : temp_array[table_count].card,
+                                card_id : temp_array[table_count].card_id,
+                                airline : temp_array[table_count].airline,
+                                from : temp_array[table_count].from,
+                                to : temp_array[table_count].to,
+                                fee1 : temp_array[table_count].fee1,
+                                amount : temp_array[table_count].amount,
+                                mile : temp_array[table_count].mile,
+                                tickets : tickets,
+                                link : temp_array[table_count].link,
+                                image : temp_array[table_count].image,
+                                have : temp_array[table_count].have,
+                            
+                                params : temp_array[table_count].params,
+                        
+                                converted_cards : temp_array[table_count].converted_cards,
+                            
+                                conversion: temp_array[table_count].conversion
                             });
                         }
 
@@ -694,35 +797,31 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                 
                 //---------------- вызов рекурсии -----------------------//
-                calcRecursive(combined_array, step + 1, recursion_depth, temp_array, temp_array_params, criterion_calc, need_tickets, done);
+                calcRecursive(combined_array, step + 1, bounding_count += 1, recursion_depth_computation, temp_array, temp_array_params, criterion_calc, need_tickets, done);
                 
                 //---------------- удаление параметров ------------------//
-                temp_array_params.sum_amount -= combined_array[array_count].amount;
-                temp_array_params.sum_fee1 -= combined_array[array_count].fee1;
-                temp_array_params.sum_tickets_direct -= combined_array[array_count].tickets_direct;
-                temp_array_params.sum_tickets_back -= combined_array[array_count].tickets_back;
+                temp_array_params.sum_amount -= Number(combined_array[array_count].params.amount);
+                temp_array_params.sum_fee1 -= Number(combined_array[array_count].params.fee1);
+                temp_array_params.sum_tickets_direct -= Number(combined_array[array_count].tickets_direct);
+                temp_array_params.sum_tickets_back -= Number(combined_array[array_count].tickets_back);
 
                 //---------------- удаление элемента с временного массива -------------------//
                 temp_array.pop();
             }
+        },
+        
+        // сортировка массива с ценами
+        sortCost = function (cost_one, cost_two) {
+            
+            return Number(cost_two.params.bonus_cur) - Number(cost_one.params.bonus_cur);
+            
         },
 
         // конечное вычисление данных
         calcResultData = function (done) {
 
             // слияние массивов с ценами по отсортированому порядку
-            var combined_array = data.routes_cost.available.direct.concat(data.routes_cost.available.back, data.routes_cost.free.direct, data.routes_cost.free.back),
-
-                // временный массив для расчётов
-                temp_array = [],
-            
-                // параметры для временного массива
-                temp_array_params = {
-                    sum_amount: 0,
-                    sum_fee1: 0,
-                    sum_tickets_direct: 0,
-                    sum_tickets_back: 0
-                },
+            var combined_array = data.routes_cost.available.direct.concat(data.routes_cost.available.back, data.routes_cost.free.direct, data.routes_cost.free.back, data.routes_cost.conversion.direct, data.routes_cost.conversion.back).sort(sortCost),
                 
                 // критерии расчёта
                 criterion_calc = {
@@ -733,25 +832,26 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 },
                 
                 // слияние всех карт
-                all_cards = data.cards.available.concat(data.cards.free),
+                all_cards = data.cards.available.concat(data.cards.free, data.cards.conversion),
                 
                 // счётчик глубины рекурсии
                 depth_count,
                 
                 // счётчик билетов
                 tickets_count;
-
+            
+            
             // определение разного числа людей, от большего к меньшему
             for (tickets_count = criterion_calc.max_people; tickets_count >= criterion_calc.min_people; tickets_count -= 1) {
             
                 // определение комбинаций карт для разного числа людей, от меньшего к большему
-                for (depth_count = 1; depth_count <= config.recursion_depth; depth_count += 1) {
+                for (depth_count = 1; depth_count <= config.recursion_depth_computation; depth_count += 1) {
 
                     // проверка наличия данных в результате, если данных нету, ищем большую комбинацию
                     if (!data.result.unsorted.length) {
 
                         // вызов рекурсии для поиска n-ной комбинации карт
-                        calcRecursive(combined_array, 0, depth_count, temp_array, temp_array_params, criterion_calc, tickets_count, done);
+                        calcRecursive(combined_array, 0, 0, depth_count, [], {sum_amount: 0, sum_fee1: 0, sum_tickets_direct: 0, sum_tickets_back: 0}, criterion_calc, tickets_count, done);
 
                     } else {
                         break;
@@ -759,7 +859,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                 }
                 
-                if (depth_count !== config.recursion_depth + 1 || tickets_count === criterion_calc.min_people) {
+                if (depth_count !== config.recursion_depth_computation + 1 || tickets_count === criterion_calc.min_people) {
                     done();
                     break;
                 }
@@ -770,23 +870,33 @@ module.exports.get = function (config, params, database, log, async, callback) {
         // алгоритм сортировки результата
         sortResultAlgoritm = function (table_one, table_two) {
             
-            var variant_count, variant_one_tickets = 0, variant_two_tickets = 0, variant_one_have = 0, variant_two_have = 0, variant_one_fee1 = 0, variant_two_fee1 = 0, variant_one_cards = [], variant_two_cards = [];
+            var variant_count, conversion_count, variant_one_tickets = 0, variant_two_tickets = 0, variant_one_have = 0, variant_two_have = 0, variant_one_fee1 = 0, variant_two_fee1 = 0, variant_one_cards = [], variant_two_cards = [];
                 
             // подсчёт количества билетов, комиссии и карт, которых есть
             for (variant_count = 0; variant_count < table_one.variant.length; variant_count += 1) {
                 variant_one_tickets += table_one.variant[variant_count].tickets;
                 variant_one_have += Number(table_one.variant[variant_count].have);
-                variant_one_fee1 += table_one.variant[variant_count].fee1;
+                variant_one_fee1 += table_one.variant[variant_count].params.fee1;
             }
 
             for (variant_count = 0; variant_count < table_two.variant.length; variant_count += 1) {
                 variant_two_tickets += table_two.variant[variant_count].tickets;
                 variant_two_have += Number(table_two.variant[variant_count].have);
-                variant_two_fee1 += table_two.variant[variant_count].fee1;
+                variant_two_fee1 += table_two.variant[variant_count].params.fee1;
             }
             
             // подсчёт количества карт
             for (variant_count = 0; variant_count < table_one.variant.length; variant_count += 1) {
+                
+                // подсчёт карт, используемых для преобразования
+                for (conversion_count = 0; conversion_count < table_one.variant[variant_count].converted_cards.length; conversion_count += 1) {
+
+                    // если такая карта ещё не учтена, запоминаем её
+                    if (variant_one_cards.indexOf(table_one.variant[variant_count].converted_cards[conversion_count].card_id) === -1) {
+                        variant_one_cards.push(table_one.variant[variant_count].converted_cards[conversion_count].card_id);
+                    }
+
+                }
                 
                 // если такая карта ещё не учтена, запоминаем её
                 if (variant_one_cards.indexOf(table_one.variant[variant_count].card_id) === -1) {
@@ -796,6 +906,16 @@ module.exports.get = function (config, params, database, log, async, callback) {
             }
             
             for (variant_count = 0; variant_count < table_one.variant.length; variant_count += 1) {
+                
+                // подсчёт карт, используемых для преобразования
+                for (conversion_count = 0; conversion_count < table_two.variant[variant_count].converted_cards.length; conversion_count += 1) {
+
+                    // если такая карта ещё не учтена, запоминаем её
+                    if (variant_two_cards.indexOf(table_two.variant[variant_count].converted_cards[conversion_count].card_id) === -1) {
+                        variant_two_cards.push(table_two.variant[variant_count].converted_cards[conversion_count].card_id);
+                    }
+
+                }
                 
                 // если такая карта ещё не учтена, запоминаем её
                 if (variant_two_cards.indexOf(table_two.variant[variant_count].card_id) === -1) {
@@ -857,47 +977,76 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                 ], function () {
 
-                    async.parallel([
-
-                        // расчёт стоимостей имеющихся карт
+                    async.series([
+                        
                         function (done) {
                             
-                            async.series([
-                                
+                            async.parallel([
+
+                                // расчёт стоимостей имеющихся карт
                                 function (done) {
-                                    selectAvailableCards(conn, done);
+
+                                    async.series([
+
+                                        function (done) {
+                                            selectAvailableCards(conn, done);
+                                        },
+
+                                        function (done) {
+                                            calcCostAvailableCards(conn, done);
+                                        }
+
+                                    ], function () { done(); });
+
+
                                 },
-                                
+
+                                // расчёт стоимостей свободных карт
                                 function (done) {
-                                    calcCostAvailableCards(conn, done);
+
+                                    async.series([
+
+                                        function (done) {
+                                            selectFreeCards(conn, done);
+                                        },
+
+                                        function (done) {
+                                            calcCostFreeCards(conn, done);
+                                        }
+
+                                    ], function () {
+                                        done();
+                                    });
+
                                 }
-                                
-                            ], function () {
-                                done();
-                            });
-                            
+
+                            ], function () { done(); });
                             
                         },
 
-                        // расчёт стоимостей свободных карт
+                        // расчёт стоимостей преобразованных карт
                         function (done) {
                             
                             async.series([
                                 
                                 function (done) {
-                                    selectFreeCards(conn, done);
+                                    
+                                    cards_module.selectConversion(config, conn, data.cards.free.slice().concat(data.cards.available), data.authorized_airlines, log, async, function (cards_conversion) {
+                                        
+                                        data.cards.conversion = cards_conversion;
+                                        done();
+                                        
+                                    });
                                 },
                                 
                                 function (done) {
-                                    calcCostFreeCards(conn, done);
+                                    cards_module.calcCostConversionCards(data, params, function () { done(); });
                                 }
                                 
-                            ], function () {
-                                done();
-                            });
+                            ], function () { done(); });
                             
                         }
-
+                        
                     ], function () {
 
                         async.series([
