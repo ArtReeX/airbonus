@@ -115,9 +115,11 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
 
                         // параметры
                         params: {
+                            
                             amount : temp_array_params.sum_amount,
                             fee1 : temp_array_params.sum_fee1,
                             bonus_cur : temp_array_params.sum_bonus_cur
+                            
                         },
 
                         // преобразованные карты
@@ -300,24 +302,39 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
 
                     // добавление записи
                     data.routes_cost.conversion.direct.push({
-                        card: data.cards.conversion[card_count].card.name,
-                        card_id: Number(data.cards.conversion[card_count].card.id),
-                        airline: data.routes.direct[route_count].name,
-                        from: data.routes.direct[route_count].source,
-                        to: data.routes.direct[route_count].destination,
-                        fee1: Number(data.cards.conversion[card_count].card.fee1),
-                        amount: Number(data.cards.conversion[card_count].card.amount),
-                        mile: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
-                        tickets_direct: Number(people_count),
-                        tickets_back: 0,
-                        link: data.cards.conversion[card_count].card.link,
-                        image: data.cards.conversion[card_count].card.image,
-                        have: data.cards.conversion[card_count].card.have,
-                        conversion: true,
                         
-                        params: data.cards.conversion[card_count].params,
+                        card : data.cards.conversion[card_count].card.name,
+                        
+                        card_id : Number(data.cards.conversion[card_count].card.id),
+                        
+                        airline : data.routes.direct[route_count].name,
+                        
+                        from : data.routes.direct[route_count].source,
+                        
+                        to : data.routes.direct[route_count].destination,
+                        
+                        fee1 : Number(data.cards.conversion[card_count].card.fee1),
+                        
+                        amount : Number(data.cards.conversion[card_count].card.amount),
+                        
+                        mile : Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
+                        
+                        tickets_direct : Number(people_count),
+                        
+                        tickets_back : 0,
+                        
+                        link : data.cards.conversion[card_count].card.link,
+                        
+                        image : data.cards.conversion[card_count].card.image,
+                        
+                        have : data.cards.conversion[card_count].card.have,
+                        
+                        conversion : true,
+                        
+                        params : data.cards.conversion[card_count].params,
                         
                         converted_cards : data.cards.conversion[card_count].converted_cards
+                        
                     });
                 }
             }
@@ -336,22 +353,36 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
 
                     // добавление записи
                     data.routes_cost.conversion.back.push({
-                        card: data.cards.conversion[card_count].card.name,
-                        card_id: Number(data.cards.conversion[card_count].card.id),
-                        airline: data.routes.back[route_count].name,
-                        from: data.routes.back[route_count].source,
-                        to: data.routes.back[route_count].destination,
-                        fee1: Number(data.cards.conversion[card_count].card.fee1),
-                        amount: Number(data.cards.conversion[card_count].card.amount),
-                        mile: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * people_count,
-                        tickets_direct: 0,
-                        tickets_back: Number(people_count),
-                        link: data.cards.conversion[card_count].card.link,
-                        image: data.cards.conversion[card_count].card.image,
-                        have: data.cards.conversion[card_count].card.have,
-                        conversion: true,
                         
-                        params: data.cards.conversion[card_count].params,
+                        card : data.cards.conversion[card_count].card.name,
+                        
+                        card_id : Number(data.cards.conversion[card_count].card.id),
+                        
+                        airline : data.routes.back[route_count].name,
+                        
+                        from : data.routes.back[route_count].source,
+                        
+                        to : data.routes.back[route_count].destination,
+                        
+                        fee1 : Number(data.cards.conversion[card_count].card.fee1),
+                        
+                        amount : Number(data.cards.conversion[card_count].card.amount),
+                        
+                        mile : Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * people_count,
+                        
+                        tickets_direct : 0,
+                        
+                        tickets_back : Number(people_count),
+                        
+                        link : data.cards.conversion[card_count].card.link,
+                        
+                        image : data.cards.conversion[card_count].card.image,
+                        
+                        have : data.cards.conversion[card_count].card.have,
+                        
+                        conversion : true,
+                        
+                        params : data.cards.conversion[card_count].params,
                         
                         converted_cards : data.cards.conversion[card_count].converted_cards
                         
