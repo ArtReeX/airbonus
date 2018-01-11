@@ -5,7 +5,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
     
     'use strict';
     
-        // счётчики
+    // счётчики
     var cards_use_count,
         cards_all_count,
         programs_count,
@@ -54,7 +54,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
         
         cardSortAlhoritm = function (card_one, card_two) {
                     
-            return card_two.have - card_one.have;
+            return ((Number(card_two.have) * 10) * (Number(card_two.bonus_cur))) - ((Number(card_one.have * 10)) * Number(card_one.bonus_cur));
                     
         },
         
@@ -361,12 +361,8 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
 
         }
 
-        if (card_count === data.cards.conversion.length - 1) {
-            callback();
-        }
+        if (card_count === data.cards.conversion.length - 1) { callback(); }
     }
 
-    if (data.cards.conversion.length === 0) {
-        callback();
-    }
+    if (data.cards.conversion.length === 0) { callback(); }
 };
