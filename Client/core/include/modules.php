@@ -15,3 +15,6 @@
 
 <!-- ПОДКЛЮЧЕНИЕ МОДУЛЯ Awesome -->
 <link rel="stylesheet" href="core/include/libs/design/icons/font-awesome/css/font-awesome.min.css">
+
+<!-- ПОДКЛЮЧЕНИЕ МОДУЛЯ Spincrement для jQuery -->
+<script src="core/include/libs/design/jquery-spincrement-master/jquery.spincrement.min.js"></script>

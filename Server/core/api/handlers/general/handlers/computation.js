@@ -1,4 +1,4 @@
-/*globals module*/
+﻿/*globals module*/
 
 /*---------------------------- ОБРАБОТЧИК ДЛЯ API -------------------------------*/
 module.exports.get = function (socket, config, methods, database, log, async) {
@@ -18,45 +18,45 @@ module.exports.get = function (socket, config, methods, database, log, async) {
             cards_id = [];
         
         // изменение количества отдаваемых результатов
-        if (result_data.length > config.max_variants) { result_data.length = config.max_variants; }
+        if (result_data.results.length > config.max_variants) { result_data.results.length = config.max_variants; }
         
         // создание независимой копии массива
         result_data = JSON.parse(JSON.stringify(result_data));
         
         // проверка карт на повторения
-        for (cards_count = 0; cards_count < result_data.length; cards_count += 1) {
+        for (cards_count = 0; cards_count < result_data.results.length; cards_count += 1) {
             
             // проверка главных карт
-            for (variant_count = 0; variant_count < result_data[cards_count].variant.length; variant_count += 1) {
+            for (variant_count = 0; variant_count < result_data.results[cards_count].variant.length; variant_count += 1) {
                 
-                if (cards_id.indexOf(Number(result_data[cards_count].variant[variant_count].card_id)) === -1) {
-                    cards_id.push(Number(result_data[cards_count].variant[variant_count].card_id));
+                if (cards_id.indexOf(Number(result_data.results[cards_count].variant[variant_count].card_id)) === -1) {
+                    cards_id.push(Number(result_data.results[cards_count].variant[variant_count].card_id));
                 } else {
-                    result_data[cards_count].variant[variant_count].card += " (Same card)";
-                    result_data[cards_count].variant[variant_count].fee1 = result_data[cards_count].variant[variant_count].amount = "-";
+                    result_data.results[cards_count].variant[variant_count].card += " (Same card)";
+                    result_data.results[cards_count].variant[variant_count].fee1 = result_data.results[cards_count].variant[variant_count].amount = "-";
                 }
                 
                 // проверка на имеющуюся карту
-                if (result_data[cards_count].variant[variant_count].have) {
-                    result_data[cards_count].variant[variant_count].fee1 = result_data[cards_count].variant[variant_count].amount = "-";
+                if (result_data.results[cards_count].variant[variant_count].have) {
+                    result_data.results[cards_count].variant[variant_count].fee1 = result_data.results[cards_count].variant[variant_count].amount = "-";
                 }
                 
                 
                 // проверка используемых для преобразования карт
-                for (converted_count = 0; converted_count < result_data[cards_count].variant[variant_count].converted_cards.length; converted_count += 1) {
+                for (converted_count = 0; converted_count < result_data.results[cards_count].variant[variant_count].converted_cards.length; converted_count += 1) {
                 
-                    if (cards_id.indexOf(Number(result_data[cards_count].variant[variant_count].converted_cards[converted_count].id)) === -1) {
-                        cards_id.push(Number(result_data[cards_count].variant[variant_count].converted_cards[converted_count].id));
+                    if (cards_id.indexOf(Number(result_data.results[cards_count].variant[variant_count].converted_cards[converted_count].id)) === -1) {
+                        cards_id.push(Number(result_data.results[cards_count].variant[variant_count].converted_cards[converted_count].id));
                     } else {
                         
-                        result_data[cards_count].variant[variant_count].converted_cards[converted_count].name += " (Same card)";
-                        result_data[cards_count].variant[variant_count].converted_cards[converted_count].fee1 = result_data[cards_count].variant[variant_count].converted_cards[converted_count].amount = "-";
+                        result_data.results[cards_count].variant[variant_count].converted_cards[converted_count].name += " (Same card)";
+                        result_data.results[cards_count].variant[variant_count].converted_cards[converted_count].fee1 = result_data.results[cards_count].variant[variant_count].converted_cards[converted_count].amount = "-";
                         
                     }
                     
                     // проверка на имеющуюся карту
-                    if (result_data[cards_count].variant[variant_count].converted_cards[converted_count].have) {
-                        result_data[cards_count].variant[variant_count].converted_cards[converted_count].fee1 = result_data[cards_count].variant[variant_count].converted_cards[converted_count].amount = "-";
+                    if (result_data.results[cards_count].variant[variant_count].converted_cards[converted_count].have) {
+                        result_data.results[cards_count].variant[variant_count].converted_cards[converted_count].fee1 = result_data.results[cards_count].variant[variant_count].converted_cards[converted_count].amount = "-";
                     }
 
                 }
@@ -72,7 +72,7 @@ module.exports.get = function (socket, config, methods, database, log, async) {
         // формирование пакета для отправки
         message = {
             "error": result_error ? { "type": result_error } : null,
-            "data": { "computation": result_data }
+            "data": { "computation" : result_data.results, "number_of_cards" : result_data.number_of_cards, "treated_combinations" : result_data.treated_combinations }
         };
         
         // отправка результата

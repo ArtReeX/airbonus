@@ -11,6 +11,9 @@ $(document).ready(function () {
     // скрываем заголовок о отсутствии вариантов
     $("#computation-header_empty").hide();
     
+    // скрываем статистику
+    $("#computation-statistics").hide();
+    
     // запрос от сервера списка всех вычисленных вариантов
     window.socket.emit("computation_get");
     

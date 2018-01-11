@@ -19,6 +19,13 @@ $(document).ready(function () {
 
             if (result.data.computation.length) {
                 
+                // изменение статистики
+                $("#computation-statistics-combination").text(String(result.data.treated_combinations)).spincrement({ duration: 800 });
+                $("#computation-statistics-cards").text(String(result.data.number_of_cards)).spincrement({ duration: 800 });
+                
+                // показ статистики
+                $("#computation-statistics").show();
+                
                 // обработка данных
                 result.data.computation.forEach(function (computation, computation_count) {
                     
@@ -489,7 +496,7 @@ $(document).ready(function () {
                 // показ обработанного содержимого
                 $("#computation-result_tables").show();
                 
-            } else { $("#computation-header_empty").show(); }
+            } else { $("#computation-header_empty").show(); $("#computation-statistics").hide(); }
 
         }
 

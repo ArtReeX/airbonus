@@ -10,7 +10,7 @@
         <!-- заголовок страницы -->
         <div class="row justify-content-center p-4">
 
-            <div class="col-12 col-md-8 col-lg-6 lead text-center text-white"  id="computation-header_empty">
+            <div class="col-12 col-md-8 col-lg-6 lead text-center text-white" id="computation-header_empty">
                 <h3> Unfortunately, we have no found the cards with bonuses that would make your trip free. Please, check other destination or reduce the minimum number of people for this trip. </h3>
             </div>
 
@@ -31,6 +31,25 @@
                 
             </div>
             
+        </div>
+        
+        <!-- статистика -->
+        <div class="row justify-content-center p-2" id="computation-statistics">
+            
+            <div class="col-12 col-md-10 col-lg-8 lead text-center text-white">
+                
+                <h3> We went through 
+                    <span class="badge badge-pill badge-info" id="computation-statistics-combination"></span> 
+                    id possible combinations using 
+                    <span class="badge badge-pill badge-info" id="computation-statistics-cards"></span> 
+                    valid cards...
+                </h3> 
+   
+            </div>
+            
+            <!-- разделитель -->
+            <div class='col-12 col-md-10 col-lg-8 mt-2 mb-2 p-0'><hr class='my-1'></div>
+
         </div>
         
         <!-- список вычисленных карт карт -->

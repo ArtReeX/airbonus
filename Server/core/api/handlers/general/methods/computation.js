@@ -1,4 +1,4 @@
-/*globals module, require*/
+﻿/*globals module, require*/
 
 /*-------------- ЭКСПОРТ МЕТОДОВ ------------------*/
 var cards_module = require("./computation/cards");
@@ -17,7 +17,9 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 unsorted: [],
 
                 // отсортированый конечный результат
-                sorted: []
+                sorted: [],
+                
+                treated_combinations : 0
                 
             },
         
@@ -739,7 +741,10 @@ module.exports.get = function (config, params, database, log, async, callback) {
             var array_count, table_count, table = [], tickets;
             
             for (array_count = bounding_count; array_count < combined_array.length; array_count += 1) {
-
+                
+                //---------------- увеличение счётчика проверенных комбинаций -------------------//
+                data.result.treated_combinations += 1;
+                
                 //---------------- добавление элемента во временный массив -------------------//
                 temp_array.push(combined_array[array_count]);
                 
@@ -1149,7 +1154,13 @@ module.exports.get = function (config, params, database, log, async, callback) {
                         ], function () {
                             
                             // возврат результата
-                            callback(null, data.result.sorted);
+                            callback(null, {
+                                
+                                "results" : data.result.sorted,
+                                "number_of_cards" : Number(data.cards.conversion.length + data.cards.free.length + data.cards.conversion.length),
+                                "treated_combinations" : data.result.treated_combinations
+                                
+                            });
                             
                             // закрытие запроса
                             conn.release();
