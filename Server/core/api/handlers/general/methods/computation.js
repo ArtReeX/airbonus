@@ -1024,7 +1024,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 
                                 function (done) {
                                     
-                                    cards_module.selectConversion(config, conn, data.cards.free.slice().concat(data.cards.available), data.authorized_airlines, log, async, function (cards_conversion) {
+                                    cards_module.selectConversion(config, conn, data.cards.free.slice().concat(data.cards.available), params.allCards, data.authorized_airlines, log, async, function (cards_conversion) {
                                         
                                         data.cards.conversion = cards_conversion;
                                         done();

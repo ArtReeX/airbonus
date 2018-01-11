@@ -1,7 +1,7 @@
 /*globals module*/
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-module.exports.selectConversion = function (config, conn, cards_use_in_computation, authorized_airlines, log, async, callback) {
+module.exports.selectConversion = function (config, conn, cards_use_in_computation, user_cards, authorized_airlines, log, async, callback) {
     
     'use strict';
     
@@ -189,16 +189,17 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
         function (callback) {
           
             // замена из списка всех карт, имеющимися картами
-            for (cards_use_count = 0; cards_use_count < cards_use_in_computation.length; cards_use_count += 1) {
+            for (cards_use_count = 0; cards_use_count < user_cards.length; cards_use_count += 1) {
                 
                 for (cards_all_count = 0; cards_all_count < cards_all.length; cards_all_count += 1) {
                     
                     // проверка на совпадение идентификатора
-                    if (cards_use_in_computation[cards_use_count].card.id === cards_all[cards_all_count].id) {
+                    if (Number(user_cards[cards_use_count].card) === Number(cards_all[cards_all_count].id)) {
                         
-                        // замена карты
-                        cards_all.splice(cards_all_count, 1, cards_use_in_computation[cards_use_count].card);
-                        
+                        // замена данных карты
+                        cards_all[cards_all_count].bonus_cur = user_cards[cards_use_count].bonus;
+                        cards_all[cards_all_count].have = true;
+
                     }
                     
                 }
