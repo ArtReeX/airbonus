@@ -54,7 +54,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
         
         cardSortAlhoritm = function (card_one, card_two) {
                     
-            return card_one.bonus_cur - card_two.bonus_cur;
+            return card_two.have - card_one.have;
                     
         },
         
@@ -105,7 +105,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                 //---------------- проверка результата -------------------//
                 
                 // проверка комбинации на уникальность
-                if (checkArrayToUnique(temp_array)) {
+                if (checkArrayToUnique(temp_array) && start_conversion_cards[array_count].id !== current_card.id) {
                 
                     // добавление карты
                     cards_conversion.push({
@@ -198,6 +198,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                         
                         // замена данных карты
                         cards_all[cards_all_count].bonus_cur = user_cards[cards_use_count].bonus;
+                        cards_all[cards_all_count].amount = 0;
                         cards_all[cards_all_count].have = true;
 
                     }
