@@ -887,6 +887,10 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     // если такая карта ещё не учтена, запоминаем её
                     if (variant_one_cards.indexOf(table_one.variant[variant_count].converted_cards[conversion_count].card_id) === -1) {
                         variant_one_cards.push(table_one.variant[variant_count].converted_cards[conversion_count].card_id);
+                        
+                        if (table_one.variant[variant_count].converted_cards[conversion_count].have) {
+                            variant_one_have += Number(table_one.variant[variant_count].converted_cards[conversion_count].have);
+                        }
                     }
 
                 }
@@ -906,6 +910,10 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     // если такая карта ещё не учтена, запоминаем её
                     if (variant_two_cards.indexOf(table_two.variant[variant_count].converted_cards[conversion_count].card_id) === -1) {
                         variant_two_cards.push(table_two.variant[variant_count].converted_cards[conversion_count].card_id);
+                        
+                        if (table_two.variant[variant_count].converted_cards[conversion_count].have) {
+                            variant_two_have += Number(table_two.variant[variant_count].converted_cards[conversion_count].have);
+                        }
                     }
 
                 }
