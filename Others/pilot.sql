@@ -1,8 +1,8 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.2.58.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 09.01.2018 23:00:16
--- Версия сервера: 5.5.52-MariaDB
+-- Дата скрипта: 12.01.2018 15:36:11
+-- Версия сервера: 5.5.53
 -- Версия клиента: 4.1
 --
 
@@ -201,6 +201,21 @@ CREATE TABLE credit_score (
   id INT(10) UNSIGNED NOT NULL COMMENT 'Идентификатор диапазона',
   min INT(11) UNSIGNED NOT NULL COMMENT 'Нижняя граница диапазона',
   max INT(11) UNSIGNED NOT NULL COMMENT 'Верхняя граница диапазона'
+)
+ENGINE = INNODB
+AVG_ROW_LENGTH = 3276
+CHARACTER SET utf8
+COLLATE utf8_general_ci;
+
+--
+-- Описание для таблицы developer_options
+--
+DROP TABLE IF EXISTS developer_options;
+CREATE TABLE developer_options (
+  `option` VARCHAR(255) NOT NULL,
+  value INT(11) NOT NULL,
+  comment TEXT NOT NULL,
+  PRIMARY KEY (`option`)
 )
 ENGINE = INNODB
 AVG_ROW_LENGTH = 3276
@@ -17602,6 +17617,16 @@ INSERT INTO credit_score VALUES
 (3, 670, 739),
 (4, 740, 799),
 (5, 800, 999999);
+
+-- 
+-- Вывод данных для таблицы developer_options
+--
+INSERT INTO developer_options VALUES
+('max_variants', 3, 'Количество вариантов для отдачи'),
+('max_variants_recursion_computation', 50, 'Определение максимального количества найденых вариантов комбинаций карт, после которых останавливается поиск'),
+('max_variants_recursion_conversion', 100, 'Определение максимального количества найденых вариантов преобразованых карт, после которых останавливается поиск'),
+('recursion_depth_computation', 3, 'Определение максимальной глубины рекурсии рассчёта вариантов (максимальная комбинация основных карт)'),
+('recursion_depth_conversion', 3, 'Определение максимальной глубины рекурсии рассчёта преобразований бонусов на картах (максимальное количество карт преобразованных в одну)');
 
 -- 
 -- Вывод данных для таблицы income

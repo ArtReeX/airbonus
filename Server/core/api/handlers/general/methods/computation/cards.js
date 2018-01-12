@@ -52,17 +52,47 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
             return true;
         },
         
+        // алгоритм сортировки карт
         cardSortAlhoritm = function (card_one, card_two) {
+            
+            // сравнение двух карт по параметрам
+            if (Boolean(card_one.have) !== Boolean(card_two.have)) {
+                
+                if (Boolean(card_one.have)) { return -1; }
+                if (Boolean(card_two.have)) { return 1; }
+                
+            } else {
+                
+                if (Number(card_one.bonus_cur) > Number(card_two.bonus_cur)) { return -1; }
+                if (Number(card_one.bonus_cur) < Number(card_two.bonus_cur)) { return 1; }
+                
+            }
+            
+            return 0;
                     
-            return ((Number(card_two.have) * 10) * (Number(card_two.bonus_cur))) - ((Number(card_one.have * 10)) * Number(card_one.bonus_cur));
-                    
+        },
+        
+        // генерация уникального идентификатора карты
+        generateUnicueId = function (array) {
+            
+            var array_count,
+                id = "";
+            
+            for (array_count = 0; array_count < array.length; array_count += 1) {
+                
+                id += String(Number(array[array_count].id));
+                
+            }
+            
+            return Number(id);
+            
         },
         
         // рекурсивный алгоритм обработки данных
         calcRecursive = function (step, bounding_count, temp_array, temp_array_params, converion_factors, current_card, start_conversion_cards) {
             
-            // проверка на конец глубины рекурсии и достаточное количество найденых вариантов
-            if (step === config.recursion_depth_conversion || cards_conversion.length >= config.max_variants_recursion_conversion) { return; }
+            // проверка на конец глубины рекурсии
+            if (step === config.recursion_depth_conversion) { return; }
             
             var array_count, table_count, table = [], conversion_program_current_count, array_program_current_count, conversion_factors_count, current_card_program_id, array_card_program_id, factor = 1;
                  
@@ -106,7 +136,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                 
                 // проверка комбинации на уникальность
                 if (checkArrayToUnique(temp_array) && start_conversion_cards[array_count].id !== current_card.id) {
-                
+                    
                     // добавление карты
                     cards_conversion.push({
 
@@ -115,6 +145,8 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
 
                         // параметры
                         params: {
+                            
+                            card_id: Number(generateUnicueId(temp_array)),
                             
                             amount : temp_array_params.sum_amount,
                             fee1 : temp_array_params.sum_fee1,

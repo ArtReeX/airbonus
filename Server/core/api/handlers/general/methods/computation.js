@@ -173,7 +173,9 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                                         // параметры
                                         params: {
-
+                                            
+                                            card_id: Number(available_cards[cards_db_count].id),
+                                            
                                             amount : available_cards[cards_db_count].amount,
                                             fee1 : available_cards[cards_db_count].fee1,
                                             bonus_cur : available_cards[cards_db_count].bonus_cur
@@ -416,7 +418,9 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                                     // параметры
                                     params: {
-
+                                        
+                                        card_id: Number(free_cards[cards_db_count].id),
+                                        
                                         amount : free_cards[cards_db_count].amount,
                                         fee1 : free_cards[cards_db_count].fee1,
                                         bonus_cur : free_cards[cards_db_count].bonus_cur
@@ -624,7 +628,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 for (check_count = 0; check_count < total_cards.length; check_count += 1) {
                     
                     // если такой элемент найден
-                    if (total_cards[check_count].id === table[table_count].card_id) {
+                    if (total_cards[check_count].id === table[table_count].params.card_id) {
                         break;
                     }
                 
@@ -641,7 +645,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     total_cards.push({
                         
                         // идентификатор
-                        id: Number(table[table_count].card_id),
+                        id: Number(table[table_count].params.card_id),
                         // количество миль
                         sum_mile: Number(table[table_count].params.mile)
                         
@@ -711,7 +715,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                             // проверка на совпадение каждого варианта                       
                             if (data.result.unsorted[array_count].variant[variant_count_one].card === variant[variant_count_two].card
-                                    && data.result.unsorted[array_count].variant[variant_count_one].card_id === variant[variant_count_two].card_id
+                                    && data.result.unsorted[array_count].variant[variant_count_one].params.card_id === variant[variant_count_two].params.card_id
                                     && data.result.unsorted[array_count].variant[variant_count_one].airline === variant[variant_count_two].airline
                                     && (data.result.unsorted[array_count].variant[variant_count_one].from === variant[variant_count_two].from
                                         || data.result.unsorted[array_count].variant[variant_count_one].from === variant[variant_count_two].to)
@@ -739,7 +743,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
         },
         
         // проверка на повторяемость карт в одной цепочке
-        chechRepeatabilityCards = function (table) {
+        checkRepeatabilityCards = function (table) {
             
             var count_table_one,
                 count_table_two,
@@ -754,7 +758,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     
                     if (converted_id.indexOf(Number(table[count_table_one].converted_cards[count_converted_cards].id)) === -1) {
                         converted_id.push(Number(table[count_table_one].converted_cards[count_converted_cards].id));
-                    } else { return false; }
+                    }
                     
                 }
                 
@@ -767,9 +771,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 for (count_table_two = count_table_one + 1; count_table_two < table.length; count_table_two += 1) {
                     
                     if ((Number(table[count_table_one].card_id) === Number(table[count_table_two].card_id) &&
-                            String(table[count_table_one].from) === String(table[count_table_two].from) &&
-                            String(table[count_table_one].to) === String(table[count_table_two].to)) ||
-                            (converted_id.indexOf(Number(table[count_table_one].card_id)) !== -1)) { return false; }
+                            String(table[count_table_one].params.card_id) !== String(table[count_table_two].params.card_id)) ||
+                            (converted_id.indexOf(Number(table[count_table_one].params.card_id)) !== -1)) { return false; }
                     
                 }
                 
@@ -852,7 +855,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     }
                     
                     // проверка на достаточное количество бонусов каждой карты и на уникальность варианта
-                    if (chechRepeatabilityCards(table) && checkBonusesInCards(table) && checkArrayToUnique(table)) {
+                    if (checkRepeatabilityCards(table) && checkBonusesInCards(table) && checkArrayToUnique(table)) {
                         
                         // добавление объекта
                         data.result.unsorted.push({
@@ -917,7 +920,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                         }
 
                         // проверка на достаточное количество бонусов каждой карты и на уникальность варианта
-                        if (chechRepeatabilityCards(table) && checkBonusesInCards(table) && checkArrayToUnique(table)) {
+                        if (checkRepeatabilityCards(table) && checkBonusesInCards(table) && checkArrayToUnique(table)) {
 
                             // добавление объекта
                             data.result.unsorted.push({
@@ -945,8 +948,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 //---------------- удаление элемента с временного массива -------------------//
                 temp_array.pop();
                 
-                //---------------- проверка на достаточное количество найденных комбинаций -------------------//
-                if (data.result.unsorted.length >= config.max_variants_recursion_computation) { break; }
+                //---------------- проверка на достаточное количество найденных вариантов -------------------//
+                if (data.result.unsorted.length > config.max_variants_recursion_computation) { break; }
                 
             }
         },
@@ -954,7 +957,20 @@ module.exports.get = function (config, params, database, log, async, callback) {
         // алгоритм сортировки стоимостей
         sortCostAlhoritm = function (cost_one, cost_two) {
             
-            return ((cost_two.tickets_direct + cost_two.tickets_back) / cost_two.converted_cards.length - ((cost_one.tickets_direct + cost_one.tickets_back) / cost_one.converted_cards.length));
+            // сравнение двух стоимостей по параметрам
+            if (Number(cost_one.tickets_direct + cost_one.tickets_back) !== Number(cost_two.tickets_direct + cost_two.tickets_back)) {
+                
+                if (Number(cost_one.tickets_direct + cost_one.tickets_back) > Number(cost_two.tickets_direct + cost_two.tickets_back)) { return -1; }
+                if (Number(cost_one.tickets_direct + cost_one.tickets_back) < Number(cost_two.tickets_direct + cost_two.tickets_back)) { return 1; }
+                
+            } else {
+                
+                if (Number(cost_one.converted_cards.length) < Number(cost_two.converted_cards.length)) { return -1; }
+                if (Number(cost_one.converted_cards.length) > Number(cost_two.converted_cards.length)) { return 1; }
+                
+            }
+            
+            return 0;
             
         },
 
@@ -1039,8 +1055,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 }
                 
                 // если такая карта ещё не учтена, запоминаем её
-                if (variant_one_cards.indexOf(table_one.variant[variant_count].card_id) === -1) {
-                    variant_one_cards.push(table_one.variant[variant_count].card_id);
+                if (variant_one_cards.indexOf(table_one.variant[variant_count].params.card_id) === -1) {
+                    variant_one_cards.push(table_one.variant[variant_count].params.card_id);
                 }
                 
             }
@@ -1062,13 +1078,78 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 }
                 
                 // если такая карта ещё не учтена, запоминаем её
-                if (variant_two_cards.indexOf(table_two.variant[variant_count].card_id) === -1) {
-                    variant_two_cards.push(table_two.variant[variant_count].card_id);
+                if (variant_two_cards.indexOf(table_two.variant[variant_count].params.card_id) === -1) {
+                    variant_two_cards.push(table_two.variant[variant_count].params.card_id);
                 }
                 
             }
-
-            return ((variant_two_tickets / variant_two_cards.length - (variant_two_fee1 / 100)) + (variant_two_have * 10)) - ((variant_one_tickets / variant_one_cards.length - (variant_one_fee1 / 100)) + (variant_one_have * 10));
+            
+            
+            // сравнение двух вариантов по параметрам
+            if (Number(variant_one_tickets) !== Number(variant_two_tickets)) {
+                
+                if (Number(variant_one_tickets) > Number(variant_two_tickets)) { return -1; }
+                if (Number(variant_one_tickets) < Number(variant_two_tickets)) { return 1; }
+                
+            } else {
+                
+                if (Number(variant_one_cards.length) !== Number(variant_two_cards.length)) {
+                    
+                    if (Number(variant_one_cards.length) < Number(variant_two_cards.length)) { return -1; }
+                    if (Number(variant_one_cards.length) > Number(variant_two_cards.length)) { return 1; }
+                    
+                } else {
+                    
+                    if (Number(variant_one_have) !== Number(variant_two_have)) {
+                        
+                        if (Number(variant_one_have) > Number(variant_two_have)) { return -1; }
+                        if (Number(variant_one_have) < Number(variant_two_have)) { return 1; }
+                        
+                    } else {
+                        
+                        if (Number(variant_one_fee1) !== Number(variant_two_fee1)) {
+                            
+                            if (Number(variant_one_fee1) < Number(variant_two_fee1)) { return -1; }
+                            if (Number(variant_one_fee1) > Number(variant_two_fee1)) { return 1; }
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            return 0;
+        },
+        
+        // алгоритм сортировки карт
+        cardSortAlhoritm = function (card_one, card_two) {
+            
+            // сравнение двух карт по параметрам
+            if (Number(card_one.converted_cards.length) !== Number(card_two.converted_cards.length)) {
+                
+                if (Number(card_one.converted_cards.length) < Number(card_two.converted_cards.length)) { return -1; }
+                if (Number(card_one.converted_cards.length) > Number(card_two.converted_cards.length)) { return 1; }
+                
+            } else {
+                    
+                if (Number(card_one.params.bonus_cur) !== Number(card_two.params.bonus_cur)) {
+                
+                    if (Number(card_one.params.bonus_cur) > Number(card_two.params.bonus_cur)) { return -1; }
+                    if (Number(card_one.params.bonus_cur) < Number(card_two.params.bonus_cur)) { return 1; }
+                    
+                } else {
+                    
+                    if (Number(card_one.params.fee1) < Number(card_two.params.fee1)) { return -1; }
+                    if (Number(card_one.params.fee1) > Number(card_two.params.fee1)) { return 1; }
+                    
+                }
+                
+            }
+            
+            return 0;
+                    
         },
         
         // выбор лучших вариантов
@@ -1177,7 +1258,14 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                     
                                     cards_module.selectConversion(config, conn, data.cards.free.slice().concat(data.cards.available), params.allCards, data.authorized_airlines, log, async, function (cards_conversion) {
                                         
+                                        // сортировка карт
+                                        cards_conversion.sort(cardSortAlhoritm);
+                                        
+                                        // изменение количества отдаваемых результатов
+                                        if (cards_conversion.length > config.max_variants_recursion_conversion) { cards_conversion.length = config.max_variants_recursion_conversion; }
+                                        
                                         data.cards.conversion = cards_conversion;
+                                        
                                         done();
                                         
                                     });
