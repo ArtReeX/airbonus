@@ -245,37 +245,37 @@ module.exports.get = function (config, params, database, log, async, callback) {
                             // добавление записи
                             data.routes_cost.available.direct.push({
                                 
-                                card : data.cards.available[card_count].card.name,
+                                card: data.cards.available[card_count].card.name,
                                 
-                                card_id : Number(data.cards.available[card_count].card.id),
+                                card_id: Number(data.cards.available[card_count].card.id),
                                 
-                                airline : data.routes.direct[route_count].name,
+                                airline: data.routes.direct[route_count].name,
                                 
-                                from : data.routes.direct[route_count].source,
+                                from: data.routes.direct[route_count].source,
                                 
-                                to : data.routes.direct[route_count].destination,
+                                to: data.routes.direct[route_count].destination,
                                 
-                                fee1 : Number(data.cards.available[card_count].card.fee1),
+                                fee1: Number(data.cards.available[card_count].card.fee1),
                                 
-                                amount : 0,
+                                amount: 0,
                                 
-                                mile : Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
+                                mile: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
                                 
-                                tickets_direct : Number(people_count),
+                                tickets_direct: Number(people_count),
                                 
-                                tickets_back : 0,
+                                tickets_back: 0,
                                 
-                                link : data.cards.available[card_count].card.link,
+                                link: data.cards.available[card_count].card.link,
                                 
-                                image : data.cards.available[card_count].card.image,
+                                image: data.cards.available[card_count].card.image,
                                 
-                                have : data.cards.available[card_count].card.have,
+                                have: data.cards.available[card_count].card.have,
                                 
-                                conversion : false,
+                                conversion: false,
                         
-                                params : data.cards.available[card_count].params,
+                                params: data.cards.available[card_count].params,
                         
-                                converted_cards : []
+                                converted_cards: []
                                 
                             });
                         }
@@ -297,37 +297,37 @@ module.exports.get = function (config, params, database, log, async, callback) {
                             // добавление записи
                             data.routes_cost.available.back.push({
                                 
-                                card : data.cards.available[card_count].card.name,
+                                card: data.cards.available[card_count].card.name,
                                 
-                                card_id : Number(data.cards.available[card_count].card.id),
+                                card_id: Number(data.cards.available[card_count].card.id),
                                 
-                                airline : data.routes.back[route_count].name,
+                                airline: data.routes.back[route_count].name,
                                 
-                                from : data.routes.back[route_count].source,
+                                from: data.routes.back[route_count].source,
                                 
-                                to : data.routes.back[route_count].destination,
+                                to: data.routes.back[route_count].destination,
                                 
-                                fee1 : Number(data.cards.available[card_count].card.fee1),
+                                fee1: Number(data.cards.available[card_count].card.fee1),
                                 
-                                amount : 0,
+                                amount: 0,
                                 
-                                mile : Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * people_count,
+                                mile: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * people_count,
                                 
-                                tickets_direct : 0,
+                                tickets_direct: 0,
                                 
-                                tickets_back : Number(people_count),
+                                tickets_back: Number(people_count),
                                 
-                                link : data.cards.available[card_count].card.link,
+                                link: data.cards.available[card_count].card.link,
                                 
-                                image : data.cards.available[card_count].card.image,
+                                image: data.cards.available[card_count].card.image,
                                 
-                                have : data.cards.available[card_count].card.have,
+                                have: data.cards.available[card_count].card.have,
                                 
-                                conversion : false,
+                                conversion: false,
                         
-                                params : data.cards.available[card_count].params,
+                                params: data.cards.available[card_count].params,
                         
-                                converted_cards : []
+                                converted_cards: []
                                 
                             });
                         }
@@ -474,37 +474,37 @@ module.exports.get = function (config, params, database, log, async, callback) {
                             // добавление записи
                             data.routes_cost.free.direct.push({
                                 
-                                card : data.cards.free[card_count].card.name,
+                                card: data.cards.free[card_count].card.name,
                                 
-                                card_id : Number(data.cards.free[card_count].card.id),
+                                card_id: Number(data.cards.free[card_count].card.id),
                                 
-                                airline : data.routes.direct[route_count].name,
+                                airline: data.routes.direct[route_count].name,
                                 
-                                from : data.routes.direct[route_count].source,
+                                from: data.routes.direct[route_count].source,
                                 
-                                to : data.routes.direct[route_count].destination,
+                                to: data.routes.direct[route_count].destination,
                                 
-                                fee1 : Number(data.cards.free[card_count].card.fee1),
+                                fee1: Number(data.cards.free[card_count].card.fee1),
                                 
-                                amount : Number(data.cards.free[card_count].card.amount),
+                                amount: Number(data.cards.free[card_count].card.amount),
                                 
-                                mile : Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
+                                mile: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
                                 
-                                tickets_direct : Number(people_count),
+                                tickets_direct: Number(people_count),
                                 
-                                tickets_back : 0,
+                                tickets_back: 0,
                                 
-                                link : data.cards.free[card_count].card.link,
+                                link: data.cards.free[card_count].card.link,
                                 
-                                image : data.cards.free[card_count].card.image,
+                                image: data.cards.free[card_count].card.image,
                                 
-                                have : data.cards.free[card_count].card.have,
+                                have: data.cards.free[card_count].card.have,
                                 
-                                conversion : false,
+                                conversion: false,
                         
-                                params : data.cards.free[card_count].params,
+                                params: data.cards.free[card_count].params,
                         
-                                converted_cards : []
+                                converted_cards: []
                                 
                             });
                         }
@@ -527,37 +527,37 @@ module.exports.get = function (config, params, database, log, async, callback) {
                             // добавление записи
                             data.routes_cost.free.back.push({
                                 
-                                card : data.cards.free[card_count].card.name,
+                                card: data.cards.free[card_count].card.name,
                                 
-                                card_id : Number(data.cards.free[card_count].card.id),
+                                card_id: Number(data.cards.free[card_count].card.id),
                                 
-                                airline : data.routes.back[route_count].name,
+                                airline: data.routes.back[route_count].name,
                                 
-                                from : data.routes.back[route_count].source,
+                                from: data.routes.back[route_count].source,
                                 
-                                to : data.routes.back[route_count].destination,
+                                to: data.routes.back[route_count].destination,
                                 
-                                fee1 : Number(data.cards.free[card_count].card.fee1),
+                                fee1: Number(data.cards.free[card_count].card.fee1),
                                 
-                                amount : Number(data.cards.free[card_count].card.amount),
+                                amount: Number(data.cards.free[card_count].card.amount),
                                 
-                                mile : Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * people_count,
+                                mile: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * people_count,
                                 
-                                tickets_direct : 0,
+                                tickets_direct: 0,
                                 
-                                tickets_back : Number(people_count),
+                                tickets_back: Number(people_count),
                                 
-                                link : data.cards.free[card_count].card.link,
+                                link: data.cards.free[card_count].card.link,
                                 
-                                image : data.cards.free[card_count].card.image,
+                                image: data.cards.free[card_count].card.image,
                                 
-                                have : data.cards.free[card_count].card.have,
+                                have: data.cards.free[card_count].card.have,
                                 
-                                conversion : false,
+                                conversion: false,
                         
-                                params : data.cards.free[card_count].params,
+                                params: data.cards.free[card_count].params,
                         
-                                converted_cards : []
+                                converted_cards: []
                                 
                             });
                         }
