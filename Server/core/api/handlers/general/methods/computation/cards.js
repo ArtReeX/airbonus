@@ -76,15 +76,67 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
         generateUnicueId = function (array) {
             
             var array_count,
+                array_id = [],
                 id = "";
             
+            // добавление всех идентификторов
             for (array_count = 0; array_count < array.length; array_count += 1) {
                 
-                id += String(Number(array[array_count].id));
+                array_id.push(Number(array[array_count].id));
                 
             }
             
-            return Number(id);
+            // сортировка
+            array_id.sort();
+            
+            for (array_count = 0; array_count < array_id.length; array_count += 1) {
+                
+                id += String(Number(array_id[array_count]));
+                
+            }
+            
+            return Number(String(id));
+            
+        },
+        
+        // генерация уникального идентификатора карты
+        checkUnicueCard = function (current_card, array_with_card) {
+            
+            var current_card_count,
+                array_with_card_count,
+                converted_card_count,
+                array_with_card_id = [],
+                array_all_card_id = [];
+            
+            // добавление всех идентификторов для текущей карты
+            for (current_card_count = 0; current_card_count < array_with_card.length; current_card_count += 1) {
+                
+                array_with_card_id.push(Number(array_with_card[current_card_count].id));
+                
+            }
+            
+            // сортировка
+            array_with_card_id.sort();
+            
+            // перебор уже добавленых карт на поиск похожей
+            for (array_with_card_count = 0; array_with_card_count < cards_conversion.length; array_with_card_count += 1) {
+                
+                // перебор карт, используемые для конвертации внутри карт
+                for (converted_card_count = 0; converted_card_count < cards_conversion[array_with_card_count].converted_cards.length; converted_card_count += 1) {
+
+                    array_all_card_id.push(Number(cards_conversion[array_with_card_count].converted_cards[converted_card_count].id));
+
+                }
+
+                // проверка на наличие такой же комбинации
+                if (String(String(current_card.card.id) + JSON.stringify(array_with_card_id.sort())) === String(String(cards_conversion[array_with_card_count].card.id) + JSON.stringify(array_all_card_id))) { return false; }
+                
+                // очистка идентификторов
+                array_all_card_id.splice(0, array_all_card_id.length);
+                
+            }
+            
+            return true;
             
         },
         
@@ -135,7 +187,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                 //---------------- проверка результата -------------------//
                 
                 // проверка комбинации на уникальность
-                if (checkArrayToUnique(temp_array) && start_conversion_cards[array_count].id !== current_card.id) {
+                if (checkArrayToUnique(temp_array) && start_conversion_cards[array_count].id !== current_card.id && checkUnicueCard(current_card, temp_array)) {
                     
                     // добавление карты
                     cards_conversion.push({
