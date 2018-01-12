@@ -944,6 +944,10 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                 //---------------- удаление элемента с временного массива -------------------//
                 temp_array.pop();
+                
+                //---------------- проверка на достаточное количество найденных комбинаций -------------------//
+                if (data.result.unsorted.length >= config.max_variants_recursion_computation) { break; }
+                
             }
         },
 
