@@ -791,7 +791,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
             for (array_count = bounding_count; array_count < combined_array.length; array_count += 1) {
                 
                 //---------------- увеличение счётчика проверенных комбинаций -------------------//
-                data.result.treated_combinations += 1;
+                if (data.result.unsorted.length < config.max_variants_recursion_computation) { data.result.treated_combinations += 1; }
                 
                 //---------------- добавление элемента во временный массив -------------------//
                 temp_array.push(combined_array[array_count]);
@@ -950,12 +950,19 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 
             }
         },
+        
+        // алгоритм сортировки стоимостей
+        sortCostAlhoritm = function (cost_one, cost_two) {
+            
+            return ((cost_two.tickets_direct + cost_two.tickets_back) / cost_two.converted_cards.length - ((cost_one.tickets_direct + cost_one.tickets_back) / cost_one.converted_cards.length));
+            
+        },
 
         // конечное вычисление данных
         calcResultData = function (done) {
 
             // слияние массивов с ценами по отсортированому порядку
-            var combined_array = data.routes_cost.available.direct.concat(data.routes_cost.available.back, data.routes_cost.free.direct, data.routes_cost.free.back, data.routes_cost.conversion.direct, data.routes_cost.conversion.back),
+            var combined_array = data.routes_cost.available.direct.sort(sortCostAlhoritm).concat(data.routes_cost.available.back.sort(sortCostAlhoritm), data.routes_cost.free.direct.sort(sortCostAlhoritm), data.routes_cost.free.back.sort(sortCostAlhoritm), data.routes_cost.conversion.direct.sort(sortCostAlhoritm), data.routes_cost.conversion.back.sort(sortCostAlhoritm)),
                 
                 // критерии расчёта
                 criterion_calc = {
