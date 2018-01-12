@@ -237,7 +237,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
                         
                         // проверка на возможность покупки разного количества билетов за бонусы
-                        if (data.cards.available[card_count].params.bonus_cur >= (data.routes.direct[route_count].price_miles * people_count) && data.cards.available[card_count].card.airline_iata === data.routes.direct[route_count].airline_iata) {
+                        if (data.cards.available[card_count].params.bonus_cur >= (data.routes.direct[route_count].price_miles * people_count) && data.cards.available[card_count].card.airline_iata === data.routes.direct[route_count].airline_iata &&
+                                data.cards.available[card_count].params.amount + data.cards.available[card_count].params.fee1 <= params.spendNextYear) {
 
                             // добавление записи
                             data.routes_cost.available.direct.push({
@@ -288,7 +289,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                         // проверка на возможность покупки разного количества билетов за бонусы
-                        if (data.cards.available[card_count].params.bonus_cur >= (data.routes.back[route_count].price_miles * people_count) && data.cards.available[card_count].card.airline_iata === data.routes.back[route_count].airline_iata) {
+                        if (data.cards.available[card_count].params.bonus_cur >= (data.routes.back[route_count].price_miles * people_count) && data.cards.available[card_count].card.airline_iata === data.routes.back[route_count].airline_iata &&
+                                data.cards.available[card_count].params.amount + data.cards.available[card_count].params.fee1 <= params.spendNextYear) {
 
                             // добавление записи
                             data.routes_cost.available.back.push({
@@ -461,7 +463,9 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                         // проверка на возможность покупки разного количества билетов за бонусы
-                        if (data.cards.free[card_count].params.bonus_cur >= (data.routes.direct[route_count].price_miles * people_count) && data.cards.free[card_count].card.airline_iata === data.routes.direct[route_count].airline_iata) {
+                        if (data.cards.free[card_count].params.bonus_cur >= (data.routes.direct[route_count].price_miles * people_count) &&
+                                data.cards.free[card_count].card.airline_iata === data.routes.direct[route_count].airline_iata &&
+                                data.cards.free[card_count].params.amount + data.cards.free[card_count].params.fee1 <= params.spendNextYear) {
 
                             // добавление записи
                             data.routes_cost.free.direct.push({
@@ -512,7 +516,9 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                         // проверка на возможность покупки разного количества билетов за бонусы
-                        if (data.cards.free[card_count].params.bonus_cur >= (data.routes.back[route_count].price_miles * people_count) && data.cards.free[card_count].card.airline_iata === data.routes.back[route_count].airline_iata) {
+                        if (data.cards.free[card_count].params.bonus_cur >= (data.routes.back[route_count].price_miles * people_count) &&
+                                data.cards.free[card_count].card.airline_iata === data.routes.back[route_count].airline_iata &&
+                                data.cards.free[card_count].params.amount + data.cards.free[card_count].params.fee1 <= params.spendNextYear) {
 
                             // добавление записи
                             data.routes_cost.free.back.push({
@@ -735,6 +741,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
         // рекурсивный алгоритм обработки данных
         calcRecursive = function (combined_array, step, bounding_count, recursion_depth_computation, temp_array, temp_array_params, criterion_calc, need_tickets, done) {
             
+            
             // проверка на конец глубины рекурсии
             if (step === recursion_depth_computation || data.result.unsorted.length >= config.max_variants_recursion_computation) { return; }
             
@@ -935,16 +942,11 @@ module.exports.get = function (config, params, database, log, async, callback) {
                         // вызов рекурсии для поиска n-ной комбинации карт
                         calcRecursive(combined_array, 0, 0, depth_count, [], {sum_amount: 0, sum_fee1: 0, sum_tickets_direct: 0, sum_tickets_back: 0}, criterion_calc, tickets_count, done);
 
-                    } else {
-                        break;
-                    }
+                    } else { break; }
 
                 }
                 
-                if (depth_count !== config.recursion_depth_computation + 1 || tickets_count === criterion_calc.min_people) {
-                    done();
-                    break;
-                }
+                if (depth_count !== config.recursion_depth_computation + 1 || tickets_count === criterion_calc.min_people) { done(); break; }
             }
 
         },

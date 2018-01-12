@@ -298,7 +298,8 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
             for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                 // проверка на возможность покупки разного количества билетов за бонусы
-                if (data.cards.conversion[card_count].params.bonus_cur >= (data.routes.direct[route_count].price_miles * people_count) && data.cards.conversion[card_count].card.airline_iata === data.routes.direct[route_count].airline_iata) {
+                if (data.cards.conversion[card_count].params.bonus_cur >= (data.routes.direct[route_count].price_miles * people_count) &&       data.cards.conversion[card_count].card.airline_iata === data.routes.direct[route_count].airline_iata &&
+                        data.cards.conversion[card_count].params.amount + data.cards.conversion[card_count].params.fee1 <= params.spendNextYear) {
 
                     // добавление записи
                     data.routes_cost.conversion.direct.push({
@@ -349,7 +350,8 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
             for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                 // проверка на возможность покупки разного количества билетов за бонусы
-                if (data.cards.conversion[card_count].params.bonus_cur >= (data.routes.back[route_count].price_miles * people_count) && data.cards.conversion[card_count].card.airline_iata === data.routes.back[route_count].airline_iata) {
+                if (data.cards.conversion[card_count].params.bonus_cur >= (data.routes.back[route_count].price_miles * people_count) && data.cards.conversion[card_count].card.airline_iata === data.routes.back[route_count].airline_iata &&
+                        data.cards.conversion[card_count].params.amount + data.cards.conversion[card_count].params.fee1 <= params.spendNextYear) {
 
                     // добавление записи
                     data.routes_cost.conversion.back.push({

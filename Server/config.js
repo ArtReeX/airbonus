@@ -64,7 +64,7 @@ var config = {
         recursion_depth_conversion: 3,
         
         // определение максимального количества найденых вариантов преобразованых карт, после которых останавливается поиск
-        max_variants_recursion_conversion: 100,
+        max_variants_recursion_conversion: 50,
         
         // количество вариантов для отдачи
         max_variants: 3
