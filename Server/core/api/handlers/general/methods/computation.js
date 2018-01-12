@@ -238,7 +238,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                         
                         // проверка на возможность покупки разного количества билетов за бонусы
                         if (data.cards.available[card_count].params.bonus_cur >= (data.routes.direct[route_count].price_miles * people_count) && data.cards.available[card_count].card.airline_iata === data.routes.direct[route_count].airline_iata &&
-                                data.cards.available[card_count].params.amount + data.cards.available[card_count].params.fee1 <= params.spendNextYear) {
+                                data.cards.available[card_count].params.amount + data.cards.available[card_count].params.fee1 <= Number((params.spendNextMonth * 3) + ((params.spendNextYear - (params.spendNextMonth * 12)) * 0.5))) {
 
                             // добавление записи
                             data.routes_cost.available.direct.push({
@@ -290,7 +290,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                         // проверка на возможность покупки разного количества билетов за бонусы
                         if (data.cards.available[card_count].params.bonus_cur >= (data.routes.back[route_count].price_miles * people_count) && data.cards.available[card_count].card.airline_iata === data.routes.back[route_count].airline_iata &&
-                                data.cards.available[card_count].params.amount + data.cards.available[card_count].params.fee1 <= params.spendNextYear) {
+                                data.cards.available[card_count].params.amount + data.cards.available[card_count].params.fee1 <= Number((params.spendNextMonth * 3) + ((params.spendNextYear - (params.spendNextMonth * 12)) * 0.5))) {
 
                             // добавление записи
                             data.routes_cost.available.back.push({
@@ -465,7 +465,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                         // проверка на возможность покупки разного количества билетов за бонусы
                         if (data.cards.free[card_count].params.bonus_cur >= (data.routes.direct[route_count].price_miles * people_count) &&
                                 data.cards.free[card_count].card.airline_iata === data.routes.direct[route_count].airline_iata &&
-                                data.cards.free[card_count].params.amount + data.cards.free[card_count].params.fee1 <= params.spendNextYear) {
+                                data.cards.free[card_count].params.amount + data.cards.free[card_count].params.fee1 <= Number((params.spendNextMonth * 3) + ((params.spendNextYear - (params.spendNextMonth * 12)) * 0.5))) {
 
                             // добавление записи
                             data.routes_cost.free.direct.push({
@@ -518,7 +518,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                         // проверка на возможность покупки разного количества билетов за бонусы
                         if (data.cards.free[card_count].params.bonus_cur >= (data.routes.back[route_count].price_miles * people_count) &&
                                 data.cards.free[card_count].card.airline_iata === data.routes.back[route_count].airline_iata &&
-                                data.cards.free[card_count].params.amount + data.cards.free[card_count].params.fee1 <= params.spendNextYear) {
+                                data.cards.free[card_count].params.amount + data.cards.free[card_count].params.fee1 <= Number((params.spendNextMonth * 3) + ((params.spendNextYear - (params.spendNextMonth * 12)) * 0.5))) {
 
                             // добавление записи
                             data.routes_cost.free.back.push({
@@ -737,6 +737,47 @@ module.exports.get = function (config, params, database, log, async, callback) {
             
             return true;
         },
+        
+        // проверка на повторяемость карт в одной цепочке
+        chechRepeatabilityCards = function (table) {
+            
+            var count_table_one,
+                count_table_two,
+                count_converted_cards,
+                converted_id = [];
+            
+            
+            // проверка на использование одной и той же карты для конвертации
+            for (count_table_one = 0; count_table_one < table.length; count_table_one += 1) {
+                
+                for (count_converted_cards = 0; count_converted_cards < table[count_table_one].converted_cards.length; count_converted_cards += 1) {
+                    
+                    if (converted_id.indexOf(Number(table[count_table_one].converted_cards[count_converted_cards].id)) === -1) {
+                        converted_id.push(Number(table[count_table_one].converted_cards[count_converted_cards].id));
+                    } else { return false; }
+                    
+                }
+                
+            }
+            
+            
+            // проверка на использование одной и той же карточки несколько раз в одну сторону
+            for (count_table_one = 0; count_table_one < table.length; count_table_one += 1) {
+                
+                for (count_table_two = count_table_one + 1; count_table_two < table.length; count_table_two += 1) {
+                    
+                    if ((Number(table[count_table_one].card_id) === Number(table[count_table_two].card_id) &&
+                            String(table[count_table_one].from) === String(table[count_table_two].from) &&
+                            String(table[count_table_one].to) === String(table[count_table_two].to)) ||
+                            (converted_id.indexOf(Number(table[count_table_one].card_id)) !== -1)) { return false; }
+                    
+                }
+                
+            }
+            
+            return true;
+            
+        },
 
         // рекурсивный алгоритм обработки данных
         calcRecursive = function (combined_array, step, bounding_count, recursion_depth_computation, temp_array, temp_array_params, criterion_calc, need_tickets, done) {
@@ -811,7 +852,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     }
                     
                     // проверка на достаточное количество бонусов каждой карты и на уникальность варианта
-                    if (checkBonusesInCards(table) && checkArrayToUnique(table)) {
+                    if (chechRepeatabilityCards(table) && checkBonusesInCards(table) && checkArrayToUnique(table)) {
                         
                         // добавление объекта
                         data.result.unsorted.push({
@@ -876,7 +917,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                         }
 
                         // проверка на достаточное количество бонусов каждой карты и на уникальность варианта
-                        if (checkBonusesInCards(table) && checkArrayToUnique(table)) {
+                        if (chechRepeatabilityCards(table) && checkBonusesInCards(table) && checkArrayToUnique(table)) {
 
                             // добавление объекта
                             data.result.unsorted.push({
@@ -914,10 +955,10 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 
                 // критерии расчёта
                 criterion_calc = {
-                    amount_min: params.spendNextMonth * 3,
-                    amount_max: (params.spendNextMonth * 3) + ((params.spendNextYear - (params.spendNextMonth * 12)) * 0.5),
-                    min_people: params.minPeople + params.statusValue,
-                    max_people: params.maxPeople + params.statusValue
+                    amount_min: Number(params.spendNextMonth) * 3,
+                    amount_max: Number((params.spendNextMonth * 3) + ((params.spendNextYear - (params.spendNextMonth * 12)) * 0.5)),
+                    min_people: Number(params.minPeople) + Number(params.statusValue),
+                    max_people: Number(params.maxPeople) + Number(params.statusValue)
                 },
                 
                 // слияние всех карт
