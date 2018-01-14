@@ -774,6 +774,17 @@ module.exports.get = function (config, params, database, log, async, callback) {
                             String(table[count_table_one].params.card_id) !== String(table[count_table_two].params.card_id)) ||
                             (converted_id.indexOf(Number(table[count_table_one].params.card_id)) !== -1)) { return false; }
                     
+                    // проверка на использование одной и той же карточки несколько раз в разных картах
+                    if (String(table[count_table_one].params.card_id) !== String(table[count_table_two].params.card_id)) {
+                        
+                        for (count_converted_cards = 0; count_converted_cards < table[count_table_one].converted_cards.length; count_converted_cards += 1) {
+                    
+                            if (converted_id.indexOf(Number(table[count_table_one].converted_cards[count_converted_cards].id)) !== -1) { return false; }
+
+                        }
+                        
+                    }
+                    
                 }
                 
             }
