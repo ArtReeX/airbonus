@@ -247,7 +247,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                                 card: String(data.cards.available[card_count].card.name),
 
-                                card_id: Number(data.cards.available[card_count].card.id),
+                                card_id: Number(data.cards.available[card_count].params.card_id),
 
                                 airline: String(data.routes.direct[route_count].name),
 
@@ -299,7 +299,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                                 card: String(data.cards.available[card_count].card.name),
 
-                                card_id: Number(data.cards.available[card_count].card.id),
+                                card_id: Number(data.cards.available[card_count].params.card_id),
 
                                 airline: String(data.routes.back[route_count].name),
 
@@ -476,7 +476,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                                 card: String(data.cards.free[card_count].card.name),
 
-                                card_id: Number(data.cards.free[card_count].card.id),
+                                card_id: Number(data.cards.free[card_count].params.card_id),
 
                                 airline: String(data.routes.direct[route_count].name),
 
@@ -529,7 +529,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                                 card: String(data.cards.free[card_count].card.name),
 
-                                card_id: Number(data.cards.free[card_count].card.id),
+                                card_id: Number(data.cards.free[card_count].params.card_id),
 
                                 airline: String(data.routes.back[route_count].name),
 
@@ -628,7 +628,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 for (check_count = 0; check_count < total_cards.length; check_count += 1) {
 
                     // если такой элемент найден
-                    if (total_cards[check_count].id === table[table_count].params.card_id) {
+                    if (Number(total_cards[check_count].id) === Number(table[table_count].params.card_id)) {
                         break;
                     }
 
@@ -637,7 +637,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 if (check_count < total_cards.length) {
 
                     // если такой элемент найден
-                    total_cards[check_count].sum_mile += Number(table[table_count].params.bonus_cur);
+                    total_cards[check_count].sum_mile += Number(table[table_count].mile);
 
                 } else {
 
@@ -648,7 +648,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                         id: Number(table[table_count].params.card_id),
                         
                         // количество миль
-                        sum_mile: Number(table[table_count].params.bonus_cur)
+                        sum_mile: Number(table[table_count].mile)
 
                     });
                 }
@@ -772,11 +772,11 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 for (count_table_two = count_table_one + 1; count_table_two < table.length; count_table_two += 1) {
 
                     if ((Number(table[count_table_one].card_id) === Number(table[count_table_two].card_id) &&
-                            String(table[count_table_one].params.card_id) !== String(table[count_table_two].params.card_id)) ||
-                            (converted_id.indexOf(Number(table[count_table_one].params.card_id)) !== -1)) { return false; }
+                            String(table[count_table_one].card_id) !== String(table[count_table_two].card_id)) ||
+                            (converted_id.indexOf(Number(table[count_table_one].card_id)) !== -1)) { return false; }
 
                     // проверка на использование одной и той же карточки несколько раз в разных картах
-                    if (String(table[count_table_one].params.card_id) !== String(table[count_table_two].params.card_id)) {
+                    if (String(table[count_table_one].params.card_id) !== String(table[count_table_two].card_id)) {
 
                         for (count_converted_cards = 0; count_converted_cards < table[count_table_one].converted_cards.length; count_converted_cards += 1) {
 
@@ -833,33 +833,33 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                         table.push({
 
-                            card : String(temp_array[table_count].card),
+                            card: String(temp_array[table_count].card),
 
-                            card_id : Number(temp_array[table_count].card_id),
+                            card_id: Number(temp_array[table_count].card_id),
 
-                            airline : String(temp_array[table_count].airline),
+                            airline: String(temp_array[table_count].airline),
 
-                            from : String(temp_array[table_count].from),
+                            from: String(temp_array[table_count].from),
 
-                            to : String(temp_array[table_count].to),
+                            to: String(temp_array[table_count].to),
 
-                            fee1 : Number(temp_array[table_count].fee1),
+                            fee1: Number(temp_array[table_count].fee1),
 
-                            amount : Number(temp_array[table_count].amount),
+                            amount: Number(temp_array[table_count].amount),
 
-                            mile : Number(temp_array[table_count].mile),
+                            mile: Number(temp_array[table_count].mile),
 
-                            tickets : Number(tickets),
+                            tickets: Number(tickets),
 
-                            link : String(temp_array[table_count].link),
+                            link: String(temp_array[table_count].link),
 
-                            image : String(temp_array[table_count].image),
+                            image: String(temp_array[table_count].image),
 
-                            have : Boolean(temp_array[table_count].have),
+                            have: Boolean(temp_array[table_count].have),
 
-                            params : temp_array[table_count].params,
+                            params: temp_array[table_count].params,
 
-                            converted_cards : temp_array[table_count].converted_cards,
+                            converted_cards: temp_array[table_count].converted_cards,
 
                             conversion: Boolean(temp_array[table_count].conversion)
 
@@ -898,33 +898,33 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                             table.push({
 
-                                card : String(temp_array[table_count].card),
+                                card: String(temp_array[table_count].card),
 
-                                card_id : Number(temp_array[table_count].card_id),
+                                card_id: Number(temp_array[table_count].card_id),
 
-                                airline : String(temp_array[table_count].airline),
+                                airline: String(temp_array[table_count].airline),
 
-                                from : String(temp_array[table_count].from),
+                                from: String(temp_array[table_count].from),
 
-                                to : String(temp_array[table_count].to),
+                                to: String(temp_array[table_count].to),
 
-                                fee1 : Number(temp_array[table_count].fee1),
+                                fee1: Number(temp_array[table_count].fee1),
 
-                                amount : Number(temp_array[table_count].amount),
+                                amount: Number(temp_array[table_count].amount),
 
-                                mile : Number(temp_array[table_count].mile),
+                                mile: Number(temp_array[table_count].mile),
 
-                                tickets : Number(tickets),
+                                tickets: Number(tickets),
 
-                                link : String(temp_array[table_count].link),
+                                link: String(temp_array[table_count].link),
 
-                                image : String(temp_array[table_count].image),
+                                image: String(temp_array[table_count].image),
 
-                                have : Boolean(temp_array[table_count].have),
+                                have: Boolean(temp_array[table_count].have),
 
-                                params : temp_array[table_count].params,
+                                params: temp_array[table_count].params,
 
-                                converted_cards : temp_array[table_count].converted_cards,
+                                converted_cards: temp_array[table_count].converted_cards,
 
                                 conversion: Boolean(temp_array[table_count].conversion)
 
@@ -1075,8 +1075,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     if (variant_one_cards.indexOf(Number(table_one.variant[variant_count].converted_cards[conversion_count].params.card_id)) === -1) {
                         variant_one_cards.push(Number(table_one.variant[variant_count].converted_cards[conversion_count].params.card_id));
 
-                        if (Boolean(table_one.variant[variant_count].converted_cards[conversion_count].have)) {
-                            variant_one_have += Number(Number(table_one.variant[variant_count].converted_cards[conversion_count].have));
+                        if (Boolean(table_one.variant[variant_count].converted_cards[conversion_count].card.have)) {
+                            variant_one_have += Number(Number(table_one.variant[variant_count].converted_cards[conversion_count].card.have));
                         }
                     }
 
@@ -1098,8 +1098,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     if (variant_two_cards.indexOf(Number(table_two.variant[variant_count].converted_cards[conversion_count].params.card_id)) === -1) {
                         variant_two_cards.push(Number(table_two.variant[variant_count].converted_cards[conversion_count].params.card_id));
 
-                        if (Boolean(table_two.variant[variant_count].converted_cards[conversion_count].have)) {
-                            variant_two_have += Number(table_two.variant[variant_count].converted_cards[conversion_count].have);
+                        if (Boolean(table_two.variant[variant_count].converted_cards[conversion_count].card.have)) {
+                            variant_two_have += Number(table_two.variant[variant_count].converted_cards[conversion_count].card.have);
                         }
                     }
 

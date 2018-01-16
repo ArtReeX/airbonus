@@ -423,7 +423,7 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
                         
                         card: String(data.cards.conversion[card_count].card.name),
                         
-                        card_id: Number(data.cards.conversion[card_count].card.id),
+                        card_id: Number(data.cards.conversion[card_count].params.card_id),
                         
                         airline: String(data.routes.direct[route_count].name),
                         
