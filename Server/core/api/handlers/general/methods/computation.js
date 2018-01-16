@@ -86,12 +86,13 @@ module.exports.get = function (config, params, database, log, async, callback) {
         // выбор прямых рейсов
         selectDirectRoutes = function (conn, done) {
 
-            conn.query("SELECT airlines.name, routes_per_region.airline_iata, routes_per_region.price_miles, regions.miles, routes_per_region.source, routes_per_region.destination FROM routes_per_region, airlines, regions WHERE airlines.iata = routes_per_region.airline_iata AND routes_per_region.source = ? AND routes_per_region.destination = ? AND routes_per_region.region = regions.region AND routes_per_region.airline_iata = regions.airline_iata ORDER BY routes_per_region.price_miles", [params.userAirportFrom, params.userAirportTo], function (error, routes) {
+            conn.query("SELECT airlines.name, routes_per_region.airline_iata, routes_per_region.price_miles, regions.miles, routes_per_region.source, routes_per_region.destination FROM routes_per_region, airlines, regions WHERE airlines.iata = routes_per_region.airline_iata AND routes_per_region.source = ? AND routes_per_region.destination = ? AND regions.region = routes_per_region.region AND regions.airline_iata = routes_per_region.airline_iata ORDER BY routes_per_region.price_miles, regions.miles", [params.userAirportFrom, params.userAirportTo], function (error, routes) {
 
                 if (error) {
                     log.debug("Error MySQL connection: " + error);
                     done();
                 } else {
+                    
                     data.routes.direct = routes;
                     done();
                 }
@@ -103,12 +104,13 @@ module.exports.get = function (config, params, database, log, async, callback) {
         // выбор обратных рейсов
         selectBackRoutes = function (conn, done) {
 
-            conn.query("SELECT airlines.name, routes_per_region.airline_iata, routes_per_region.price_miles, regions.miles, routes_per_region.source, routes_per_region.destination FROM routes_per_region, airlines, regions WHERE airlines.iata = routes_per_region.airline_iata AND routes_per_region.source = ? AND routes_per_region.destination = ? AND routes_per_region.region = regions.region AND routes_per_region.airline_iata = regions.airline_iata ORDER BY routes_per_region.price_miles", [params.userAirportFrom, params.userAirportTo], function (error, routes) {
+            conn.query("SELECT airlines.name, routes_per_region.airline_iata, routes_per_region.price_miles, regions.miles, routes_per_region.source, routes_per_region.destination FROM routes_per_region, airlines, regions WHERE airlines.iata = routes_per_region.airline_iata AND routes_per_region.source = ? AND routes_per_region.destination = ? AND regions.region = routes_per_region.region AND regions.airline_iata = routes_per_region.airline_iata ORDER BY routes_per_region.price_miles, regions.miles", [params.userAirportFrom, params.userAirportTo], function (error, routes) {
 
                 if (error) {
                     log.debug("Error MySQL connection: " + error);
                     done();
                 } else {
+                    
                     data.routes.back = routes;
                     done();
                 }
