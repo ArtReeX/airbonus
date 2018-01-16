@@ -43,7 +43,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                 
                 for (array_count_two = array_count_one + 1; array_count_two < array_cards.length; array_count_two += 1) {
 
-                    if (Number(array_cards[array_count_one].id) === Number(array_cards[array_count_two].id)) { return false; }
+                    if (Number(array_cards[array_count_one].params.card_id) === Number(array_cards[array_count_two].params.card_id)) { return false; }
                 
                 }
                 
@@ -53,19 +53,21 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
         },
         
         // алгоритм сортировки карт
-        cardSortAlhoritm = function (card_one, card_two) {
+        sortAlhoritmCards = function (card_one, card_two) {
             
             // сравнение двух карт по параметрам
-            if (Boolean(card_one.have) !== Boolean(card_two.have)) {
+            if (Boolean(card_one.card.have) !== Boolean(card_two.card.have)) {
                 
-                if (Boolean(card_one.have)) { return -1; }
-                if (Boolean(card_two.have)) { return 1; }
+                if (Boolean(card_one.card.have)) { return -1; }
+                if (Boolean(card_two.card.have)) { return 1; }
                 
-            } else {
+            }
+            
+            if (Number(card_one.params.bonus_cur) !== Number(card_two.bonus_cur)) {
                 
-                if (Number(card_one.bonus_cur) > Number(card_two.bonus_cur)) { return -1; }
-                if (Number(card_one.bonus_cur) < Number(card_two.bonus_cur)) { return 1; }
-                
+                if (Number(card_one.params.bonus_cur) > Number(card_two.params.bonus_cur)) { return -1; }
+                if (Number(card_one.params.bonus_cur) < Number(card_two.params.bonus_cur)) { return 1; }
+            
             }
             
             return 0;
@@ -82,7 +84,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
             // добавление всех идентификторов
             for (array_count = 0; array_count < array.length; array_count += 1) {
                 
-                array_id.push(Number(array[array_count].id));
+                array_id.push(Number(array[array_count].params.card_id));
                 
             }
             
@@ -99,7 +101,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
             
         },
         
-        // генерация уникального идентификатора карты
+        // проверка массива карт на уникальность
         checkCardsToUnique = function (current_card, array_with_card) {
             
             var current_card_count,
@@ -111,7 +113,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
             // добавление всех идентификторов для текущей карты
             for (current_card_count = 0; current_card_count < array_with_card.length; current_card_count += 1) {
                 
-                array_with_card_id.push(Number(array_with_card[current_card_count].id));
+                array_with_card_id.push(Number(array_with_card[current_card_count].params.card_id));
                 
             }
             
@@ -124,7 +126,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                 // перебор карт, используемые для конвертации внутри карт
                 for (converted_card_count = 0; converted_card_count < cards_conversion[array_with_card_count].converted_cards.length; converted_card_count += 1) {
 
-                    array_all_card_id.push(Number(cards_conversion[array_with_card_count].converted_cards[converted_card_count].id));
+                    array_all_card_id.push(Number(cards_conversion[array_with_card_count].converted_cards[converted_card_count].params.card_id));
 
                 }
 
@@ -154,7 +156,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                 current_card_program_id = current_card.card.program_id.split(",");
                 
                 // определение идентификатора программы для рекурсивной карты
-                array_card_program_id = start_conversion_cards[array_count].program_id.split(",");
+                array_card_program_id = start_conversion_cards[array_count].card.program_id.split(",");
                 
                 // поиск курса обмена
                 for (conversion_program_current_count = 0; conversion_program_current_count < current_card_program_id.length; conversion_program_current_count += 1) {
@@ -166,7 +168,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                             if (Number(current_card_program_id[conversion_program_current_count]) === conversion_factors[conversion_factors_count].to_program_id
                                     && Number(array_card_program_id[array_program_current_count]) === conversion_factors[conversion_factors_count].from_program_id) {
                                 
-                                factor = conversion_factors[conversion_factors_count].factor;
+                                factor = Number(conversion_factors[conversion_factors_count].factor);
                                 
                             }
                             
@@ -180,14 +182,14 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                 temp_array.push(start_conversion_cards[array_count]);
                 
                 //---------------- добавление параметров ------------------//
-                temp_array_params.sum_amount += start_conversion_cards[array_count].amount;
-                temp_array_params.sum_fee1 += start_conversion_cards[array_count].fee1;
-                temp_array_params.sum_bonus_cur += start_conversion_cards[array_count].bonus_cur * factor;
+                temp_array_params.sum_amount += Number(start_conversion_cards[array_count].params.amount);
+                temp_array_params.sum_fee1 += Number(start_conversion_cards[array_count].params.fee1);
+                temp_array_params.sum_bonus_cur += Number(start_conversion_cards[array_count].params.bonus_cur * factor);
  
                 //---------------- проверка результата -------------------//
                 
                 // проверка комбинации на уникальность
-                if (checkArrayToUnique(temp_array) && start_conversion_cards[array_count].id !== current_card.id && checkCardsToUnique(current_card, temp_array)) {
+                if (checkArrayToUnique(temp_array) && start_conversion_cards[array_count].params.card_id !== current_card.params.card_id && checkCardsToUnique(current_card, temp_array)) {
                     
                     // добавление карты
                     cards_conversion.push({
@@ -200,14 +202,14 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                             
                             card_id: Number(generateUnicueId(temp_array)),
                             
-                            amount : temp_array_params.sum_amount,
-                            fee1 : temp_array_params.sum_fee1,
-                            bonus_cur : temp_array_params.sum_bonus_cur
+                            amount: Number(temp_array_params.sum_amount),
+                            fee1: Number(temp_array_params.sum_fee1),
+                            bonus_cur: Number(temp_array_params.sum_bonus_cur)
                             
                         },
 
                         // преобразованные карты
-                        converted_cards : temp_array.slice()
+                        converted_cards: temp_array.slice()
 
                     });
                     
@@ -218,9 +220,9 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                 calcRecursive(step + 1, bounding_count += 1, temp_array, temp_array_params, converion_factors, current_card, start_conversion_cards);
                 
                 //---------------- удаление параметров ------------------//
-                temp_array_params.sum_amount -= start_conversion_cards[array_count].amount;
-                temp_array_params.sum_fee1 -= start_conversion_cards[array_count].fee1;
-                temp_array_params.sum_bonus_cur -= start_conversion_cards[array_count].bonus_cur * factor;
+                temp_array_params.sum_amount -= Number(start_conversion_cards[array_count].params.amount);
+                temp_array_params.sum_fee1 -= Number(start_conversion_cards[array_count].params.fee1);
+                temp_array_params.sum_bonus_cur -= Number(start_conversion_cards[array_count].params.bonus_cur * factor);
 
                 //---------------- удаление элемента с временного массива -------------------//
                 temp_array.pop();
@@ -241,13 +243,40 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
 
                         if (error) { log.debug("Error MySQL connection: " + error); callback(); } else {
                             
-                            // обозначение карт как не имеющиеся
+                            // счётчики
                             var cards_db_count;
+                            
                             for (cards_db_count = 0; cards_db_count < cards.length; cards_db_count += 1) {
-                                cards[cards_db_count].have = false;
+                                
+                                cards_all.push({
+
+                                    // текущая карта
+                                    card: cards[cards_db_count],
+
+                                    // параметры
+                                    params: {
+
+                                        card_id: Number(cards[cards_db_count].id),
+
+                                        amount: Number(cards[cards_db_count].amount),
+                                        fee1: Number(cards[cards_db_count].fee1),
+                                        bonus_cur: Number(cards[cards_db_count].bonus_cur)
+                                    },
+
+                                    // преобразованные карты
+                                    converted_cards: []
+
+                                });
+                                
                             }
                             
-                            cards_all = cards.sort(cardSortAlhoritm);
+                            // обозначение карт как не имеющиеся
+                            for (cards_db_count = 0; cards_db_count < cards_all.length; cards_db_count += 1) {
+                                cards_all[cards_db_count].card.have = false;
+                            }
+                            
+                            // сортировка
+                            cards_all.sort(sortAlhoritmCards);
                             
                             callback();
                             
@@ -283,9 +312,9 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                     if (Number(user_cards[cards_use_count].card) === Number(cards_all[cards_all_count].id)) {
                         
                         // замена данных карты
-                        cards_all[cards_all_count].bonus_cur = user_cards[cards_use_count].bonus;
-                        cards_all[cards_all_count].amount = 0;
-                        cards_all[cards_all_count].have = true;
+                        cards_all[cards_all_count].card.bonus_cur = cards_all[cards_all_count].params.bonus_cur = Number(user_cards[cards_use_count].bonus);
+                        cards_all[cards_all_count].card.amount = cards_all[cards_all_count].params.amount = 0;
+                        cards_all[cards_all_count].card.have = true;
 
                     }
                     
@@ -324,13 +353,13 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                     for (start_conversion_cards_count = 0; start_conversion_cards_count < cards_all.length; start_conversion_cards_count += 1) {
                         
                         // выбор всех идентификаторов карты, которые она содержит
-                        start_conversion_id_one_card = cards_all[start_conversion_cards_count].program_id.split(",");
+                        start_conversion_id_one_card = cards_all[start_conversion_cards_count].card.program_id.split(",");
                         
                         for (start_conversion_id_one_card_count = 0; start_conversion_id_one_card_count < start_conversion_id_one_card.length; start_conversion_id_one_card_count += 1) {
                             
                             // проверка карты на возможноть преобразования в конечную
                             if (Number(start_conversion_id_one_card[start_conversion_id_one_card_count]) === Number(start_conversion_id[start_conversion_id_count])
-                                    && cards_use_in_computation[cards_use_count].card.id !== cards_all[start_conversion_cards_count].id) {
+                                    && cards_use_in_computation[cards_use_count].params.card_id !== cards_all[start_conversion_cards_count].params.card_id) {
                                 
                                 // добавление карты
                                 start_conversion_cards.push(cards_all[start_conversion_cards_count]);
@@ -344,7 +373,11 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                 }
                 
                 // запуск рекурсивного алгоритма вычисления
-                calcRecursive(0, 0, [], {sum_bonus_cur : 0, sum_amount : 0, sum_fee1 : 0}, conversion_factors, cards_use_in_computation[cards_use_count], start_conversion_cards.sort(cardSortAlhoritm));
+                calcRecursive(0, 0, [], {
+                    sum_bonus_cur: cards_use_in_computation[cards_use_count].params.bonus_cur,
+                    sum_amount: cards_use_in_computation[cards_use_count].params.amount,
+                    sum_fee1: cards_use_in_computation[cards_use_count].params.fee1
+                }, conversion_factors, cards_use_in_computation[cards_use_count], start_conversion_cards.sort(sortAlhoritmCards));
                 
                 // очистка идентификаторов карт, которые могут быть до преобразования
                 start_conversion_id.splice(0, start_conversion_id.length);
@@ -388,15 +421,15 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
                     // добавление записи
                     data.routes_cost.conversion.direct.push({
                         
-                        card: data.cards.conversion[card_count].card.name,
+                        card: String(data.cards.conversion[card_count].card.name),
                         
                         card_id: Number(data.cards.conversion[card_count].card.id),
                         
-                        airline: data.routes.direct[route_count].name,
+                        airline: String(data.routes.direct[route_count].name),
                         
-                        from: data.routes.direct[route_count].source,
+                        from: String(data.routes.direct[route_count].destination),
                         
-                        to: data.routes.direct[route_count].destination,
+                        to: String(data.routes.direct[route_count].source),
                         
                         fee1: Number(data.cards.conversion[card_count].card.fee1),
                         
@@ -408,11 +441,11 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
                         
                         tickets_back: 0,
                         
-                        link: data.cards.conversion[card_count].card.link,
+                        link: String(data.cards.conversion[card_count].card.link),
                         
-                        image: data.cards.conversion[card_count].card.image,
+                        image: String(data.cards.conversion[card_count].card.image),
                         
-                        have: data.cards.conversion[card_count].card.have,
+                        have: Boolean(data.cards.conversion[card_count].card.have),
                         
                         conversion: true,
                         
@@ -440,15 +473,15 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
                     // добавление записи
                     data.routes_cost.conversion.back.push({
                         
-                        card: data.cards.conversion[card_count].card.name,
+                        card: String(data.cards.conversion[card_count].card.name),
                         
                         card_id: Number(data.cards.conversion[card_count].card.id),
                         
-                        airline: data.routes.back[route_count].name,
+                        airline: String(data.routes.back[route_count].name),
                         
-                        from: data.routes.back[route_count].source,
+                        from: String(data.routes.back[route_count].destination),
                         
-                        to: data.routes.back[route_count].destination,
+                        to: String(data.routes.back[route_count].source),
                         
                         fee1: Number(data.cards.conversion[card_count].card.fee1),
                         
@@ -460,11 +493,11 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
                         
                         tickets_back: Number(people_count),
                         
-                        link: data.cards.conversion[card_count].card.link,
+                        link: String(data.cards.conversion[card_count].card.link),
                         
-                        image: data.cards.conversion[card_count].card.image,
+                        image: String(data.cards.conversion[card_count].card.image),
                         
-                        have: data.cards.conversion[card_count].card.have,
+                        have: Boolean(data.cards.conversion[card_count].card.have),
                         
                         conversion: true,
                         

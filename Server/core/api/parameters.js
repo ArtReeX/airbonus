@@ -23,7 +23,8 @@ module.exports = {
     "consts": {
     
         "incomeMin": null,
-        "creditMin": null
+        "creditMin": null,
+        "twoStageSorting": null
         
     }
     

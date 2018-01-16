@@ -316,7 +316,7 @@ $(document).ready(function () {
 
                                 $("#computation-result_tables_variant_" + computation_count).append("<div class='col-12 col-lg-6'>" +
 
-                                                            "<div class='card mb-3 bg-content " + String((conversion_variant.have ? "border-success" : "border-primary")) + " text-white'>" +
+                                                            "<div class='card mb-3 bg-content " + String((conversion_variant.card.have ? "border-success" : "border-primary")) + " text-white'>" +
 
                                                                 "<div class='card-header'>" +
 
@@ -330,7 +330,7 @@ $(document).ready(function () {
 
                                                                                     "<div class='col-8'>" +
 
-                                                                                        String(conversion_variant.name) +
+                                                                                        String(conversion_variant.card.name) +
 
                                                                                         "<br> <span class='badge badge-secondary'>Card is used for conversion</span>" +
 
@@ -339,7 +339,7 @@ $(document).ready(function () {
                                                                                     "<div class='col-3 ml-auto text-center'>" +
 
                                                                                         "<a class='text-white' href='" +
-                                                                                        String(conversion_variant.link) +
+                                                                                        String(conversion_variant.card.link) +
                                                                                         "'target='_blank'>" +
                                                                                         "<i class='fa fa-external-link' aria-hidden='true'></i>" +
                                                                                         "</a>" +
@@ -373,7 +373,7 @@ $(document).ready(function () {
                                                                                         "<img class='img-fluid cardsAll-table img' src='http://" +
                                                                                         String(window.config.server.address) + ":" + String(window.config.server.port) +
                                                                                         "/client/images/cards/" +
-                                                                                        String(conversion_variant.image) + "'>" +
+                                                                                        String(conversion_variant.card.image) + "'>" +
 
                                                                                     "</div>" +
 
@@ -396,7 +396,7 @@ $(document).ready(function () {
                                                                                                     "<div class='col-6'> Year fee: </div>" +
 
                                                                                                     "<div class='col-6 ml-auto'>" +
-                                                                                                        String(conversion_variant.fee1) +
+                                                                                                        String(conversion_variant.params.fee1) +
                                                                                                     "</div>" +
 
                                                                                                 "</div>" +
@@ -418,7 +418,7 @@ $(document).ready(function () {
                                                                                                     "<div class='col-6'> Amount to spend: </div>" +
 
                                                                                                     "<div class='col-6 ml-auto'>" +
-                                                                                                        String(conversion_variant.amount) +
+                                                                                                        String(conversion_variant.params.amount) +
                                                                                                     "</div>" +
 
                                                                                                 "</div>" +
@@ -440,7 +440,7 @@ $(document).ready(function () {
                                                                                                     "<div class='col-6'> Mile: </div>" +
 
                                                                                                     "<div class='col-6 ml-auto'>" +
-                                                                                                        String(conversion_variant.bonus_cur) +
+                                                                                                        String(conversion_variant.params.bonus_cur) +
                                                                                                     "</div>" +
 
                                                                                                 "</div>" +
@@ -462,7 +462,7 @@ $(document).ready(function () {
                                                                                                     "<div class='col-6'> You card: </div>" +
 
                                                                                                     "<div class='col-6 ml-auto'>" +
-                                                                                                        String((conversion_variant.have ? "Yes" : "No")) +
+                                                                                                        String((conversion_variant.card.have ? "Yes" : "No")) +
                                                                                                     "</div>" +
 
                                                                                                 "</div>" +

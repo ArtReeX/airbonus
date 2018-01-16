@@ -15,10 +15,10 @@ module.exports.set = function (config, socket, database, log, async, callback) {
         
         function (done) {
             
-            methods_module.consts.incomeMin(database, function (error, value) {
+            methods_module.consts.twoStageSorting(database, function (error, value) {
                 
                 if (error) { done(error); } else {
-                    socket.session.consts.incomeMin = Number(value);
+                    socket.session.consts.twoStageSorting = Number(value);
                     done();
                 }
                 
@@ -32,6 +32,84 @@ module.exports.set = function (config, socket, database, log, async, callback) {
                 
                 if (error) { done(error); } else {
                     socket.session.consts.creditMin = Number(value);
+                    done();
+                }
+                
+            });
+            
+        },
+        
+        function (done) {
+            
+            methods_module.consts.incomeMin(database, function (error, value) {
+                
+                if (error) { done(error); } else {
+                    socket.session.consts.incomeMin = Number(value);
+                    done();
+                }
+                
+            });
+            
+        },
+        
+        function (done) {
+            
+            methods_module.consts.recursionDepthComputation(database, function (error, value) {
+                
+                if (error) { done(error); } else {
+                    config.recursion_depth_computation = Number(value);
+                    done();
+                }
+                
+            });
+            
+        },
+        
+        function (done) {
+            
+            methods_module.consts.maxVariantsRecursionComputation(database, function (error, value) {
+                
+                if (error) { done(error); } else {
+                    config.max_variants_recursion_computation = Number(value);
+                    done();
+                }
+                
+            });
+            
+        },
+        
+        function (done) {
+            
+            methods_module.consts.recursionDepthConversion(database, function (error, value) {
+                
+                if (error) { done(error); } else {
+                    config.recursion_depth_conversion = Number(value);
+                    done();
+                }
+                
+            });
+            
+        },
+        
+        function (done) {
+            
+            methods_module.consts.maxVariantsRecursionConversion(database, function (error, value) {
+                
+                if (error) { done(error); } else {
+                    config.max_variants_recursion_conversion = Number(value);
+                    done();
+                }
+                
+            });
+            
+        },
+        
+        function (done) {
+            
+            methods_module.consts.maxVariants(database, function (error, value) {
+                
+                if (error) { done(error); } else {
+                    config.max_variants = Number(value);
                     done();
                 }
                 

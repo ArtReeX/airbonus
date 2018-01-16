@@ -124,7 +124,7 @@
                         <div class="col-12 col-lg-3 ml-auto text-right"> 
 
                             <div class="form-group">
-                                <input type="number" class="form-control bg-light text-left text-black" id="others-spend_month">
+                                <input type="number" class="form-control bg-light text-left text-black" value="5000" id="others-spend_month">
                             </div>
 
                         </div>
@@ -153,7 +153,7 @@
                         <div class="col-12 col-lg-3 ml-auto text-right"> 
 
                             <div class="form-group">
-                                <input type="number" class="form-control bg-light text-left text-black" id="others-spend_year">
+                                <input type="number" class="form-control bg-light text-left text-black" value="50000" id="others-spend_year">
                             </div>
 
                         </div>
