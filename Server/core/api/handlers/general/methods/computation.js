@@ -1122,14 +1122,18 @@ module.exports.get = function (config, params, database, log, async, callback) {
             
             if (Number(variant_one_cards.length) !== Number(variant_two_cards.length)) {
                 
-                if (Number(variant_one_cards.length) < Number(variant_two_cards.length)) {
+                if (Number(variant_one_fee1) === Number(variant_two_fee1)) {
                     
-                    if (Number(variant_one_fee1) === Number(variant_two_fee1)) { return 1; }
+                    if (Number(variant_one_cards.length) < Number(variant_two_cards.length)) { return -1; }
+                    if (Number(variant_one_cards.length) > Number(variant_two_cards.length)) { return 1; }
                     
-                    if (Number(variant_one_fee1) < Number(variant_two_fee1)) { return -1; }
+                }
+                
+                if (Number(variant_one_fee1) < Number(variant_two_fee1)) {
                     
-                    if (Number(variant_one_fee1) > Number(variant_two_fee1)) {
-                        
+                    if (Number(variant_one_cards.length) < Number(variant_two_cards.length)) { return -1; }
+                    if (Number(variant_one_cards.length) > Number(variant_two_cards.length)) {
+                    
                         if (Number(variant_one_fee1) <= Number(params.consts.creditMin)) { return -1; }
                         if (Number(variant_one_fee1) > Number(params.consts.creditMin)) { return 1; }
                         
@@ -1137,23 +1141,16 @@ module.exports.get = function (config, params, database, log, async, callback) {
                     
                 }
                 
-                if (Number(variant_one_cards.length) > Number(variant_two_cards.length)) {
+                if (Number(variant_one_fee1) > Number(variant_two_fee1)) {
                     
-                    if (Number(variant_one_fee1) === Number(variant_two_fee1)) { return 1; }
-                    
-                    if (Number(variant_one_fee1) < Number(variant_two_fee1)) {
+                    if (Number(variant_one_cards.length) < Number(variant_two_cards.length)) {
                         
                         if (Number(variant_one_fee1) <= Number(params.consts.creditMin)) { return -1; }
                         if (Number(variant_one_fee1) > Number(params.consts.creditMin)) { return 1; }
                         
                     }
                     
-                    if (Number(variant_one_fee1) > Number(variant_two_fee1)) {
-                        
-                        if (Number(variant_one_fee1) <= Number(params.consts.creditMin)) { return -1; }
-                        if (Number(variant_one_fee1) > Number(params.consts.creditMin)) { return 1; }
-                        
-                    }
+                    if (Number(variant_one_cards.length) > Number(variant_two_cards.length)) { return 1; }
                     
                 }
                 
