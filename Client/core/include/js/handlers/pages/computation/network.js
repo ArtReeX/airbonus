@@ -73,7 +73,7 @@ $(document).ready(function () {
                                                                             
                                                                                 String(variant.card) +
                                                                                 
-                                                                                String(variant.conversion ? "<br> <span class='badge badge-info'>Converted card</span>" : "") +
+                                                                                String(variant.conversion ? "<br> <span class='badge badge-info'>card to accept transferred miles</span>" : "") +
                                                                                             
                                                                             "</div>" +
                                                                                             
@@ -262,10 +262,12 @@ $(document).ready(function () {
 
                                                                                         "<div class='row justify-content-center'>" +
 
-                                                                                            "<div class='col-6'> Mile: </div>" +
+                                                                                            "<div class='col-6'> Miles: </div>" +
 
                                                                                             "<div class='col-6 ml-auto'>" +
-                                                                                                String(variant.mile) +
+                                                                                                String(variant.tickets) +
+                                                                                                " * " +
+                                                                                                String(variant.price_of_one_ticket) +
                                                                                             "</div>" +
 
                                                                                         "</div>" +
@@ -332,7 +334,7 @@ $(document).ready(function () {
 
                                                                                         String(conversion_variant.card.name) +
 
-                                                                                        "<br> <span class='badge badge-secondary'>Card is used for conversion</span>" +
+                                                                                        "<br> <span class='badge badge-secondary'>card to transfer miles from</span>" +
 
                                                                                     "</div>" +
 
@@ -437,7 +439,7 @@ $(document).ready(function () {
 
                                                                                                 "<div class='row justify-content-center'>" +
 
-                                                                                                    "<div class='col-6'> Mile: </div>" +
+                                                                                                    "<div class='col-6'> Miles: </div>" +
 
                                                                                                     "<div class='col-6 ml-auto'>" +
                                                                                                         String(conversion_variant.params.bonus_cur) +

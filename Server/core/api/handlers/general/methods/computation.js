@@ -260,6 +260,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 fee1: Number(data.cards.available[card_count].card.fee1),
 
                                 amount: 0,
+                                
+                                price_of_one_ticket: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)),
 
                                 mile: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
 
@@ -274,6 +276,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 have: Boolean(data.cards.available[card_count].card.have),
 
                                 conversion: false,
+                                
+                                direct: true,
 
                                 params: data.cards.available[card_count].params,
 
@@ -312,6 +316,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 fee1: Number(data.cards.available[card_count].card.fee1),
 
                                 amount: 0,
+                                
+                                price_of_one_ticket: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)),
 
                                 mile: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * people_count,
 
@@ -326,6 +332,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 have: Boolean(data.cards.available[card_count].card.have),
 
                                 conversion: false,
+                                
+                                direct: false,
 
                                 params: data.cards.available[card_count].params,
 
@@ -489,6 +497,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 fee1: Number(data.cards.free[card_count].card.fee1),
 
                                 amount: Number(data.cards.free[card_count].card.amount),
+                                
+                                price_of_one_ticket: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)),
 
                                 mile: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
 
@@ -503,6 +513,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 have: Boolean(data.cards.free[card_count].card.have),
 
                                 conversion: false,
+                                
+                                direct: true,
 
                                 params: data.cards.free[card_count].params,
 
@@ -540,6 +552,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 to: String(data.routes.back[route_count].source),
 
                                 fee1: Number(data.cards.free[card_count].card.fee1),
+                                
+                                price_of_one_ticket: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)),
 
                                 amount: Number(data.cards.free[card_count].card.amount),
 
@@ -556,6 +570,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 have: Boolean(data.cards.free[card_count].card.have),
 
                                 conversion: false,
+                                
+                                direct: false,
 
                                 params: data.cards.free[card_count].params,
 
@@ -848,6 +864,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                             fee1: Number(temp_array[table_count].fee1),
 
                             amount: Number(temp_array[table_count].amount),
+                            
+                            price_of_one_ticket: Number(temp_array[table_count].price_of_one_ticket),
 
                             mile: Number(temp_array[table_count].mile),
 
@@ -863,7 +881,9 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                             converted_cards: temp_array[table_count].converted_cards,
 
-                            conversion: Boolean(temp_array[table_count].conversion)
+                            conversion: Boolean(temp_array[table_count].conversion),
+                            
+                            direct: Boolean(temp_array[table_count].direct)
 
                         });
                     }
@@ -913,6 +933,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 fee1: Number(temp_array[table_count].fee1),
 
                                 amount: Number(temp_array[table_count].amount),
+                                
+                                price_of_one_ticket: Number(temp_array[table_count].price_of_one_ticket),
 
                                 mile: Number(temp_array[table_count].mile),
 
@@ -928,7 +950,9 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                                 converted_cards: temp_array[table_count].converted_cards,
 
-                                conversion: Boolean(temp_array[table_count].conversion)
+                                conversion: Boolean(temp_array[table_count].conversion),
+                            
+                                direct: Boolean(temp_array[table_count].direct)
 
                             });
                         }
@@ -1201,14 +1225,68 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
         },
 
-        // выбор лучших вариантов
-        sortResultData = function (done) {
+        // преобразование конечных данных
+        adaptResultData = function (done) {
 
+            var cards_count,
+                variant_count,
+                converted_count,
+                cards_id = [];
+            
             // перезапись
-            data.result.sorted = data.result.unsorted;
+            data.result.sorted = JSON.parse(JSON.stringify(data.result.unsorted));
 
             // сортировка
             data.result.sorted.sort(sortResultAlgoritm);
+            
+            // изменение количества отдаваемых результатов
+            if (data.result.sorted.length > config.max_variants) { data.result.sorted.length = config.max_variants; }
+            
+            // проверка карт на повторения
+            for (cards_count = 0; cards_count < data.result.sorted.length; cards_count += 1) {
+
+                // проверка главных карт
+                for (variant_count = 0; variant_count < data.result.sorted[cards_count].variant.length; variant_count += 1) {
+
+                    if (cards_id.indexOf(Number(data.result.sorted[cards_count].variant[variant_count].card_id)) === -1) {
+                        cards_id.push(Number(data.result.sorted[cards_count].variant[variant_count].card_id));
+                    } else {
+                        data.result.sorted[cards_count].variant[variant_count].card += " (Same card)";
+                        data.result.sorted[cards_count].variant[variant_count].fee1 = data.result.sorted[cards_count].variant[variant_count].amount = "-";
+                    }
+
+                    // проверка на имеющуюся карту
+                    if (data.result.sorted[cards_count].variant[variant_count].have) {
+                        data.result.sorted[cards_count].variant[variant_count].fee1 = data.result.sorted[cards_count].variant[variant_count].amount = "-";
+                    }
+
+
+                    // проверка используемых для преобразования карт
+                    for (converted_count = 0; converted_count < data.result.sorted[cards_count].variant[variant_count].converted_cards.length; converted_count += 1) {
+
+                        if (cards_id.indexOf(Number(data.result.sorted[cards_count].variant[variant_count].converted_cards[converted_count].params.card_id)) === -1) {
+                            cards_id.push(Number(data.result.sorted[cards_count].variant[variant_count].converted_cards[converted_count].params.card_id));
+                        } else {
+
+                            data.result.sorted[cards_count].variant[variant_count].converted_cards[converted_count].card.name += " (Same card)";
+                            data.result.sorted[cards_count].variant[variant_count].converted_cards[converted_count].params.fee1 = data.result.sorted[cards_count].variant[variant_count].converted_cards[converted_count].params.amount = "-";
+
+                        }
+
+                        // проверка на имеющуюся карту
+                        if (data.result.sorted[cards_count].variant[variant_count].converted_cards[converted_count].card.have) {
+                            data.result.sorted[cards_count].variant[variant_count].converted_cards[converted_count].params.fee1 = data.result.sorted[cards_count].variant[variant_count].converted_cards[converted_count].params.amount = "-";
+                        }
+
+                    }
+
+
+                }
+
+                // очистка идентификаторов повторяющихся карт
+                cards_id.splice(0, cards_id.length);
+
+            }
 
             done();
 
@@ -1339,7 +1417,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                             // сортировка окончательных данных
                             function (done) {
-                                sortResultData(done);
+                                adaptResultData(done);
                             }
 
                         ], function () {

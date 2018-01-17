@@ -415,7 +415,7 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
             for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                 // проверка на возможность покупки разного количества билетов за бонусы
-                if (data.cards.conversion[card_count].params.bonus_cur >= (data.routes.direct[route_count].price_miles * people_count) &&       data.cards.conversion[card_count].card.airline_iata === data.routes.direct[route_count].airline_iata &&
+                if (data.cards.conversion[card_count].params.bonus_cur >= (Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * Number(people_count)) && data.cards.conversion[card_count].card.airline_iata === data.routes.direct[route_count].airline_iata &&
                         data.cards.conversion[card_count].params.amount + data.cards.conversion[card_count].params.fee1 <= Number((params.spendNextMonth * 3) + ((params.spendNextYear - (params.spendNextMonth * 12)) * 0.5))) {
 
                     // добавление записи
@@ -435,6 +435,8 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
                         
                         amount: Number(data.cards.conversion[card_count].card.amount),
                         
+                        price_of_one_ticket: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)),
+                        
                         mile: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
                         
                         tickets_direct: Number(people_count),
@@ -448,6 +450,8 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
                         have: Boolean(data.cards.conversion[card_count].card.have),
                         
                         conversion: true,
+                                
+                        direct: true,
                         
                         params: data.cards.conversion[card_count].params,
                         
@@ -467,7 +471,7 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
             for (people_count = 1; people_count <= params.maxPeople + params.statusValue; people_count += 1) {
 
                 // проверка на возможность покупки разного количества билетов за бонусы
-                if (data.cards.conversion[card_count].params.bonus_cur >= (data.routes.back[route_count].price_miles * people_count) && data.cards.conversion[card_count].card.airline_iata === data.routes.back[route_count].airline_iata &&
+                if (data.cards.conversion[card_count].params.bonus_cur >= (Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * Number(people_count)) && data.cards.conversion[card_count].card.airline_iata === data.routes.back[route_count].airline_iata &&
                         data.cards.conversion[card_count].params.amount + data.cards.conversion[card_count].params.fee1 <= Number((params.spendNextMonth * 3) + ((params.spendNextYear - (params.spendNextMonth * 12)) * 0.5))) {
 
                     // добавление записи
@@ -487,6 +491,8 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
                         
                         amount: Number(data.cards.conversion[card_count].card.amount),
                         
+                        price_of_one_ticket: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)),
+                        
                         mile: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * people_count,
                         
                         tickets_direct: 0,
@@ -500,6 +506,8 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
                         have: Boolean(data.cards.conversion[card_count].card.have),
                         
                         conversion: true,
+                                
+                        direct: false,
                         
                         params: data.cards.conversion[card_count].params,
                         
