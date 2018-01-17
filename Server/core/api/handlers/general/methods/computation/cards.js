@@ -439,6 +439,8 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
                         
                         mile: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
                         
+                        available_amount_of_bonuses: Number(data.cards.conversion[card_count].card.bonus_cur),
+                        
                         tickets_direct: Number(people_count),
                         
                         tickets_back: 0,
@@ -494,6 +496,8 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
                         price_of_one_ticket: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)),
                         
                         mile: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * people_count,
+                        
+                        available_amount_of_bonuses: Number(data.cards.conversion[card_count].card.bonus_cur),
                         
                         tickets_direct: 0,
                         

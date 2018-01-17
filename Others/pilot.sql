@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.2.58.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 16.01.2018 1:54:17
+-- Дата скрипта: 18.01.2018 0:07:17
 -- Версия сервера: 5.5.52-MariaDB
 -- Версия клиента: 4.1
 --
@@ -17290,24 +17290,22 @@ INSERT INTO cards VALUES
 (14, 4, 'UA', 'MileagePlus Explorer VISA', 30000, 70000, 1000, 90, 0, 95, 18, '13', 24, 'https://www.theexplorercard.com/30kAFW/allbenefits/explorermiles', '14.png'),
 (15, 4, 'BA', 'British Airways VISA Signature', 50000, 50000, 3000, 90, 95, 95, 36, '30', 24, 'https://creditcards.chase.com/credit-cards/british-airways', '15.png'),
 (16, 5, 'AA', 'AAdvantage Platinum Select MC', 50000, 75000, 3000, 90, 0, 95, 18, '27', 24, 'https://www.citi.com/credit-cards/credit-card-details/citi.action?ID=citi-aadvantage-platinum-elite-credit-card', '16.jpg'),
-(17, 6, 'VX', 'Virgin America Premium VISA', 15000, 15000, 1000, 90, 149, 149, 18, '31', 24, 'https://creditcard.virginamerica.com/premium-visa-signature-card', '17.jpg'),
-(18, 6, 'VX', 'Virgin America VISA', 10000, 10000, 1000, 90, 49, 49, 18, '8', 24, 'https://creditcard.virginamerica.com/visa-signature-card', '18.jpg'),
 (19, 7, 'SY', 'Sun Country Airlines VISA Signature', 40000, 30000, 1000, 90, 0, 69, 36, '32', 0, 'https://www.suncountry.com/Explore/Our-Products/ufly-rewards-program/Sun-Country-Airlines-Visa-Signature.html', '19.jpg'),
 (20, 8, 'AC', 'TD AeroplanTM VISA Signature', 25000, 25000, 1000, 90, 0, 95, 12, '33', 24, 'https://www.tdbank.com/personalcreditcard/aeroplan.html', '20.png'),
 (21, 9, 'LA', 'LANPASS VISA Signature', 20000, 20000, 1, 90, 0, 75, 36, '34', 12, 'https://www.usbank.com/credit-cards/lanpass-visa-signature-credit-card.html', '21.png'),
 (22, 9, 'AM', 'AeroMexico VISA Signature', 20000, 20000, 1, 90, 0, 80, 24, '35', 12, 'https://www.usbank.com/credit-cards/aeromexico-visa-signature-credit-card.html', '22.png'),
-(23, 1, 'Dl', 'Premier Rewards Gold Card', 25000, 25000, 2000, 90, 0, 195, 0, '1,2', 0, 'https://www.americanexpress.com/us/credit-cards/card/premier-rewards-gold/', '23.png'),
-(24, 1, 'Dl', 'Premier Rewards Platinum Card', 60000, 60000, 5000, 90, 550, 550, 0, '1,2', 0, 'https://www.americanexpress.com/us/credit-cards/card/platinum/', '24.png'),
-(25, 1, 'Dl', 'EveryDay Rewards Card', 10000, 10000, 1000, 90, 0, 0, 0, '1,2', 0, 'https://www.americanexpress.com/us/credit-cards/card/amex-everyday/', '25.png'),
-(26, 1, 'Dl', 'Business Premier Rewards Gold Card', 50000, 50000, 5000, 90, 0, 175, 0, '1', 0, 'https://www.americanexpress.com/us/small-business/credit-cards/business-gold-rewards', '26.png'),
-(27, 1, 'Dl', 'Business Premier Rewards Platinum Card', 50000, 75000, 10000, 90, 450, 450, 0, '1', 0, 'https://www.americanexpress.com/us/small-business/credit-cards/business-platinum', '27.png'),
-(28, 4, 'WN', 'Ink Business Preferred VISA', 80000, 80000, 5000, 90, 95, 95, 0, '2', 0, 'https://creditcards.chase.com/small-business-credit-cards/ink-business-preferred', '28.png'),
+(23, 1, '', 'Premier Rewards Gold Card', 25000, 25000, 2000, 90, 0, 195, 0, '1,2', 0, 'https://www.americanexpress.com/us/credit-cards/card/premier-rewards-gold/', '23.png'),
+(24, 1, '', 'Premier Rewards Platinum Card', 60000, 60000, 5000, 90, 550, 550, 0, '1,2', 0, 'https://www.americanexpress.com/us/credit-cards/card/platinum/', '24.png'),
+(25, 1, '', 'EveryDay Rewards Card', 10000, 10000, 1000, 90, 0, 0, 0, '1,2', 0, 'https://www.americanexpress.com/us/credit-cards/card/amex-everyday/', '25.png'),
+(26, 1, '', 'Business Premier Rewards Gold Card', 50000, 50000, 5000, 90, 0, 175, 0, '1', 0, 'https://www.americanexpress.com/us/small-business/credit-cards/business-gold-rewards', '26.png'),
+(27, 1, '', 'Business Premier Rewards Platinum Card', 50000, 75000, 10000, 90, 450, 450, 0, '1', 0, 'https://www.americanexpress.com/us/small-business/credit-cards/business-platinum', '27.png'),
+(28, 4, '', 'Ink Business Preferred VISA', 80000, 80000, 5000, 90, 95, 95, 0, '2', 0, 'https://creditcards.chase.com/small-business-credit-cards/ink-business-preferred', '28.png'),
 (29, 5, '', 'Citi ThankYou Preferred Card', 0, 0, 0, 90, 0, 0, 0, '3', 0, 'https://www.citi.com/credit-cards/creditcards/citi.action?ID=Thankyou-Preferred-credit-card', '29.jpg'),
 (30, 5, '', 'Citi ThankYou Premier Card', 0, 0, 0, 90, 95, 0, 0, '3', 0, 'https://www.citi.com/credit-cards/credit-card-details/citi.action?ID=citi-thankyou-premier-credit-card&category=view-all-credit-cards&afc=1C2&intc=7~7~67~1~MCT~1~CMSDefaultOffer~4MMZ5W7791C2L00101W', '30.jpg'),
 (31, 5, '', 'Citi ThankYou Prestige Card', 0, 0, 0, 90, 450, 450, 0, '3', 0, 'https://www.citi.com/credit-cards/credit-card-details/citi.action?ID=citi-prestige-card', '31.jpg'),
-(32, 1, 'Dl', 'Starwood Preferred Guest American Express', 25000, 25000, 3000, 90, 0, 95, 0, '4', 0, 'https://www.americanexpress.com/us/credit-cards/card/starwood-preferred-guest/', '32.png'),
-(33, 1, 'Dl', 'Business Starwood Preferred Guest American Express', 25000, 25000, 5000, 90, 0, 95, 0, '4', 0, 'https://www.americanexpress.com/us/small-business/credit-cards/starwood-business-credit-card/', '33.png'),
-(34, 1, 'Dl', 'EveryDay Rewards Preferred Card', 15000, 15000, 1000, 90, 95, 95, 0, '1,2', 0, 'https://www.americanexpress.com/us/credit-cards/card/amex-everyday-preferred/?eep=25330&linknav=US-Acq-CCSG-Prospect-CategoryRewardsPointsCards-AEDP-CardTitle-Bottom-Pos5', '34.png');
+(32, 1, '', 'Starwood Preferred Guest American Express', 25000, 25000, 3000, 90, 0, 95, 0, '4', 0, 'https://www.americanexpress.com/us/credit-cards/card/starwood-preferred-guest/', '32.png'),
+(33, 1, '', 'Business Starwood Preferred Guest American Express', 25000, 25000, 5000, 90, 0, 95, 0, '4', 0, 'https://www.americanexpress.com/us/small-business/credit-cards/starwood-business-credit-card/', '33.png'),
+(34, 1, '', 'EveryDay Rewards Preferred Card', 15000, 15000, 1000, 90, 95, 95, 0, '1,2', 0, 'https://www.americanexpress.com/us/credit-cards/card/amex-everyday-preferred/?eep=25330&linknav=US-Acq-CCSG-Prospect-CategoryRewardsPointsCards-AEDP-CardTitle-Bottom-Pos5', '34.png');
 
 -- 
 -- Вывод данных для таблицы consts

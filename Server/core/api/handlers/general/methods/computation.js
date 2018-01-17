@@ -18,7 +18,11 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                 // отсортированый конечный результат
                 sorted: [],
-
+                
+                // разделённые результаты
+                separated: [],
+                
+                // количество перебраных вариантов при рассчёте
                 treated_combinations : 0
 
             },
@@ -264,6 +268,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 price_of_one_ticket: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)),
 
                                 mile: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
+                                
+                                available_amount_of_bonuses: Number(data.cards.available[card_count].card.bonus_cur),
 
                                 tickets_direct: Number(people_count),
 
@@ -320,6 +326,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 price_of_one_ticket: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)),
 
                                 mile: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * people_count,
+                                
+                                available_amount_of_bonuses: Number(data.cards.available[card_count].card.bonus_cur),
 
                                 tickets_direct: 0,
 
@@ -501,6 +509,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 price_of_one_ticket: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)),
 
                                 mile: Number(data.routes.direct[route_count].price_miles ? Number(data.routes.direct[route_count].price_miles) : Number(data.routes.direct[route_count].miles)) * people_count,
+                                
+                                available_amount_of_bonuses: Number(data.cards.free[card_count].card.bonus_cur),
 
                                 tickets_direct: Number(people_count),
 
@@ -558,6 +568,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 amount: Number(data.cards.free[card_count].card.amount),
 
                                 mile: Number(data.routes.back[route_count].price_miles ? Number(data.routes.back[route_count].price_miles) : Number(data.routes.back[route_count].miles)) * people_count,
+                                
+                                available_amount_of_bonuses: Number(data.cards.free[card_count].card.bonus_cur),
 
                                 tickets_direct: 0,
 
@@ -868,6 +880,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                             price_of_one_ticket: Number(temp_array[table_count].price_of_one_ticket),
 
                             mile: Number(temp_array[table_count].mile),
+                            
+                            available_amount_of_bonuses: Number(temp_array[table_count].available_amount_of_bonuses),
 
                             tickets: Number(tickets),
 
@@ -937,6 +951,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 price_of_one_ticket: Number(temp_array[table_count].price_of_one_ticket),
 
                                 mile: Number(temp_array[table_count].mile),
+                                
+                                available_amount_of_bonuses: Number(temp_array[table_count].available_amount_of_bonuses),
 
                                 tickets: Number(tickets),
 
@@ -1231,7 +1247,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
             var cards_count,
                 variant_count,
                 converted_count,
-                cards_id = [];
+                cards_id = [],
+                variant;
             
             // перезапись
             data.result.sorted = JSON.parse(JSON.stringify(data.result.unsorted));
@@ -1286,6 +1303,65 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 // очистка идентификаторов повторяющихся карт
                 cards_id.splice(0, cards_id.length);
 
+            }
+            
+            // разделение по прямым/обратным рейсам       
+            for (cards_count = 0; cards_count < data.result.sorted.length; cards_count += 1) {
+                
+                // создание структуры объекта
+                variant = {
+                
+                    direct: {
+
+                        info: {
+                            total_ticket_price_in_miles: 0,
+                            total_miles_available_on_all_cards: 0
+                        },
+
+                        variants: []
+
+                    },
+
+                    back: {
+
+                        info: {
+                            total_ticket_price_in_miles: 0,
+                            total_miles_available_on_all_cards: 0
+                        },
+
+                        variants: []
+
+                    }
+
+                };
+                
+                // проверка главных карт
+                for (variant_count = 0; variant_count < data.result.sorted[cards_count].variant.length; variant_count += 1) {
+                
+                    if (Boolean(data.result.sorted[cards_count].variant[variant_count].direct)) {
+                        
+                        // добавление элемента
+                        variant.direct.variants.push(data.result.sorted[cards_count].variant[variant_count]);
+                        
+                        // изменение данных
+                        variant.direct.info.total_ticket_price_in_miles += Number(data.result.sorted[cards_count].variant[variant_count].mile);
+                        variant.direct.info.total_miles_available_on_all_cards += Number(data.result.sorted[cards_count].variant[variant_count].params.bonus_cur);
+                        
+                    } else {
+                        
+                        // добавление элемента
+                        variant.back.variants.push(data.result.sorted[cards_count].variant[variant_count]);
+                        
+                        // изменение данных
+                        variant.back.info.total_ticket_price_in_miles += Number(data.result.sorted[cards_count].variant[variant_count].mile);
+                        variant.back.info.total_miles_available_on_all_cards += Number(data.result.sorted[cards_count].variant[variant_count].params.bonus_cur);
+                        
+                    }
+                        
+                }
+                
+                data.result.separated.push(JSON.parse(JSON.stringify(variant)));
+                
             }
 
             done();
@@ -1425,7 +1501,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                             // возврат результата
                             callback(null, {
 
-                                "results" : data.result.sorted,
+                                "results" : data.result.separated,
                                 "number_of_cards" : Number(data.cards.conversion.length + data.cards.free.length + data.cards.conversion.length),
                                 "treated_combinations" : data.result.treated_combinations
 

@@ -49,13 +49,21 @@ $(document).ready(function () {
                         
                     }
                     
-                    // определение блока
-                    $("#computation-result_tables").append("<div class='row p-3' id='computation-result_tables_variant_" + computation_count + "'></div>");
+                    // определение блоков
+                    $("#computation-result_tables").append("<div id='computation-result_tables_variant_" + computation_count + "'></div>");
                     
-                    // добавление карт в таблицу вариантов
-                    computation.variant.forEach(function (variant) {
+                    $("#computation-result_tables_variant_" + computation_count).append("<div class='row p-3' id='computation-result_tables_variant_" + computation_count + "_direct_variants'></div>");
+                    
+                    $("#computation-result_tables_variant_" + computation_count).append("<div class='col-12' id='computation-result_tables_variant_" + computation_count + "_direct_info'></div>");
+                    
+                    $("#computation-result_tables_variant_" + computation_count).append("<div class='row p-3' id='computation-result_tables_variant_" + computation_count + "_back_variants'></div>");
+                    
+                    $("#computation-result_tables_variant_" + computation_count).append("<div class='col-12' id='computation-result_tables_variant_" + computation_count + "_back_info'></div>");
+                    
+                    // добавление карт для прямого перелёта в таблицу вариантов
+                    computation.direct.variants.forEach(function (variant) {
                         
-                        $("#computation-result_tables_variant_" + computation_count).append("<div class='col-12 col-lg-6'>" +
+                        $("#computation-result_tables_variant_" + computation_count + "_direct_variants").append("<div class='col-12 col-lg-6'>" +
                                                 
                                                     "<div class='card mb-3 bg-content " + String((variant.have ? "border-success" : "border-primary")) + " text-white'>" +
                                                         
@@ -185,28 +193,6 @@ $(document).ready(function () {
                                                                                     "</div>" +
                                                                 
                                                                                 "</div>" +
-                                                                                          
-                                                                                            
-                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
-                                                                                           
-                                                                                            
-                                                                                "<div class='row justify-content-center'>" +
-                                                
-                                                                                    "<div class='col-12 col-md-12'>" +
-
-                                                                                        "<div class='row justify-content-center'>" +
-
-                                                                                            "<div class='col-6'> Tickets: </div>" +
-
-                                                                                            "<div class='col-6 ml-auto'>" +
-                                                                                                String(variant.tickets) +
-                                                                                            "</div>" +
-
-                                                                                        "</div>" +
-
-                                                                                    "</div>" +
-                                                                
-                                                                                "</div>" +
                                                                                             
                                                                                             
                                                                                 "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
@@ -251,6 +237,50 @@ $(document).ready(function () {
                                                                                     "</div>" +
                                                                 
                                                                                 "</div>" +
+                                                                                            
+                                                                                          
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                          
+                                                                                            
+                                                                                "<div class='row justify-content-center'>" +
+                                                
+                                                                                    "<div class='col-12 col-md-12'>" +
+
+                                                                                        "<div class='row justify-content-center'>" +
+
+                                                                                            "<div class='col-6'> Ticket cost (in miles): </div>" +
+
+                                                                                            "<div class='col-6 ml-auto'>" +
+                                                                                                String(variant.mile) +
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+                                                                                    "</div>" +
+                                                                
+                                                                                "</div>" +
+                                                                                            
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                           
+                                                                                            
+                                                                                "<div class='row justify-content-center'>" +
+                                                
+                                                                                    "<div class='col-12 col-md-12'>" +
+
+                                                                                        "<div class='row justify-content-center'>" +
+
+                                                                                            "<div class='col-6'> Number of tickets: </div>" +
+
+                                                                                            "<div class='col-6 ml-auto'>" +
+                                                                                                String(variant.tickets) +
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+                                                                                    "</div>" +
+                                                                
+                                                                                "</div>" +
                                                                                           
                                                                                             
                                                                                 "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
@@ -265,9 +295,7 @@ $(document).ready(function () {
                                                                                             "<div class='col-6'> Miles: </div>" +
 
                                                                                             "<div class='col-6 ml-auto'>" +
-                                                                                                String(variant.tickets) +
-                                                                                                " * " +
-                                                                                                String(variant.price_of_one_ticket) +
+                                                                                                String(variant.available_amount_of_bonuses) +
                                                                                             "</div>" +
 
                                                                                         "</div>" +
@@ -316,7 +344,7 @@ $(document).ready(function () {
                             
                             variant.converted_cards.forEach(function (conversion_variant) {
 
-                                $("#computation-result_tables_variant_" + computation_count).append("<div class='col-12 col-lg-6'>" +
+                                $("#computation-result_tables_variant_" + computation_count + "_direct_variants").append("<div class='col-12 col-lg-6'>" +
 
                                                             "<div class='card mb-3 bg-content " + String((conversion_variant.card.have ? "border-success" : "border-primary")) + " text-white'>" +
 
@@ -439,7 +467,7 @@ $(document).ready(function () {
 
                                                                                                 "<div class='row justify-content-center'>" +
 
-                                                                                                    "<div class='col-6'> Miles: </div>" +
+                                                                                                    "<div class='col-6'> Total miles: </div>" +
 
                                                                                                     "<div class='col-6 ml-auto'>" +
                                                                                                         String(conversion_variant.params.bonus_cur) +
@@ -492,6 +520,554 @@ $(document).ready(function () {
                         
                         
                     });
+                    
+                    // добавление информации о суммарной стоимости для прямого перелёта
+                    $("#computation-result_tables_variant_" + computation_count + "_direct_info").append("<div class='row justify-content-center'>" +
+                                                           
+                                                                "<div class='col-12 card-subtitle m-2 text-white text-center'>" +
+                                                           
+                                                                    "<div class='col-12 mt-1 mb-1 p-0'><hr class='my-1'></div>" +
+                                                                    
+                                                                    "<div class='col-12'>" +
+                                                                    
+                                                                        "<div class='row justify-content-center'>" +
+
+                                                                            "<div class='col-12 col-md-5'>" +
+
+                                                                                "<div> Total ticket price (in miles): " +
+
+                                                                                    "<div id='computation-result_tables_variant_" + computation_count + "_direct_info_price_miles'>" +
+                                                                                        String(computation.direct.info.total_ticket_price_in_miles) +
+                                                                                    "</div>" +
+
+                                                                                "</div>" +
+
+                                                                            "</div>" +
+
+                                                                            "<div class='col-12 col-md-5 ml-auto'>" +
+
+                                                                                "<div> Total number of miles available on all cards: " +
+
+                                                                                    "<div id='computation-result_tables_variant_" + computation_count + "_direct_info_available_miles'>" +
+                                                                                        String(computation.direct.info.total_miles_available_on_all_cards) +
+                                                                                    "</div>" +
+
+                                                                                "</div>" +
+
+                                                                            "</div>" +
+
+                                                                        "</div>" +
+                                                                                                         
+                                                                    "</div>" +
+                                                           
+                                                                "</div>" +
+                                                                    
+                                                            "</div>");
+                    
+                    
+                    // добавление карт для обратного перелёта в таблицу вариантов
+                    computation.back.variants.forEach(function (variant) {
+                        
+                        $("#computation-result_tables_variant_" + computation_count + "_back_variants").append("<div class='col-12 col-lg-6'>" +
+                                                
+                                                    "<div class='card mb-3 bg-content " + String((variant.have ? "border-success" : "border-primary")) + " text-white'>" +
+                                                        
+                                                        "<div class='card-header'>" +
+                                                
+                                                            "<div class='container-fluid'>" +
+                                                
+                                                                "<div class='row'>" +
+                                                                
+                                                                    "<div class='col-10 col-lg-12 lead'>" +
+                                                                        
+                                                                        "<div class='row'>" +
+                                                                        
+                                                                            "<div class='col-8'>" +
+                                                                            
+                                                                                String(variant.card) +
+                                                                                
+                                                                                String(variant.conversion ? "<br> <span class='badge badge-info'>card to accept transferred miles</span>" : "") +
+                                                                                            
+                                                                            "</div>" +
+                                                                                            
+                                                                            "<div class='col-3 ml-auto text-center'>" +
+                                                                            
+                                                                                "<a class='text-white' href='" +
+                                                                                String(variant.link) +
+                                                                                "'target='_blank'>" +
+                                                                                "<i class='fa fa-external-link' aria-hidden='true'></i>" +
+                                                                                "</a>" +
+                                                                                            
+                                                                            "</div>" +
+                                                                                            
+                                                                        "</div>" +
+                                                                                            
+                                                                    "</div>" +
+                                                
+                                                                    "<div class='col-2 d-lg-none text-center'>" +
+                                                                        
+                                                                        "<i class='fa fa-chevron-down' aria-hidden='true'></i>" +
+                                                
+                                                                    "</div>" +
+                                                
+                                                                "</div>" +
+                                                
+                                                            "</div>" +
+                                                
+                                                        "</div>" +
+                                                    
+                                                        "<div class='card-body d-none-not-strict d-lg-block'>" +
+                                                            
+                                                            "<div class='container-fluid'>" +
+                                                                
+                                                                    "<div class='row justify-content-center'>" +
+                                                                
+                                                                            "<div class='col-12 col-md-4'>" +
+                                                                
+                                                                                "<img class='img-fluid cardsAll-table img' src='http://" +
+                                                                                String(window.config.server.address) + ":" + String(window.config.server.port) +
+                                                                                "/client/images/cards/" +
+                                                                                String(variant.image) + "'>" +
+                                                
+                                                                            "</div>" +
+                                                                            
+                                                                                            
+                                                                            "<div class='col d-md-none m-2'></div>" +
+                                                                                       
+                                                                                            
+                                                                            "<div class='col-12 col-md-8'>" +
+                                                
+                                                                                "<div class='row justify-content-center'>" +
+                                                
+                                                                                    "<div class='col-12 col-md-12'>" +
+
+                                                                                        "<div class='row justify-content-center'>" +
+
+                                                                                            "<div class='col-6'> Airline: </div>" +
+
+                                                                                            "<div class='col-6 ml-auto'>" +
+                                                                                                String(variant.airline) +
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+                                                                                    "</div>" +
+                                                                
+                                                                                "</div>" +
+                                                                                            
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                           
+                                                                                            
+                                                                                "<div class='row justify-content-center'>" +
+                                                
+                                                                                    "<div class='col-12 col-md-12'>" +
+
+                                                                                        "<div class='row justify-content-center'>" +
+
+                                                                                            "<div class='col-6'> From: </div>" +
+
+                                                                                            "<div class='col-6 ml-auto'>" +
+                                                                                                String(variant.from) +
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+                                                                                    "</div>" +
+                                                                
+                                                                                "</div>" +
+                                                                                            
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                            
+                                                                                            
+                                                                                "<div class='row justify-content-center'>" +
+                                                
+                                                                                    "<div class='col-12 col-md-12'>" +
+
+                                                                                        "<div class='row justify-content-center'>" +
+
+                                                                                            "<div class='col-6'> To: </div>" +
+
+                                                                                            "<div class='col-6 ml-auto'>" +
+                                                                                                String(variant.to) +
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+                                                                                    "</div>" +
+                                                                
+                                                                                "</div>" +
+                                                                                            
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                            
+                                                                                            
+                                                                                "<div class='row justify-content-center'>" +
+                                                
+                                                                                    "<div class='col-12 col-md-12'>" +
+
+                                                                                        "<div class='row justify-content-center'>" +
+
+                                                                                            "<div class='col-6'> Year fee: </div>" +
+
+                                                                                            "<div class='col-6 ml-auto'>" +
+                                                                                                String(variant.fee1) +
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+                                                                                    "</div>" +
+                                                                
+                                                                                "</div>" +
+                                                                                           
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                           
+                                                                                            
+                                                                                "<div class='row justify-content-center'>" +
+                                                
+                                                                                    "<div class='col-12 col-md-12'>" +
+
+                                                                                        "<div class='row justify-content-center'>" +
+
+                                                                                            "<div class='col-6'> Amount to spend: </div>" +
+
+                                                                                            "<div class='col-6 ml-auto'>" +
+                                                                                                String(variant.amount) +
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+                                                                                    "</div>" +
+                                                                
+                                                                                "</div>" +
+                                                                                            
+                                                                                          
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                          
+                                                                                            
+                                                                                "<div class='row justify-content-center'>" +
+                                                
+                                                                                    "<div class='col-12 col-md-12'>" +
+
+                                                                                        "<div class='row justify-content-center'>" +
+
+                                                                                            "<div class='col-6'> Ticket cost (in miles): </div>" +
+
+                                                                                            "<div class='col-6 ml-auto'>" +
+                                                                                                String(variant.mile) +
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+                                                                                    "</div>" +
+                                                                
+                                                                                "</div>" +
+                                                                                            
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                           
+                                                                                            
+                                                                                "<div class='row justify-content-center'>" +
+                                                
+                                                                                    "<div class='col-12 col-md-12'>" +
+
+                                                                                        "<div class='row justify-content-center'>" +
+
+                                                                                            "<div class='col-6'> Number of tickets: </div>" +
+
+                                                                                            "<div class='col-6 ml-auto'>" +
+                                                                                                String(variant.tickets) +
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+                                                                                    "</div>" +
+                                                                
+                                                                                "</div>" +
+                                                                                          
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                          
+                                                                                            
+                                                                                "<div class='row justify-content-center'>" +
+                                                
+                                                                                    "<div class='col-12 col-md-12'>" +
+
+                                                                                        "<div class='row justify-content-center'>" +
+
+                                                                                            "<div class='col-6'> Miles: </div>" +
+
+                                                                                            "<div class='col-6 ml-auto'>" +
+                                                                                                String(variant.available_amount_of_bonuses) +
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+                                                                                    "</div>" +
+                                                                
+                                                                                "</div>" +
+                                                                                           
+                                                                                            
+                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+                                                                                           
+                                                                                            
+                                                                                "<div class='row justify-content-center'>" +
+                                                
+                                                                                    "<div class='col-12 col-md-12'>" +
+
+                                                                                        "<div class='row justify-content-center'>" +
+
+                                                                                            "<div class='col-6'> You card: </div>" +
+
+                                                                                            "<div class='col-6 ml-auto'>" +
+                                                                                                String((variant.have ? "Yes" : "No")) +
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+                                                                                    "</div>" +
+                                                                
+                                                                                "</div>" +
+                                                
+                                                                            "</div>" +
+                                                
+                                                                    "</div>" +
+                                                
+                                                            "</div>" +
+                                                
+                                                        "</div>" +
+                                                
+                                                    "</div>" +
+                                                
+                                                "<div>");
+                        
+                        
+                        // добавление бонусных карт
+                        if (variant.converted_cards) {
+                            
+                            variant.converted_cards.forEach(function (conversion_variant) {
+
+                                $("#computation-result_tables_variant_" + computation_count + "_back_variants").append("<div class='col-12 col-lg-6'>" +
+
+                                                            "<div class='card mb-3 bg-content " + String((conversion_variant.card.have ? "border-success" : "border-primary")) + " text-white'>" +
+
+                                                                "<div class='card-header'>" +
+
+                                                                    "<div class='container-fluid'>" +
+
+                                                                        "<div class='row'>" +
+
+                                                                            "<div class='col-10 col-lg-12 lead'>" +
+
+                                                                                "<div class='row'>" +
+
+                                                                                    "<div class='col-8'>" +
+
+                                                                                        String(conversion_variant.card.name) +
+
+                                                                                        "<br> <span class='badge badge-secondary'>card to transfer miles from</span>" +
+
+                                                                                    "</div>" +
+
+                                                                                    "<div class='col-3 ml-auto text-center'>" +
+
+                                                                                        "<a class='text-white' href='" +
+                                                                                        String(conversion_variant.card.link) +
+                                                                                        "'target='_blank'>" +
+                                                                                        "<i class='fa fa-external-link' aria-hidden='true'></i>" +
+                                                                                        "</a>" +
+
+                                                                                    "</div>" +
+
+                                                                                "</div>" +
+
+                                                                            "</div>" +
+
+                                                                            "<div class='col-2 d-lg-none text-center'>" +
+
+                                                                                "<i class='fa fa-chevron-down' aria-hidden='true'></i>" +
+
+                                                                            "</div>" +
+
+                                                                        "</div>" +
+
+                                                                    "</div>" +
+
+                                                                "</div>" +
+
+                                                                "<div class='card-body d-none-not-strict d-lg-block'>" +
+
+                                                                    "<div class='container-fluid'>" +
+
+                                                                            "<div class='row justify-content-center'>" +
+
+                                                                                    "<div class='col-12 col-md-4'>" +
+
+                                                                                        "<img class='img-fluid cardsAll-table img' src='http://" +
+                                                                                        String(window.config.server.address) + ":" + String(window.config.server.port) +
+                                                                                        "/client/images/cards/" +
+                                                                                        String(conversion_variant.card.image) + "'>" +
+
+                                                                                    "</div>" +
+
+
+                                                                                    "<div class='col d-md-none m-2'></div>" +
+
+
+                                                                                    "<div class='col-12 col-md-8'>" +
+                                                                                                    
+
+                                                                                        "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+
+
+                                                                                        "<div class='row justify-content-center'>" +
+
+                                                                                            "<div class='col-12 col-md-12'>" +
+
+                                                                                                "<div class='row justify-content-center'>" +
+
+                                                                                                    "<div class='col-6'> Year fee: </div>" +
+
+                                                                                                    "<div class='col-6 ml-auto'>" +
+                                                                                                        String(conversion_variant.params.fee1) +
+                                                                                                    "</div>" +
+
+                                                                                                "</div>" +
+
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+
+                                                                                        "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+
+
+                                                                                        "<div class='row justify-content-center'>" +
+
+                                                                                            "<div class='col-12 col-md-12'>" +
+
+                                                                                                "<div class='row justify-content-center'>" +
+
+                                                                                                    "<div class='col-6'> Amount to spend: </div>" +
+
+                                                                                                    "<div class='col-6 ml-auto'>" +
+                                                                                                        String(conversion_variant.params.amount) +
+                                                                                                    "</div>" +
+
+                                                                                                "</div>" +
+
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+
+                                                                                        "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+
+
+                                                                                        "<div class='row justify-content-center'>" +
+
+                                                                                            "<div class='col-12 col-md-12'>" +
+
+                                                                                                "<div class='row justify-content-center'>" +
+
+                                                                                                    "<div class='col-6'> Total miles: </div>" +
+
+                                                                                                    "<div class='col-6 ml-auto'>" +
+                                                                                                        String(conversion_variant.params.bonus_cur) +
+                                                                                                    "</div>" +
+
+                                                                                                "</div>" +
+
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+
+                                                                                        "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
+
+
+                                                                                        "<div class='row justify-content-center'>" +
+
+                                                                                            "<div class='col-12 col-md-12'>" +
+
+                                                                                                "<div class='row justify-content-center'>" +
+
+                                                                                                    "<div class='col-6'> You card: </div>" +
+
+                                                                                                    "<div class='col-6 ml-auto'>" +
+                                                                                                        String((conversion_variant.card.have ? "Yes" : "No")) +
+                                                                                                    "</div>" +
+
+                                                                                                "</div>" +
+
+                                                                                            "</div>" +
+
+                                                                                        "</div>" +
+
+                                                                                    "</div>" +
+
+                                                                            "</div>" +
+
+                                                                    "</div>" +
+
+                                                                "</div>" +
+
+                                                            "</div>" +
+
+                                                        "<div>");
+
+
+                            });
+                            
+                        }
+                        
+                        
+                    });
+                    
+                    // добавление информации о суммарной стоимости для прямого перелёта
+                    $("#computation-result_tables_variant_" + computation_count + "_back_info").append("<div class='row justify-content-center'>" +
+                                                           
+                                                                "<div class='col-12 card-subtitle m-2 text-white text-center'>" +
+                                                           
+                                                                    "<div class='col-12 mt-1 mb-1 p-0'><hr class='my-1'></div>" +
+                                                                    
+                                                                    "<div class='col-12'>" +
+                                                                    
+                                                                        "<div class='row justify-content-center'>" +
+
+                                                                            "<div class='col-12 col-md-5'>" +
+
+                                                                                "<div> Total ticket price (in miles): " +
+
+                                                                                    "<div id='computation-result_tables_variant_" + computation_count + "_back_info_price_miles'>" +
+                                                                                        String(computation.back.info.total_ticket_price_in_miles) +
+                                                                                    "</div>" +
+
+                                                                                "</div>" +
+
+                                                                            "</div>" +
+
+                                                                            "<div class='col-12 col-md-5 ml-auto'>" +
+
+                                                                                "<div> Total number of miles available on all cards: " +
+
+                                                                                    "<div id='computation-result_tables_variant_" + computation_count + "_back_info_available_miles'>" +
+                                                                                        String(computation.back.info.total_miles_available_on_all_cards) +
+                                                                                    "</div>" +
+
+                                                                                "</div>" +
+
+                                                                            "</div>" +
+
+                                                                        "</div>" +
+                                                                                                         
+                                                                    "</div>" +
+                                                           
+                                                                "</div>" +
+                                                                    
+                                                            "</div>");
                     
                 });
                 
