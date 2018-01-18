@@ -21,6 +21,27 @@
             <p> Step 4 of 6 </p>
         </div>
         
+        <!-- кнопки -->
+        <div class="row justify-content-center m-0 p-0 pb-2 text-center text-white">
+
+            <div class="col-12 col-md-8 col-lg-8">
+            
+                <div class="container-fluid">
+                    
+                    <div class="row justify-content-center m-auto text-center">
+                        
+                        <button class="col-5 col-md-3 col-lg-2 btn text-white" id="cardsAll-button_goto_back" ><b> BACK </b></button>
+                        
+                        <button class="col-5 col-md-3 col-lg-2 ml-auto btn text-white" id="cardsAll-button_goto_next" ><b> NEXT </b></button>
+                        
+                    </div>
+                
+                </div>
+            
+            </div>
+
+        </div>
+        
         <!-- список доступных к выбору карт -->
         <div class="row justify-content-center p-1">
             

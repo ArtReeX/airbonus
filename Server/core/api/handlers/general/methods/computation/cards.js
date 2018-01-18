@@ -75,40 +75,13 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
         },
         
         // генерация уникального идентификатора карты
-        generateUnicueId = function (array) {
-            
-            var array_count,
-                array_id = [],
-                id = "";
-            
-            // добавление всех идентификторов
-            for (array_count = 0; array_count < array.length; array_count += 1) {
-                
-                array_id.push(Number(array[array_count].params.card_id));
-                
-            }
-            
-            // сортировка
-            array_id.sort();
-            
-            for (array_count = 0; array_count < array_id.length; array_count += 1) {
-                
-                id += String(Number(array_id[array_count]));
-                
-            }
-            
-            return Number(String(id));
-            
-        },
-        
-        // проверка массива карт на уникальность
-        checkCardsToUnique = function (current_card, array_with_card) {
-            
+        generateUniqueId = function (current_card, array_with_card) {
+
             var current_card_count,
                 array_with_card_count,
                 converted_card_count,
                 array_with_card_id = [],
-                array_all_card_id = [];
+                common_identifier = "";
             
             // добавление всех идентификторов для текущей карты
             for (current_card_count = 0; current_card_count < array_with_card.length; current_card_count += 1) {
@@ -117,24 +90,32 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                 
             }
             
-            // сортировка
-            array_with_card_id.sort();
+            // добавление всех идентификторов для текущей карты
+            for (current_card_count = 0; current_card_count < array_with_card_id.length; current_card_count += 1) {
+                
+                common_identifier += String(array_with_card_id[current_card_count]);
+                
+            }
+            
+            
+            // возврат уникального идентификатора
+            return Number(String(current_card.params.card_id) + String(common_identifier));
+            
+        },
+        
+        // проверка массива карт на уникальность
+        checkCardsToUnique = function (identificator, array_with_card) {
+            
+            var current_card_count,
+                array_with_card_count,
+                converted_card_count,
+                array_all_card_id = [];
             
             // перебор уже добавленых карт на поиск похожей
             for (array_with_card_count = 0; array_with_card_count < cards_conversion.length; array_with_card_count += 1) {
-                
-                // перебор карт, используемые для конвертации внутри карт
-                for (converted_card_count = 0; converted_card_count < cards_conversion[array_with_card_count].converted_cards.length; converted_card_count += 1) {
-
-                    array_all_card_id.push(Number(cards_conversion[array_with_card_count].converted_cards[converted_card_count].params.card_id));
-
-                }
 
                 // проверка на наличие такой же комбинации
-                if (String(String(current_card.card.id) + JSON.stringify(array_with_card_id.sort())) === String(String(cards_conversion[array_with_card_count].card.id) + JSON.stringify(array_all_card_id))) { return false; }
-                
-                // очистка идентификторов
-                array_all_card_id.splice(0, array_all_card_id.length);
+                if (Number(identificator) === Number(cards_conversion[array_with_card_count].params.card_id)) { return false; }
                 
             }
             
@@ -189,7 +170,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                 //---------------- проверка результата -------------------//
                 
                 // проверка комбинации на уникальность
-                if (checkArrayToUnique(temp_array) && start_conversion_cards[array_count].params.card_id !== current_card.params.card_id && checkCardsToUnique(current_card, temp_array)) {
+                if (checkArrayToUnique(temp_array) && start_conversion_cards[array_count].params.card_id !== current_card.params.card_id && checkCardsToUnique(Number(generateUniqueId(cards_use_in_computation[cards_use_count], temp_array)), temp_array)) {
                     
                     // добавление карты
                     cards_conversion.push({
@@ -200,7 +181,8 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                         // параметры
                         params: {
                             
-                            card_id: Number(generateUnicueId(temp_array)),
+                            card_id: Number(generateUniqueId(cards_use_in_computation[cards_use_count], temp_array)),
+                            converted_from_card: Number(cards_use_in_computation[cards_use_count].params.converted_from_card),
                             
                             amount: Number(temp_array_params.sum_amount),
                             fee1: Number(temp_array_params.sum_fee1),
@@ -257,6 +239,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                                     params: {
 
                                         card_id: Number(cards[cards_db_count].id),
+                                        converted_from_card: Number(cards[cards_db_count].id),
 
                                         amount: Number(cards[cards_db_count].amount),
                                         fee1: Number(cards[cards_db_count].fee1),
@@ -309,7 +292,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                 for (cards_all_count = 0; cards_all_count < cards_all.length; cards_all_count += 1) {
                     
                     // проверка на совпадение идентификатора
-                    if (Number(user_cards[cards_use_count].card) === Number(cards_all[cards_all_count].id)) {
+                    if (Number(user_cards[cards_use_count].card) === Number(cards_all[cards_all_count].card.id)) {
                         
                         // замена данных карты
                         cards_all[cards_all_count].card.bonus_cur = cards_all[cards_all_count].params.bonus_cur = Number(user_cards[cards_use_count].bonus);
@@ -481,7 +464,7 @@ module.exports.calcCostConversionCards = function (data, params, callback) {
                         
                         card: String(data.cards.conversion[card_count].card.name),
                         
-                        card_id: Number(data.cards.conversion[card_count].card.id),
+                        card_id: Number(data.cards.conversion[card_count].params.card_id),
                         
                         airline: String(data.routes.back[route_count].name),
                         

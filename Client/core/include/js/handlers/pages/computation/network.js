@@ -251,7 +251,7 @@ $(document).ready(function () {
                                                                                             "<div class='col-6'> Ticket cost (in miles): </div>" +
 
                                                                                             "<div class='col-6 ml-auto'>" +
-                                                                                                String(variant.mile) +
+                                                                                                String(variant.price_of_one_ticket) +
                                                                                             "</div>" +
 
                                                                                         "</div>" +
@@ -756,7 +756,7 @@ $(document).ready(function () {
                                                                                             "<div class='col-6'> Ticket cost (in miles): </div>" +
 
                                                                                             "<div class='col-6 ml-auto'>" +
-                                                                                                String(variant.mile) +
+                                                                                                String(variant.price_of_one_ticket) +
                                                                                             "</div>" +
 
                                                                                         "</div>" +

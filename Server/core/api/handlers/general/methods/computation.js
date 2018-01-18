@@ -181,6 +181,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                         params: {
 
                                             card_id: Number(available_cards[cards_db_count].id),
+                                            converted_from_card: Number(available_cards[cards_db_count].id),
 
                                             amount: Number(available_cards[cards_db_count].amount),
                                             fee1: Number(available_cards[cards_db_count].fee1),
@@ -438,6 +439,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                     params: {
 
                                         card_id: Number(free_cards[cards_db_count].id),
+                                        converted_from_card: Number(free_cards[cards_db_count].id),
 
                                         amount: Number(free_cards[cards_db_count].amount),
                                         fee1: Number(free_cards[cards_db_count].fee1),
@@ -645,7 +647,8 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 done();
             }
         },
-
+        
+        // проверка на достаточное количество бонусов на карте
         checkBonusesInCards = function (table) {
 
             // счётчики
@@ -805,8 +808,11 @@ module.exports.get = function (config, params, database, log, async, callback) {
                             String(table[count_table_one].card_id) !== String(table[count_table_two].card_id)) ||
                             (converted_id.indexOf(Number(table[count_table_one].card_id)) !== -1)) { return false; }
 
+                    if (Number(table[count_table_one].params.converted_from_card) === Number(table[count_table_two].params.converted_from_card) &&
+                            Boolean(table[count_table_one].conversion) !== Boolean(table[count_table_two].conversion)) { return false; }
+                    
                     // проверка на использование одной и той же карточки несколько раз в разных картах
-                    if (String(table[count_table_one].params.card_id) !== String(table[count_table_two].card_id)) {
+                    if (Number(table[count_table_one].params.card_id) !== Number(table[count_table_two].card_id)) {
 
                         for (count_converted_cards = 0; count_converted_cards < table[count_table_one].converted_cards.length; count_converted_cards += 1) {
 
@@ -1248,7 +1254,9 @@ module.exports.get = function (config, params, database, log, async, callback) {
                 variant_count,
                 converted_count,
                 cards_id = [],
-                variant;
+                variant,
+                direct_count,
+                back_count;
             
             // перезапись
             data.result.sorted = JSON.parse(JSON.stringify(data.result.unsorted));
@@ -1357,8 +1365,23 @@ module.exports.get = function (config, params, database, log, async, callback) {
                         variant.back.info.total_miles_available_on_all_cards += Number(data.result.sorted[cards_count].variant[variant_count].params.bonus_cur);
                         
                     }
+                    
+                    // высчитываем мили, которые использовались для полёта в прямом направлении
+                    for (back_count = 0; back_count < variant.back.variants.length; back_count += 1) {
+                        
+                        for (direct_count = 0; direct_count < variant.back.variants.length; direct_count += 1) {
+                        
+                            if (Number(variant.back.variants[back_count].card_id) === Number(variant.direct.variants[direct_count].card_id)) {
+                                variant.back.info.total_miles_available_on_all_cards -= Number(variant.direct.variants[direct_count].mile);
+                            }
+
+                        }
+
+                    }
+                
                         
                 }
+                
                 
                 data.result.separated.push(JSON.parse(JSON.stringify(variant)));
                 

@@ -1,5 +1,5 @@
 /************************ ОБРАБОТЧИКИ ИНТЕРФЕЙСА ************************/
-/*globals $, document*/
+/*globals $, document, showPageAirports*/
 
 $(document).ready(function () {
 
@@ -15,6 +15,17 @@ $(document).ready(function () {
         } else {
             
             $($(this).parent()).find(".card-body").hide();
+            
+        }
+        
+    });
+    
+    // обработчик нажатия на логотип страницы
+    $("#loaded").off("click", ".logo").on("click", ".logo", function () {
+        
+        if (window.identifier !== "airports") {
+        
+            showPageAirports();
             
         }
         
