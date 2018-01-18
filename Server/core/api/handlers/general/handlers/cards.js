@@ -35,8 +35,24 @@ module.exports.getAmEx = function (socket, methods, database, log) {
     
     methods.cards.getAmEx(database, function (result_error, result_data) {
 
+        // данные для хранения
+        var message,
+            cards_all_count,
+            cards_amex_count;
+        
+        // исключение карт, которые уже отмечены во всех картах
+        for (cards_all_count = 0; cards_all_count < socket.session.allCards.length; cards_all_count += 1) {
+            
+            for (cards_amex_count = 0; cards_amex_count < result_data.length; cards_amex_count += 1) {
+                
+                if (Number(socket.session.allCards[cards_all_count].card) === Number(result_data[cards_amex_count].id)) { result_data.splice(cards_amex_count, 1); }
+                
+            }
+            
+        }
+        
         // формирование пакета для отправки
-        var message = {
+        message = {
             "error": result_error ? { "type": result_error } : null,
             "data": { "cards": result_data }
         };
@@ -79,7 +95,7 @@ module.exports.setAmEx = function (socket, params, methods, log) {
     "use strict";
     
     // запись сообщения клиента в отладку
-    log.info("Пользователь " + socket.id + " вызвал метод cards_get_amEx параметрами: " + params);
+    log.info("Пользователь " + socket.id + " вызвал метод cards_set_amEx параметрами: " + params);
     
     socket.session.amExCards = params.cards;
     

@@ -1,7 +1,7 @@
 /*globals module*/
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-module.exports.selectConversion = function (config, conn, cards_use_in_computation, user_cards, authorized_airlines, log, async, callback) {
+module.exports.selectConversion = function (config, conn, cards_use_in_computation, user_cards, amex_cards, authorized_airlines, log, async, callback) {
     
     'use strict';
     
@@ -104,18 +104,39 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
         },
         
         // проверка массива карт на уникальность
-        checkCardsToUnique = function (identificator, array_with_card) {
+        checkCardsToUnique = function (current_card, array_with_card) {
             
             var current_card_count,
                 array_with_card_count,
                 converted_card_count,
+                array_with_card_id = [],
                 array_all_card_id = [];
+            
+            // добавление всех идентификторов для текущей карты
+            for (current_card_count = 0; current_card_count < array_with_card.length; current_card_count += 1) {
+                
+                array_with_card_id.push(Number(array_with_card[current_card_count].params.card_id));
+                
+            }
+            
+            // сортировка
+            array_with_card_id.sort();
             
             // перебор уже добавленых карт на поиск похожей
             for (array_with_card_count = 0; array_with_card_count < cards_conversion.length; array_with_card_count += 1) {
+                
+                // перебор карт, используемые для конвертации внутри карт
+                for (converted_card_count = 0; converted_card_count < cards_conversion[array_with_card_count].converted_cards.length; converted_card_count += 1) {
+
+                    array_all_card_id.push(Number(cards_conversion[array_with_card_count].converted_cards[converted_card_count].params.card_id));
+
+                }
 
                 // проверка на наличие такой же комбинации
-                if (Number(identificator) === Number(cards_conversion[array_with_card_count].params.card_id)) { return false; }
+                if (String(String(current_card.card.id) + JSON.stringify(array_with_card_id.sort())) === String(String(cards_conversion[array_with_card_count].card.id) + JSON.stringify(array_all_card_id))) { return false; }
+                
+                // очистка идентификторов
+                array_all_card_id.splice(0, array_all_card_id.length);
                 
             }
             
@@ -170,7 +191,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                 //---------------- проверка результата -------------------//
                 
                 // проверка комбинации на уникальность
-                if (checkArrayToUnique(temp_array) && start_conversion_cards[array_count].params.card_id !== current_card.params.card_id && checkCardsToUnique(Number(generateUniqueId(cards_use_in_computation[cards_use_count], temp_array)), temp_array)) {
+                if (checkArrayToUnique(temp_array) && start_conversion_cards[array_count].params.card_id !== current_card.params.card_id && checkCardsToUnique(current_card, temp_array)) {
                     
                     // добавление карты
                     cards_conversion.push({
@@ -230,26 +251,31 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                             
                             for (cards_db_count = 0; cards_db_count < cards.length; cards_db_count += 1) {
                                 
-                                cards_all.push({
+                                console.log(amex_cards);console.log(Number(cards[cards_db_count].id));console.log("--");
+                                if (amex_cards.indexOf(Number(cards[cards_db_count].id)) === -1) {
+                                
+                                    cards_all.push({
 
-                                    // текущая карта
-                                    card: cards[cards_db_count],
+                                        // текущая карта
+                                        card: cards[cards_db_count],
 
-                                    // параметры
-                                    params: {
+                                        // параметры
+                                        params: {
 
-                                        card_id: Number(cards[cards_db_count].id),
-                                        converted_from_card: Number(cards[cards_db_count].id),
+                                            card_id: Number(cards[cards_db_count].id),
+                                            converted_from_card: Number(cards[cards_db_count].id),
 
-                                        amount: Number(cards[cards_db_count].amount),
-                                        fee1: Number(cards[cards_db_count].fee1),
-                                        bonus_cur: Number(cards[cards_db_count].bonus_cur)
-                                    },
+                                            amount: Number(cards[cards_db_count].amount),
+                                            fee1: Number(cards[cards_db_count].fee1),
+                                            bonus_cur: Number(cards[cards_db_count].bonus_cur)
+                                        },
 
-                                    // преобразованные карты
-                                    converted_cards: []
+                                        // преобразованные карты
+                                        converted_cards: []
 
-                                });
+                                    });
+                                    
+                                }
                                 
                             }
                             

@@ -83,28 +83,6 @@ $(document).ready(function () {
                                                                                     "</div>" +
                                                                 
                                                                                 "</div>" +
-                                                                                            
-                                                                                            
-                                                                                "<div class='col-12 mt-2 mb-2 p-0'><hr class='my-1'></div>" +
-                                                
-                                                
-                                                                                "<div class='row justify-content-center'>" +
-                                                
-                                                                                    "<div class='col-12 col-md-12'>" +
-
-                                                                                        "<div class='row justify-content-center'>" +
-
-                                                                                            "<div class='col-8'> Mile:  </div>" +
-
-                                                                                            "<div class='col-4 ml-auto'>" +
-                                                                                            "<input type='number' class='input-form cardsAmEx-table_card_mile form-control bg-light text-left text-black'>" +
-                                                                                            "</div>" +
-
-                                                                                        "</div>" +
-
-                                                                                    "</div>" +
-                                                                
-                                                                                "</div>" +
                                                                             
                                                                             "</div>" +
                                                 

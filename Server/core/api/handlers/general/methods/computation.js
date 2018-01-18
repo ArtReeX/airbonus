@@ -172,26 +172,30 @@ module.exports.get = function (config, params, database, log, async, callback) {
                                 // перезапись карт для удобства рассчётов
                                 for (cards_db_count = 0; cards_db_count < available_cards.length; cards_db_count += 1) {
 
-                                    data.cards.available.push({
+                                    if (params.amExCards.indexOf(Number(available_cards[cards_db_count].id)) === -1) {
+                                    
+                                        data.cards.available.push({
 
-                                        // текущая карта
-                                        card: available_cards[cards_db_count],
+                                            // текущая карта
+                                            card: available_cards[cards_db_count],
 
-                                        // параметры
-                                        params: {
+                                            // параметры
+                                            params: {
 
-                                            card_id: Number(available_cards[cards_db_count].id),
-                                            converted_from_card: Number(available_cards[cards_db_count].id),
+                                                card_id: Number(available_cards[cards_db_count].id),
+                                                converted_from_card: Number(available_cards[cards_db_count].id),
 
-                                            amount: Number(available_cards[cards_db_count].amount),
-                                            fee1: Number(available_cards[cards_db_count].fee1),
-                                            bonus_cur: Number(available_cards[cards_db_count].bonus_cur)
-                                        },
+                                                amount: Number(available_cards[cards_db_count].amount),
+                                                fee1: Number(available_cards[cards_db_count].fee1),
+                                                bonus_cur: Number(available_cards[cards_db_count].bonus_cur)
+                                            },
 
-                                        // преобразованные карты
-                                        converted_cards: []
+                                            // преобразованные карты
+                                            converted_cards: []
 
-                                    });
+                                        });
+                                        
+                                    }
 
                                 }
 
@@ -429,28 +433,32 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                             // перезапись карт для удобства рассчётов
                             for (cards_db_count = 0; cards_db_count < free_cards.length; cards_db_count += 1) {
+                                
+                                if (params.amExCards.indexOf(Number(free_cards[cards_db_count].id)) === -1) {
+                                
+                                    data.cards.free.push({
 
-                                data.cards.free.push({
+                                        // текущая карта
+                                        card: free_cards[cards_db_count],
 
-                                    // текущая карта
-                                    card: free_cards[cards_db_count],
+                                        // параметры
+                                        params: {
 
-                                    // параметры
-                                    params: {
+                                            card_id: Number(free_cards[cards_db_count].id),
+                                            converted_from_card: Number(free_cards[cards_db_count].id),
 
-                                        card_id: Number(free_cards[cards_db_count].id),
-                                        converted_from_card: Number(free_cards[cards_db_count].id),
+                                            amount: Number(free_cards[cards_db_count].amount),
+                                            fee1: Number(free_cards[cards_db_count].fee1),
+                                            bonus_cur: Number(free_cards[cards_db_count].bonus_cur)
 
-                                        amount: Number(free_cards[cards_db_count].amount),
-                                        fee1: Number(free_cards[cards_db_count].fee1),
-                                        bonus_cur: Number(free_cards[cards_db_count].bonus_cur)
+                                        },
 
-                                    },
+                                        // преобразованные карты
+                                        converted_cards: []
 
-                                    // преобразованные карты
-                                    converted_cards: []
-
-                                });
+                                    });
+                                    
+                                }
 
                             }
 
@@ -1482,7 +1490,7 @@ module.exports.get = function (config, params, database, log, async, callback) {
 
                                 function (done) {
 
-                                    cards_module.selectConversion(config, conn, data.cards.free.slice().concat(data.cards.available), params.allCards, data.authorized_airlines, log, async, function (cards_conversion) {
+                                    cards_module.selectConversion(config, conn, data.cards.free.slice().concat(data.cards.available), params.allCards, params.amExCards, data.authorized_airlines, log, async, function (cards_conversion) {
 
                                         // сортировка карт
                                         cards_conversion.sort(sortAlhoritmCards);
