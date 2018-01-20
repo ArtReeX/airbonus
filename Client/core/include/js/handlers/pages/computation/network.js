@@ -11,6 +11,10 @@ $(document).ready(function () {
         // проверка соответствие обработчика со страницей
         if (window.identifier === "computation") {
 
+            // сохранение результатов вычисления в памяти
+            window.data.computation_results = JSON.parse(JSON.stringify(result.data));
+            window.data.modified_results = JSON.parse(JSON.stringify(result.data));
+            
             // очистка блока с содержимым таблиц
             $("#computation-result_tables").empty();
             
@@ -31,11 +35,11 @@ $(document).ready(function () {
                     
                     // добавление заголовка со счётчиком варианта
                     $("#computation-result_tables").append("<div class='row justify-content-center p-1'>" +
-                                                           "<div class='col h2 text-center'>" +
-                                                           "<p class='text-uppercase'>" +
-                                                           "<b> Option " + Number(computation_count + 1) +
-                                                           " <b><p>" +
-                                                           "</div>" +
+                                                               "<div class='col-8 h2 text-center'>" +
+                                                               "<p class='text-uppercase'>" +
+                                                               "<b> Option " + Number(computation_count + 1) +
+                                                               " <b><p>" +
+                                                               "</div>" +
                                                            "</div>");
                     
                     // добавление информации о недостатке бюджета
@@ -50,20 +54,35 @@ $(document).ready(function () {
                     }
                     
                     // определение блоков
-                    $("#computation-result_tables").append("<div id='computation-result_tables_variant_" + computation_count + "'></div>");
+                    $("#computation-result_tables").append("<div id='computation-result_tables_variant_" + computation_count + "' variant='" + computation_count + "'></div>");
                     
-                    $("#computation-result_tables_variant_" + computation_count).append("<div class='row p-3' id='computation-result_tables_variant_" + computation_count + "_direct_variants'></div>");
+                    // предупреждение о рузном количестве человек для поездки в прямую и обртную сторону
+                    $("#computation-result_tables_variant_" + computation_count).append(
+                        
+                        "<div class='row justify-content-center p-2 hidden' id='computation-info_warning_block'>" +
+                        
+                            "<div class='col-12 col-md-8 col-lg-6 alert alert-warning text-center none' role='alert' id='computation-info_warning'>" +
+                        
+                                "The number of tickets in a direct flight and the reverse is different." +
+                        
+                            "</div>" +
+                        
+                            "</div>"
+                        
+                    );
                     
-                    $("#computation-result_tables_variant_" + computation_count).append("<div class='col-12' id='computation-result_tables_variant_" + computation_count + "_direct_info'></div>");
+                    $("#computation-result_tables_variant_" + computation_count).append("<div class='row p-3' id='direct_variants'></div>");
                     
-                    $("#computation-result_tables_variant_" + computation_count).append("<div class='row p-3' id='computation-result_tables_variant_" + computation_count + "_back_variants'></div>");
+                    $("#computation-result_tables_variant_" + computation_count).append("<div class='col-12' id='direct_info'></div>");
                     
-                    $("#computation-result_tables_variant_" + computation_count).append("<div class='col-12' id='computation-result_tables_variant_" + computation_count + "_back_info'></div>");
+                    $("#computation-result_tables_variant_" + computation_count).append("<div class='row p-3' id='back_variants'></div>");
+                    
+                    $("#computation-result_tables_variant_" + computation_count).append("<div class='col-12' id='back_info'></div>");
                     
                     // добавление карт для прямого перелёта в таблицу вариантов
                     computation.direct.variants.forEach(function (variant) {
                         
-                        $("#computation-result_tables_variant_" + computation_count + "_direct_variants").append("<div class='col-12 col-lg-6'>" +
+                        $("#computation-result_tables_variant_" + computation_count + " #direct_variants").append("<div class='col-12 col-lg-6' card='" + String(variant.card_id) + "'>" +
                                                 
                                                     "<div class='card mb-3 bg-content " + String((variant.have ? "border-success" : "border-primary")) + " text-white'>" +
                                                         
@@ -140,7 +159,7 @@ $(document).ready(function () {
 
                                                                                             "<div class='col-6'> Airline: </div>" +
 
-                                                                                            "<div class='col-6 ml-auto'>" +
+                                                                                            "<div class='col-6 ml-auto' id='airline'>" +
                                                                                                 String(variant.airline) +
                                                                                             "</div>" +
 
@@ -249,9 +268,27 @@ $(document).ready(function () {
                                                                                         "<div class='row justify-content-center'>" +
 
                                                                                             "<div class='col-6'> Ticket cost (in miles): </div>" +
-
+                                                                                            
                                                                                             "<div class='col-6 ml-auto'>" +
-                                                                                                String(variant.price_of_one_ticket) +
+                                                                                                    
+                                                                                                "<div class='row justify-content-center'>" +
+
+                                                                                                    "<div class='col-8'>" +
+
+                                                                                                        "<input type='number' class='input-form form-control' id='price_of_one_ticket' value='" +
+                                                                                                                     String(variant.price_of_one_ticket) +
+                                                                                                        "'>" +
+
+                                                                                                    "</div>" +
+
+                                                                                                    "<div class='col-4 ml-auto' id='computation-button_set_price'>" +
+
+                                                                                                        "<i class='fa fa-check fa-lg' aria-hidden='true'></i>" +
+
+                                                                                                    "</div>" +
+
+                                                                                                "</div>" +
+                                                                                            
                                                                                             "</div>" +
 
                                                                                         "</div>" +
@@ -272,7 +309,7 @@ $(document).ready(function () {
 
                                                                                             "<div class='col-6'> Number of tickets: </div>" +
 
-                                                                                            "<div class='col-6 ml-auto'>" +
+                                                                                            "<div class='col-6 ml-auto' id='number_of_tickets'>" +
                                                                                                 String(variant.tickets) +
                                                                                             "</div>" +
 
@@ -344,7 +381,7 @@ $(document).ready(function () {
                             
                             variant.converted_cards.forEach(function (conversion_variant) {
 
-                                $("#computation-result_tables_variant_" + computation_count + "_direct_variants").append("<div class='col-12 col-lg-6'>" +
+                                $("#computation-result_tables_variant_" + computation_count + " #direct_variants").append("<div class='col-12 col-lg-6' card='" + String(conversion_variant.params.card_id) + "'>" +
 
                                                             "<div class='card mb-3 bg-content " + String((conversion_variant.card.have ? "border-success" : "border-primary")) + " text-white'>" +
 
@@ -522,7 +559,7 @@ $(document).ready(function () {
                     });
                     
                     // добавление информации о суммарной стоимости для прямого перелёта
-                    $("#computation-result_tables_variant_" + computation_count + "_direct_info").append("<div class='row justify-content-center'>" +
+                    $("#computation-result_tables_variant_" + computation_count + " #direct_info").append("<div class='row justify-content-center'>" +
                                                            
                                                                 "<div class='col-12 card-subtitle m-2 text-white text-center'>" +
                                                            
@@ -536,7 +573,7 @@ $(document).ready(function () {
 
                                                                                 "<div> Total ticket price (in miles): " +
 
-                                                                                    "<div id='computation-result_tables_variant_" + computation_count + "_direct_info_price_miles'>" +
+                                                                                    "<div id='price_miles'>" +
                                                                                         String(computation.direct.info.total_ticket_price_in_miles) +
                                                                                     "</div>" +
 
@@ -548,7 +585,7 @@ $(document).ready(function () {
 
                                                                                 "<div> Total number of miles available on all cards: " +
 
-                                                                                    "<div id='computation-result_tables_variant_" + computation_count + "_direct_info_available_miles'>" +
+                                                                                    "<div id='available_miles'>" +
                                                                                         String(computation.direct.info.total_miles_available_on_all_cards) +
                                                                                     "</div>" +
 
@@ -568,7 +605,7 @@ $(document).ready(function () {
                     // добавление карт для обратного перелёта в таблицу вариантов
                     computation.back.variants.forEach(function (variant) {
                         
-                        $("#computation-result_tables_variant_" + computation_count + "_back_variants").append("<div class='col-12 col-lg-6'>" +
+                        $("#computation-result_tables_variant_" + computation_count + " #back_variants").append("<div class='col-12 col-lg-6' card='" + String(variant.card_id) + "'>" +
                                                 
                                                     "<div class='card mb-3 bg-content " + String((variant.have ? "border-success" : "border-primary")) + " text-white'>" +
                                                         
@@ -645,7 +682,7 @@ $(document).ready(function () {
 
                                                                                             "<div class='col-6'> Airline: </div>" +
 
-                                                                                            "<div class='col-6 ml-auto'>" +
+                                                                                            "<div class='col-6 ml-auto' id='airline'>" +
                                                                                                 String(variant.airline) +
                                                                                             "</div>" +
 
@@ -754,9 +791,27 @@ $(document).ready(function () {
                                                                                         "<div class='row justify-content-center'>" +
 
                                                                                             "<div class='col-6'> Ticket cost (in miles): </div>" +
-
+                                                                                            
                                                                                             "<div class='col-6 ml-auto'>" +
-                                                                                                String(variant.price_of_one_ticket) +
+                                                                                                    
+                                                                                                "<div class='row justify-content-center'>" +
+
+                                                                                                    "<div class='col-8'>" +
+
+                                                                                                        "<input type='number' class='input-form form-control' id='price_of_one_ticket' value='" +
+                                                                                                                     String(variant.price_of_one_ticket) +
+                                                                                                        "'>" +
+
+                                                                                                    "</div>" +
+
+                                                                                                    "<div class='col-4 ml-auto'>" +
+
+                                                                                                        "<i class='fa fa-check fa-lg' id='computation-button_set_price' aria-hidden='true'></i>" +
+
+                                                                                                    "</div>" +
+
+                                                                                                "</div>" +
+                                                                                            
                                                                                             "</div>" +
 
                                                                                         "</div>" +
@@ -777,7 +832,7 @@ $(document).ready(function () {
 
                                                                                             "<div class='col-6'> Number of tickets: </div>" +
 
-                                                                                            "<div class='col-6 ml-auto'>" +
+                                                                                            "<div class='col-6 ml-auto' id='number_of_tickets'>" +
                                                                                                 String(variant.tickets) +
                                                                                             "</div>" +
 
@@ -849,7 +904,7 @@ $(document).ready(function () {
                             
                             variant.converted_cards.forEach(function (conversion_variant) {
 
-                                $("#computation-result_tables_variant_" + computation_count + "_back_variants").append("<div class='col-12 col-lg-6'>" +
+                                $("#computation-result_tables_variant_" + computation_count + " #back_variants").append("<div class='col-12 col-lg-6' card='" + String(variant.params.card_id) + "'>" +
 
                                                             "<div class='card mb-3 bg-content " + String((conversion_variant.card.have ? "border-success" : "border-primary")) + " text-white'>" +
 
@@ -1027,7 +1082,7 @@ $(document).ready(function () {
                     });
                     
                     // добавление информации о суммарной стоимости для прямого перелёта
-                    $("#computation-result_tables_variant_" + computation_count + "_back_info").append("<div class='row justify-content-center'>" +
+                    $("#computation-result_tables_variant_" + computation_count + " #back_info").append("<div class='row justify-content-center'>" +
                                                            
                                                                 "<div class='col-12 card-subtitle m-2 text-white text-center'>" +
                                                            
@@ -1041,7 +1096,7 @@ $(document).ready(function () {
 
                                                                                 "<div> Total ticket price (in miles): " +
 
-                                                                                    "<div id='computation-result_tables_variant_" + computation_count + "_back_info_price_miles'>" +
+                                                                                    "<div id='price_miles'>" +
                                                                                         String(computation.back.info.total_ticket_price_in_miles) +
                                                                                     "</div>" +
 
@@ -1053,7 +1108,7 @@ $(document).ready(function () {
 
                                                                                 "<div> Total number of miles available on all cards: " +
 
-                                                                                    "<div id='computation-result_tables_variant_" + computation_count + "_back_info_available_miles'>" +
+                                                                                    "<div id='available_miles'>" +
                                                                                         String(computation.back.info.total_miles_available_on_all_cards) +
                                                                                     "</div>" +
 

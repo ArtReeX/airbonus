@@ -251,7 +251,7 @@ module.exports.selectConversion = function (config, conn, cards_use_in_computati
                             
                             for (cards_db_count = 0; cards_db_count < cards.length; cards_db_count += 1) {
                                 
-                                console.log(amex_cards);console.log(Number(cards[cards_db_count].id));console.log("--");
+                                
                                 if (amex_cards.indexOf(Number(cards[cards_db_count].id)) === -1) {
                                 
                                     cards_all.push({
