@@ -121,7 +121,7 @@ $(document).ready(function () {
                 
         });
         
-        // проверка на равенство количества человек, которые летят в обе стороны
+        // проверка на достаточное количество бонусо на карте, при отсутствии которых показывается уведомление
         if (Number(window.data.modified_results.computation[Number(variant)].direct.info.total_ticket_price_in_miles) > Number(window.data.modified_results.computation[Number(variant)].direct.info.total_miles_available_on_all_cards) ||
                 Number(window.data.modified_results.computation[Number(variant)].back.info.total_ticket_price_in_miles) > Number(window.data.modified_results.computation[Number(variant)].back.info.total_miles_available_on_all_cards)) {
             
@@ -247,7 +247,7 @@ $(document).ready(function () {
                 
         });
         
-        // проверка на равенство количества человек, которые летят в обе стороны
+        // проверка на достаточное количество бонусо на карте, при отсутствии которых показывается уведомление
         if (Number(window.data.modified_results.computation[Number(variant)].direct.info.total_ticket_price_in_miles) > Number(window.data.modified_results.computation[Number(variant)].direct.info.total_miles_available_on_all_cards) ||
                 Number(window.data.modified_results.computation[Number(variant)].back.info.total_ticket_price_in_miles) > Number(window.data.modified_results.computation[Number(variant)].back.info.total_miles_available_on_all_cards)) {
             
