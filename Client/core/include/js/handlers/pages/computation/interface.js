@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     });
     
-    // обработчик нажатия на кнопку применения новой цены для одного билета в прямую сторону
+    // обработчик нажатия на кнопку применения новой цены для одного билета
     $("#loaded").off("click", "#direct_variants #computation-button_set_price").on("click", "#direct_variants #computation-button_set_price", function () {
         
             // текущий элемент
@@ -49,18 +49,6 @@ $(document).ready(function () {
                 
                 return Number(Number(Number(current_card.params.bonus_cur) - Number(bonuses_used)) >= 0 ? Number(Number(current_card.params.bonus_cur) - Number(bonuses_used)) : 0);
                 
-            },
-            
-            // функция возврата количества человек, которые летят в одну сторону
-            getNumberOfTickets = function (array) {
-                
-                // счётчик
-                var tickets = 0;
-                
-                array.forEach(function (card) { tickets += Number(card.tickets); });
-                
-                return Number(tickets);
-                
             };
         
         
@@ -77,7 +65,6 @@ $(document).ready(function () {
 
                 // вычисление данных
                 card_computation.price_of_one_ticket = Number(price_of_one_ticket);
-                card_computation.tickets = Math.floor(Number(Number(getRemainingBonuses(card_computation, window.data.modified_results.computation[Number(variant)].back.variants)) / Number(price_of_one_ticket)));
                 
             }
             
@@ -135,7 +122,7 @@ $(document).ready(function () {
         });
         
         // проверка на равенство количества человек, которые летят в обе стороны
-        if (Number(getNumberOfTickets(window.data.modified_results.computation[Number(variant)].direct.variants)) !== Number(getNumberOfTickets(window.data.modified_results.computation[Number(variant)].back.variants))) {
+        if (Number(window.data.modified_results.computation[Number(variant)].back.info.total_ticket_price_in_miles) > Number(window.data.modified_results.computation[Number(variant)].back.info.total_miles_available_on_all_cards)) {
             
             // показ уведомления
             $(element).closest("div[variant]").children("#computation-info_warning_block").show();
@@ -187,18 +174,6 @@ $(document).ready(function () {
                 
                 return Number(Number(Number(current_card.params.bonus_cur) - Number(bonuses_used)) >= 0 ? Number(Number(current_card.params.bonus_cur) - Number(bonuses_used)) : 0);
                 
-            },
-            
-            // функция возврата количества человек, которые летят в одну сторону
-            getNumberOfTickets = function (array) {
-                
-                // счётчик
-                var tickets = 0;
-                
-                array.forEach(function (card) { tickets += Number(card.tickets); });
-                
-                return Number(tickets);
-                
             };
         
         
@@ -224,7 +199,6 @@ $(document).ready(function () {
 
                 // вычисление данных
                 card_computation.price_of_one_ticket = Number(price_of_one_ticket);
-                card_computation.tickets = Math.floor(Number(Number(getRemainingBonuses(card_computation, window.data.modified_results.computation[Number(variant)].direct.variants)) / Number(price_of_one_ticket)));
 
             }
             
@@ -273,7 +247,7 @@ $(document).ready(function () {
         });
         
         // проверка на равенство количества человек, которые летят в обе стороны
-        if (Number(getNumberOfTickets(window.data.modified_results.computation[Number(variant)].direct.variants)) !== Number(getNumberOfTickets(window.data.modified_results.computation[Number(variant)].back.variants))) {
+        if (Number(window.data.modified_results.computation[Number(variant)].back.info.total_ticket_price_in_miles) > Number(window.data.modified_results.computation[Number(variant)].back.info.total_miles_available_on_all_cards)) {
             
             // показ уведомления
             $(element).closest("div[variant]").children("#computation-info_warning_block").show();

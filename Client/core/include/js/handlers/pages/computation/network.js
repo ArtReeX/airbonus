@@ -63,7 +63,7 @@ $(document).ready(function () {
                         
                             "<div class='col-12 col-md-8 col-lg-6 alert alert-warning text-center none' role='alert' id='computation-info_warning'>" +
                         
-                                "The number of tickets in a direct flight and the reverse is different." +
+                                "You will not have enough miles for all tickets." +
                         
                             "</div>" +
                         
