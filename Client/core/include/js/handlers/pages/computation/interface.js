@@ -122,7 +122,8 @@ $(document).ready(function () {
         });
         
         // проверка на равенство количества человек, которые летят в обе стороны
-        if (Number(window.data.modified_results.computation[Number(variant)].back.info.total_ticket_price_in_miles) > Number(window.data.modified_results.computation[Number(variant)].back.info.total_miles_available_on_all_cards)) {
+        if (Number(window.data.modified_results.computation[Number(variant)].direct.info.total_ticket_price_in_miles) > Number(window.data.modified_results.computation[Number(variant)].direct.info.total_miles_available_on_all_cards) ||
+                Number(window.data.modified_results.computation[Number(variant)].back.info.total_ticket_price_in_miles) > Number(window.data.modified_results.computation[Number(variant)].back.info.total_miles_available_on_all_cards)) {
             
             // показ уведомления
             $(element).closest("div[variant]").children("#computation-info_warning_block").show();
@@ -247,7 +248,8 @@ $(document).ready(function () {
         });
         
         // проверка на равенство количества человек, которые летят в обе стороны
-        if (Number(window.data.modified_results.computation[Number(variant)].back.info.total_ticket_price_in_miles) > Number(window.data.modified_results.computation[Number(variant)].back.info.total_miles_available_on_all_cards)) {
+        if (Number(window.data.modified_results.computation[Number(variant)].direct.info.total_ticket_price_in_miles) > Number(window.data.modified_results.computation[Number(variant)].direct.info.total_miles_available_on_all_cards) ||
+                Number(window.data.modified_results.computation[Number(variant)].back.info.total_ticket_price_in_miles) > Number(window.data.modified_results.computation[Number(variant)].back.info.total_miles_available_on_all_cards)) {
             
             // показ уведомления
             $(element).closest("div[variant]").children("#computation-info_warning_block").show();
