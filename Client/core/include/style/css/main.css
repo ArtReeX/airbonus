@@ -47,6 +47,29 @@ body {
     background-color: #ffbf6b;
 }
 
+.btn-computation {
+    height: 80% !important;
+    padding: .0rem .0rem !important;
+    border-radius: 0px;
+}
+
+.btn-stable {
+    background-color: #4fd03e;
+}
+
+.btn-stable:active {
+    background-color: #4fd03e;
+}
+
+.btn-changed {
+
+    background-color: #c23c3c;
+}
+
+.btn-changed:active {
+    background-color: #c23c3c;
+}
+
 .btn-link {
     border-radius: 0px;
     background-color: #54717e;
