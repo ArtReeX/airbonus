@@ -4,7 +4,7 @@
 
     <!-- верхняя часть страницы -->
     <div class="wrapper container-fluid bg-content">
-    
+
         <!-- лого страницы -->
         <?php include("../plugins/logo.php"); ?>
 
@@ -16,7 +16,7 @@
             </div>
 
         </div>
-        
+
         <!-- шаг -->
         <div class="row justify-content-center mt-4 text-center text-white">
             <p> Step 1 of 5 </p>
@@ -29,8 +29,8 @@
 
                 <div class="form-group">
 
-                    <input type="text" class="form-control bg-light text-left text-black" placeholder="Where from?" id="airports-from">     
-                    <ul class="list-group list-group-flush selector-tips none" id="airports-from_tips"></ul>   
+                    <input type="text" class="form-control bg-light text-center text-black" placeholder="Where from?" id="airports-from">
+                    <ul class="list-group list-group-flush selector-tips none" id="airports-from_tips"></ul>
 
                 </div>
 
@@ -45,8 +45,8 @@
 
                 <div class="form-group">
 
-                    <input type="text" class="form-control bg-light text-left text-black" placeholder="Where to?" id="airports-to">     
-                    <ul class="list-group list-group-flush selector-tips none" id="airports-to_tips"></ul>     
+                    <input type="text" class="form-control bg-light text-center text-black" placeholder="Where to?" id="airports-to">
+                    <ul class="list-group list-group-flush selector-tips none" id="airports-to_tips"></ul>
 
                 </div>
 
@@ -67,9 +67,9 @@
         <div class="row justify-content-center p-3">
             <button class="col-4 col-md-2 col-lg-1 btn" id="airports-button_goto_next" ><b> NEXT </b></button>
         </div>
-    
+
     </div>
-    
+
     <!-- нижняя часть страницы -->
     <?php include("../plugins/footer.php"); ?>
 

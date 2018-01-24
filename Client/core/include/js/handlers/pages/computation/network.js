@@ -294,7 +294,7 @@ $(document).ready(function () {
 
                                                                                                     "<div class='col-12'>" +
 
-                                                                                                        "<input type='number' class='input-form form-control' id='price_of_one_ticket' value='" +
+                                                                                                        "<input type='number' class='input-form form-control text-center' id='price_of_one_ticket' value='" +
                                                                                                                      String(variant.price_of_one_ticket) +
                                                                                                         "'>" +
 
@@ -821,7 +821,7 @@ $(document).ready(function () {
 
                                                                                                     "<div class='col-12'>" +
 
-                                                                                                        "<input type='number' class='input-form form-control' id='price_of_one_ticket' value='" +
+                                                                                                        "<input type='number' class='input-form form-control text-center' id='price_of_one_ticket' value='" +
                                                                                                                      String(variant.price_of_one_ticket) +
                                                                                                         "'>" +
 
