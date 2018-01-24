@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\core",
+    "\\core\\api",
+    "\\core\\api\\handlers",
+    "\\core\\api\\handlers\\general",
+    "\\core\\api\\handlers\\general\\methods"
+  ],
+  "SelectedNode": "\\core\\api\\handlers\\general\\methods\\computation.js",
+  "PreviewInSolutionExplorer": false
+}
