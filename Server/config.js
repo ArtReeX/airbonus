@@ -1,12 +1,14 @@
-/*-------------- ПАРАМЕТРЫ ------------------*/
-var config = {
+/* ПАРАМЕТРЫ */
+
+module.exports = {
     // параметры MySQL
     database: {
         host: "localhost",
         port: "3306",
         user: "root",
         password: "",
-        database: "pilot"
+        database: "pilot",
+        connectionLimit: 100
     },
 
     // параметры сервера
@@ -60,7 +62,3 @@ var config = {
         max_variants: 3
     }
 };
-
-/*-------------- ЭКСПОРТ ------------------*/
-/*globals module*/
-module.exports = config;

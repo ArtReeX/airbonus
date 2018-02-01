@@ -1,25 +1,21 @@
-/*globals require, module*/
+/* EXPRESS */
 
-/*----------- ЗАГОЛОВКИ -----------*/
-var http_module = require("http");
-var express_module = require("express");
+const http_module = require("http"),
+    express_module = require("express");
 
-/*---------------------------- EXPRESS-СЕРВЕР -------------------------------*/
-module.exports.create = function(config, callback) {
-    "use strict";
-
-    var express = express_module(),
+module.exports.create = async config => {
+    const express = express_module(),
         app = http_module.createServer(express);
 
-    // открытие доступа извне к директории на сервере
-    express.use(express_module["static"](config.files_directory));
+    try {
+        // открытие доступа извне к директории на сервере
+        await express.use(express_module["static"](config.files_directory));
 
-    // начало прослушивание порта
-    app.listen(config.port, function(error) {
-        if (error) {
-            callback(error, null);
-        } else {
-            callback(null, app);
-        }
-    });
+        // начало прослушивание порта
+        await app.listen(config.port);
+
+        return app;
+    } catch (error) {
+        throw new Error(error);
+    }
 };

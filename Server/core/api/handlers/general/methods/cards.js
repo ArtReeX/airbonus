@@ -1,57 +1,38 @@
-/*globals module*/
+/* МЕТОД ДЛЯ ОБРАБОТЧИКОВ API */
 
-/*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-module.exports.getAll = function(database, callback) {
-    "use strict";
+module.exports.getAll = async database => {
+    try {
+        // получение соединения
+        const connection = await database.getConnection();
 
-    // получение соединения
-    database.getConnection(function(error, connection) {
-        if (error) {
-            // возврат результата
-            callback({ type: "database" }, null);
-        } else {
-            // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query(
-                "SELECT id, name, image FROM cards ORDER BY name",
-                function(error, cards) {
-                    if (error) {
-                        callback({ type: "database" }, null);
-                    } else {
-                        callback(null, cards);
-                    }
-                }
-            );
-        }
+        // узнаём идентификаторы всех авиалиний из рейсов
+        let result = await connection.query(
+            "SELECT id, name, image FROM cards ORDER BY name"
+        );
 
-        // закрытие соединения
         connection.release();
-    });
+
+        return result;
+    } catch (error) {
+        throw new Error(error);
+    }
 };
 
-module.exports.getAmEx = function(database, callback) {
-    "use strict";
+module.exports.getAmEx = async (database, callback) => {
+    try {
+        // получение соединения
+        const connection = await database.getConnection();
 
-    // получение соединения
-    database.getConnection(function(error, connection) {
-        if (error) {
-            // возврат результата
-            callback({ type: "database" }, null);
-        } else {
-            // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query(
-                "SELECT cards.id, cards.name, cards.image FROM cards, consts WHERE cards.bank_id = consts.value AND consts.name = ?",
-                ["AmEx_Bank_ID"],
-                function(error, cards) {
-                    if (error) {
-                        callback({ type: "database" }, null);
-                    } else {
-                        callback(null, cards);
-                    }
-                }
-            );
-        }
+        // узнаём идентификаторы всех авиалиний из рейсов
+        let result = connection.query(
+            "SELECT cards.id, cards.name, cards.image FROM cards, consts WHERE cards.bank_id = consts.value AND consts.name = ?",
+            ["AmEx_Bank_ID"]
+        );
 
-        // закрытие соединения
         connection.release();
-    });
+
+        return result;
+    } catch (error) {
+        throw new Error(error);
+    }
 };

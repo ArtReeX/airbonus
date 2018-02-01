@@ -1,60 +1,42 @@
 /*globals module*/
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-module.exports.getAll = function(database, callback) {
-    "use strict";
+module.exports.getAll = async database => {
+    try {
+        // получение соединения
+        const connection = await database.getConnection();
 
-    // получение соединения
-    database.getConnection(function(error, connection) {
-        if (error) {
-            // возврат результата
-            callback({ type: "database" }, null);
-        } else {
-            // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query(
-                "SELECT id, min, max from credit_score ORDER BY min",
-                function(error, scores) {
-                    if (error) {
-                        callback({ type: "database" }, null);
-                    } else {
-                        callback(null, scores);
-                    }
-                }
-            );
-        }
+        // узнаём идентификаторы всех авиалиний из рейсов
+        let result = await connection.query(
+            "SELECT id, min, max from credit_score ORDER BY min"
+        );
 
-        // закрытие соединения
         connection.release();
-    });
+
+        return result;
+    } catch (error) {
+        throw new Error(error);
+    }
 };
 
-module.exports.getById = function(params, database, callback) {
-    "use strict";
+module.exports.getById = async (params, database) => {
+    try {
+        // получение соединения
+        const connection = await database.getConnection();
 
-    // получение соединения
-    database.getConnection(function(error, connection) {
-        if (error) {
-            callback({ type: "database" }, null);
-        } else {
-            // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query(
-                "SELECT min, max FROM credit_score WHERE id = ? LIMIT 1",
-                [params.id],
-                function(error, scores) {
-                    if (error) {
-                        callback({ type: "database" }, null);
-                    } else {
-                        // возврат результата
-                        callback(null, {
-                            min: scores[0].min,
-                            max: scores[0].max
-                        });
-                    }
-                }
-            );
-        }
+        // узнаём идентификаторы всех авиалиний из рейсов
+        let result = await connection.query(
+            "SELECT min, max FROM credit_score WHERE id = ? LIMIT 1",
+            [params.id]
+        );
 
-        // закрытие соединения
         connection.release();
-    });
+
+        return {
+            min: result[0].min,
+            max: result[0].max
+        };
+    } catch (error) {
+        throw new Error(error);
+    }
 };

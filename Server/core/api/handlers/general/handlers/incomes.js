@@ -1,87 +1,82 @@
-/*globals module*/
+/* ОБРАБОТЧИК ДЛЯ API */
 
-/*---------------------------- ОБРАБОТЧИК ДЛЯ API -------------------------------*/
-module.exports.get = function (socket, methods, database, log) {
-    
-    "use strict";
-    
+module.exports.get = async (socket, methods, database, log) => {
     // запись сообщения клиента в отладку
     log.info("Пользователь " + socket.id + " вызвал метод incomes_get.");
-    
-    methods.incomes.getAll(database, function (result_error, result_data) {
-        
+
+    let message = {
+        error: null,
+        data: null
+    };
+
+    try {
+        let result = await methods.incomes.getAll(database);
+
         // изменение крайних значений
-        if (result_data.length) {
-            result_data[result_data.length - 1].max = "∞";
+        if (result.length) {
+            result[result.length - 1].max = "∞";
         }
-        
+
         // формирование пакета для отправки
-        var message = {
-            "error": result_error ? { "type": result_error } : null,
-            "data": { "incomes": result_data }
-        };
-        
-        // отправка результата
-        log.trace("Отправка результата incomes_get методом incomes_get пользователю " + socket.id + ":");
-        log.trace(message);
+        message.data = { incomes: result };
+    } catch (error) {
+        log.error("Ошибка базы данных. " + error);
+        message.error = { type: "database" };
+    }
 
-        socket.emit("incomes_get", message);
+    // отправка результата
+    log.trace(
+        "Отправка результата incomes_get методом incomes_get пользователю " +
+            socket.id +
+            ":"
+    );
+    log.trace(message);
 
-    });
-    
+    socket.emit("incomes_get", message);
 };
 
-module.exports.set = function (socket, params, methods, database, log) {
-    
-    "use strict";
-    
+module.exports.set = async (socket, params, methods, database, log) => {
     // запись сообщения клиента в отладку
-    log.info("Пользователь " + socket.id + " вызвал метод incomes_set с параметрами: " + params);
-    
-    // переменные для хранения
-    var message;
-    
-    methods.incomes.getById(params, database, function (result_error, result_data) {
-        
-        if (result_error) {
-        
+    log.info(
+        "Пользователь " +
+            socket.id +
+            " вызвал метод incomes_set с параметрами: " +
+            params
+    );
+
+    let message = {
+        error: null,
+        data: null
+    };
+
+    try {
+        let result = await methods.incomes.getById(params, database);
+
+        if (
+            result.max <= socket.session.consts.incomeMin ||
+            socket.session.creditScoreMin < result.min_credit_score
+        ) {
             // формирование пакета для отправки
-            message = {
-                "error": result_error ? { "type": result_error } : null,
-                "data": { "incomes": result_data }
-            };
-            
+            message.error = { type: "paucity" };
         } else {
+            socket.session.incomeMin = result.min;
+            socket.session.incomeMax = result.max;
 
-            if (result_data.max <= socket.session.consts.incomeMin || socket.session.creditScoreMin < result_data.min_credit_score) {
-                
-                // формирование пакета для отправки
-                message = {
-                    "error": { "type" : "paucity" },
-                    "data": null
-                };
-                
-            } else {
-                
-                socket.session.incomeMin = Number(result_data.min);
-                socket.session.incomeMax = Number(result_data.max);
-                
-                // формирование пакета для отправки
-                message = {
-                    "error": null,
-                    "data": { "next": true }
-                };
-                
-            }
-            
+            // формирование пакета для отправки
+            message.data = { next: true };
         }
-        
-        // отправка результата
-        log.trace("Отправка результата incomes_set методом incomes_set пользователю " + socket.id + ":");
-        log.trace(message);
+    } catch (error) {
+        log.error("Ошибка базы данных. " + error);
+        message.error = { type: "database" };
+    }
 
-        socket.emit("incomes_set", message);
+    // отправка результата
+    log.trace(
+        "Отправка результата incomes_set методом incomes_set пользователю " +
+            socket.id +
+            ":"
+    );
+    log.trace(message);
 
-    });
-    
+    socket.emit("incomes_set", message);
 };

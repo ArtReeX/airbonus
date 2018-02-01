@@ -1,6 +1,5 @@
-/*globals module, require*/
+/* ЭКСПОРТ ОБРАБОТЧИКОВ ДЛЯ API */
 
-/*-------------- ЭКСПОРТ ОБРАБОТЧИК ДЛЯ API ------------------*/
 module.exports.airports = require("./handlers/airports");
 module.exports.airlines = require("./handlers/airlines");
 module.exports.scores = require("./handlers/scores");

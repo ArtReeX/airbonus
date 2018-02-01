@@ -1,14 +1,11 @@
-﻿/*globals module, require*/
+﻿/* МЕТОД ДЛЯ ОБРАБОТЧИКОВ API */
 
-/*-------------- ЭКСПОРТ МЕТОДОВ ------------------*/
-var cards_module = require("./computation/cards");
+let cards_module = require("./computation/cards");
 
 /*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-module.exports.get = function(config, params, database, log, async, callback) {
-    "use strict";
-
+module.exports.get = (config, params, database, log, async, callback) => {
     // данные для работы
-    var data = {
+    let data = {
             result: {
                 //не отсортированый конечный результат
                 unsorted: [],
@@ -72,11 +69,11 @@ module.exports.get = function(config, params, database, log, async, callback) {
             }
         },
         // выбор прямых рейсов
-        selectDirectRoutes = function(conn, done) {
+        selectDirectRoutes = (conn, done) => {
             conn.query(
                 "SELECT airlines.name, routes_per_region.airline_iata, routes_per_region.price_miles, regions.miles, routes_per_region.source, routes_per_region.destination FROM routes_per_region, airlines, regions WHERE airlines.iata = routes_per_region.airline_iata AND routes_per_region.source = ? AND routes_per_region.destination = ? AND regions.region = routes_per_region.region AND regions.airline_iata = routes_per_region.airline_iata ORDER BY routes_per_region.price_miles, regions.miles",
                 [params.userAirportFrom, params.userAirportTo],
-                function(error, routes) {
+                (error, routes) => {
                     if (error) {
                         log.debug("Error MySQL connection: " + error);
                         done();
@@ -88,11 +85,11 @@ module.exports.get = function(config, params, database, log, async, callback) {
             );
         },
         // выбор обратных рейсов
-        selectBackRoutes = function(conn, done) {
+        selectBackRoutes = (conn, done) => {
             conn.query(
                 "SELECT airlines.name, routes_per_region.airline_iata, routes_per_region.price_miles, regions.miles, routes_per_region.source, routes_per_region.destination FROM routes_per_region, airlines, regions WHERE airlines.iata = routes_per_region.airline_iata AND routes_per_region.source = ? AND routes_per_region.destination = ? AND regions.region = routes_per_region.region AND regions.airline_iata = routes_per_region.airline_iata ORDER BY routes_per_region.price_miles, regions.miles",
                 [params.userAirportFrom, params.userAirportTo],
-                function(error, routes) {
+                (error, routes) => {
                     if (error) {
                         log.debug("Error MySQL connection: " + error);
                         done();
@@ -104,15 +101,15 @@ module.exports.get = function(config, params, database, log, async, callback) {
             );
         },
         // выбор имеющихся карт
-        selectAvailableCards = function(conn, done) {
+        selectAvailableCards = (conn, done) => {
             // пользовательские карты
-            var user_cards = [];
+            let user_cards = [];
 
             async.series(
                 [
                     // переписываем имеющиеся карты в массив
-                    function(done) {
-                        var i;
+                    done => {
+                        let i;
                         for (i = 0; i < params.allCards.length; i += 1) {
                             user_cards.push(params.allCards[i].card);
 
@@ -127,7 +124,7 @@ module.exports.get = function(config, params, database, log, async, callback) {
                     },
 
                     // выбираем имеющиеся карты
-                    function(done) {
+                    done => {
                         if (
                             user_cards.length &&
                             data.authorized_airlines.length
@@ -139,7 +136,7 @@ module.exports.get = function(config, params, database, log, async, callback) {
                                     ") AND cards.airline_iata IN (" +
                                     data.authorized_airlines +
                                     ") ORDER BY cards.amount",
-                                function(error, available_cards) {
+                                (error, available_cards) => {
                                     if (error) {
                                         log.debug(
                                             "Error MySQL connection: " + error
@@ -147,7 +144,7 @@ module.exports.get = function(config, params, database, log, async, callback) {
                                         done();
                                     } else {
                                         // счётчики
-                                        var cards_db_count,
+                                        let cards_db_count,
                                             card_mile,
                                             act_count;
 
@@ -277,15 +274,15 @@ module.exports.get = function(config, params, database, log, async, callback) {
                         }
                     }
                 ],
-                function() {
+                () => {
                     done();
                 }
             );
         },
         // расчёт стоимостей имеющихся карт
-        calcCostAvailableCards = function(conn, done) {
+        calcCostAvailableCards = (conn, done) => {
             // счётчики
-            var card_count, act_count, route_count, people_count;
+            let card_count, act_count, route_count, people_count;
 
             // поиск доступных карт, на которых есть достаточное количество бонусов
             for (
@@ -543,15 +540,15 @@ module.exports.get = function(config, params, database, log, async, callback) {
             }
         },
         // выбор доступных карт
-        selectFreeCards = function(conn, done) {
+        selectFreeCards = (conn, done) => {
             // идентификаторы карт пользователя
-            var user_cards = [];
+            let user_cards = [];
 
             async.series(
                 [
                     // переписываем имеющиеся карты в массив
-                    function(done) {
-                        var i;
+                    done => {
+                        let i;
                         for (i = 0; i < params.allCards.length; i += 1) {
                             user_cards.push(params.allCards[i].card);
 
@@ -566,9 +563,9 @@ module.exports.get = function(config, params, database, log, async, callback) {
                     },
 
                     // расчёт свободных карт
-                    function(done) {
+                    done => {
                         // делаем запрос на выбор всех карт, кроме тех, которые есть у пользователя
-                        var query;
+                        let query;
                         if (user_cards.length) {
                             if (data.authorized_airlines.length) {
                                 query =
@@ -593,13 +590,13 @@ module.exports.get = function(config, params, database, log, async, callback) {
                             }
                         }
 
-                        conn.query(query, function(error, free_cards) {
+                        conn.query(query, (error, free_cards) => {
                             if (error) {
                                 log.debug("Error MySQL connection: " + error);
                                 done();
                             } else {
                                 // обозначение карт как не имеющиеся
-                                var cards_db_count;
+                                let cards_db_count;
                                 for (
                                     cards_db_count = 0;
                                     cards_db_count < free_cards.length;
@@ -661,15 +658,15 @@ module.exports.get = function(config, params, database, log, async, callback) {
                         });
                     }
                 ],
-                function() {
+                () => {
                     done();
                 }
             );
         },
         // расчёт стоимостей свободных карт
-        calcCostFreeCards = function(conn, done) {
+        calcCostFreeCards = (conn, done) => {
             // счётчики
-            var card_count, route_count, people_count;
+            let card_count, route_count, people_count;
 
             // поиск доступных карт, на которых есть достаточное количество бонусов
             for (
@@ -925,8 +922,8 @@ module.exports.get = function(config, params, database, log, async, callback) {
             }
         },
         // определение разрешённых авиалиний карт для прямых рейсов
-        identifyAirlinesForDirect = function(done) {
-            var i;
+        identifyAirlinesForDirect = done => {
+            let i;
             for (i = 0; i < data.routes.direct.length; i += 1) {
                 if (
                     data.authorized_airlines.indexOf(
@@ -948,8 +945,8 @@ module.exports.get = function(config, params, database, log, async, callback) {
             }
         },
         // определение разрешённых авиалиний карт для обратных рейсов
-        identifyAirlinesForBack = function(done) {
-            var i;
+        identifyAirlinesForBack = done => {
+            let i;
             for (i = 0; i < data.routes.back.length; i += 1) {
                 if (
                     data.authorized_airlines.indexOf(
@@ -971,9 +968,9 @@ module.exports.get = function(config, params, database, log, async, callback) {
             }
         },
         // проверка на достаточное количество бонусов на карте
-        checkBonusesInCards = function(table) {
+        checkBonusesInCards = table => {
             // счётчики
-            var table_count,
+            let table_count,
                 check_count,
                 sum_card_count,
                 all_card_count,
@@ -1052,9 +1049,9 @@ module.exports.get = function(config, params, database, log, async, callback) {
             return true;
         },
         // проверка результатов на существование похожего варианта
-        checkArrayToUnique = function(variant) {
+        checkArrayToUnique = variant => {
             // счётчики
-            var array_count,
+            let array_count,
                 variant_count_one,
                 variant_count_two,
                 indication_unique,
@@ -1172,8 +1169,8 @@ module.exports.get = function(config, params, database, log, async, callback) {
             return true;
         },
         // проверка на повторяемость карт в одной цепочке
-        checkRepeatabilityCards = function(table) {
-            var count_table_one,
+        checkRepeatabilityCards = table => {
+            let count_table_one,
                 count_table_two,
                 count_converted_cards,
                 converted_id = [];
@@ -1277,7 +1274,7 @@ module.exports.get = function(config, params, database, log, async, callback) {
             return true;
         },
         // рекурсивный алгоритм обработки данных
-        calcRecursive = function(
+        calcRecursive = (
             combined_array,
             step,
             bounding_count,
@@ -1287,7 +1284,7 @@ module.exports.get = function(config, params, database, log, async, callback) {
             criterion_calc,
             need_tickets,
             done
-        ) {
+        ) => {
             // проверка на конец глубины рекурсии
             if (
                 step === recursion_depth_computation ||
@@ -1297,7 +1294,7 @@ module.exports.get = function(config, params, database, log, async, callback) {
                 return;
             }
 
-            var array_count,
+            let array_count,
                 table_count,
                 table = [],
                 tickets;
@@ -1571,7 +1568,7 @@ module.exports.get = function(config, params, database, log, async, callback) {
             }
         },
         // алгоритм сортировки стоимостей
-        sortCostAlhoritm = function(cost_one, cost_two) {
+        sortCostAlhoritm = (cost_one, cost_two) => {
             // сравнение двух стоимостей по параметрам
             if (
                 Number(cost_one.tickets_direct + cost_one.tickets_back) !==
@@ -1648,9 +1645,9 @@ module.exports.get = function(config, params, database, log, async, callback) {
             return 0;
         },
         // конечное вычисление данных
-        calcResultData = function(done) {
+        calcResultData = done => {
             // слияние массивов с ценами по отсортированому порядку
-            var combined_array = data.routes_cost.available.direct
+            let combined_array = data.routes_cost.available.direct
                     .sort(sortCostAlhoritm)
                     .concat(
                         data.routes_cost.available.back.sort(sortCostAlhoritm),
@@ -1731,8 +1728,8 @@ module.exports.get = function(config, params, database, log, async, callback) {
             }
         },
         // алгоритм сортировки результата
-        sortResultAlgoritm = function(table_one, table_two) {
-            var variant_count,
+        sortResultAlgoritm = (table_one, table_two) => {
+            let variant_count,
                 conversion_count,
                 variant_one_tickets = 0,
                 variant_two_tickets = 0,
@@ -1997,7 +1994,7 @@ module.exports.get = function(config, params, database, log, async, callback) {
             return 0;
         },
         // алгоритм сортировки карт
-        sortAlhoritmCards = function(card_one, card_two) {
+        sortAlhoritmCards = (card_one, card_two) => {
             // сравнение двух карт по параметрам
             if (
                 Number(card_one.converted_cards.length) !==
@@ -2051,8 +2048,8 @@ module.exports.get = function(config, params, database, log, async, callback) {
             return 0;
         },
         // преобразование конечных данных
-        adaptResultData = function(done) {
-            var cards_count,
+        adaptResultData = done => {
+            let cards_count,
                 variant_count,
                 converted_count,
                 cards_id = [],
@@ -2310,100 +2307,100 @@ module.exports.get = function(config, params, database, log, async, callback) {
         };
 
     // обращение к БД
-    database.getConnection(function(error, conn) {
+    database.getConnection((error, conn) => {
         if (error) {
             log.fatal("Error MySQL connection: " + error);
         } else {
             async.parallel(
                 [
                     // получение прямых рейсов
-                    function(done) {
+                    done => {
                         selectDirectRoutes(conn, done);
                     },
 
                     // получение обратных рейсов
-                    function(done) {
+                    done => {
                         selectBackRoutes(conn, done);
                     }
                 ],
-                function() {
+                () => {
                     async.series(
                         [
                             // определение разрешённых авиалиний карт для прямых рейсов
-                            function(done) {
+                            done => {
                                 identifyAirlinesForDirect(done);
                             },
 
                             // определение разрешённых авиалиний карт для обратных рейсов
-                            function(done) {
+                            done => {
                                 identifyAirlinesForBack(done);
                             }
                         ],
-                        function() {
+                        () => {
                             async.series(
                                 [
-                                    function(done) {
+                                    done => {
                                         async.parallel(
                                             [
                                                 // расчёт стоимостей имеющихся карт
-                                                function(done) {
+                                                done => {
                                                     async.series(
                                                         [
-                                                            function(done) {
+                                                            done => {
                                                                 selectAvailableCards(
                                                                     conn,
                                                                     done
                                                                 );
                                                             },
 
-                                                            function(done) {
+                                                            done => {
                                                                 calcCostAvailableCards(
                                                                     conn,
                                                                     done
                                                                 );
                                                             }
                                                         ],
-                                                        function() {
+                                                        () => {
                                                             done();
                                                         }
                                                     );
                                                 },
 
                                                 // расчёт стоимостей свободных карт
-                                                function(done) {
+                                                done => {
                                                     async.series(
                                                         [
-                                                            function(done) {
+                                                            done => {
                                                                 selectFreeCards(
                                                                     conn,
                                                                     done
                                                                 );
                                                             },
 
-                                                            function(done) {
+                                                            done => {
                                                                 calcCostFreeCards(
                                                                     conn,
                                                                     done
                                                                 );
                                                             }
                                                         ],
-                                                        function() {
+                                                        () => {
                                                             done();
                                                         }
                                                     );
                                                 }
                                             ],
-                                            function() {
+                                            () => {
                                                 done();
                                             }
                                         );
                                     },
 
                                     // расчёт стоимостей преобразованных карт
-                                    function(done) {
+                                    done => {
                                         async.series(
                                             [
-                                                function(done) {
+                                                done => {
                                                     cards_module.selectConversion(
                                                         config,
                                                         conn,
@@ -2418,9 +2415,7 @@ module.exports.get = function(config, params, database, log, async, callback) {
                                                         data.authorized_airlines,
                                                         log,
                                                         async,
-                                                        function(
-                                                            cards_conversion
-                                                        ) {
+                                                        cards_conversion => {
                                                             // сортировка карт
                                                             cards_conversion.sort(
                                                                 sortAlhoritmCards
@@ -2442,36 +2437,36 @@ module.exports.get = function(config, params, database, log, async, callback) {
                                                     );
                                                 },
 
-                                                function(done) {
+                                                done => {
                                                     cards_module.calcCostConversionCards(
                                                         data,
                                                         params,
-                                                        function() {
+                                                        () => {
                                                             done();
                                                         }
                                                     );
                                                 }
                                             ],
-                                            function() {
+                                            () => {
                                                 done();
                                             }
                                         );
                                     }
                                 ],
-                                function() {
+                                () => {
                                     async.series(
                                         [
                                             // высчитывание окончательных данных
-                                            function(done) {
+                                            done => {
                                                 calcResultData(done);
                                             },
 
                                             // сортировка окончательных данных
-                                            function(done) {
+                                            done => {
                                                 adaptResultData(done);
                                             }
                                         ],
-                                        function() {
+                                        () => {
                                             // возврат результата
                                             callback(null, {
                                                 results: data.result.separated,

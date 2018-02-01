@@ -1,11 +1,6 @@
-/************************ ОБРАБОТЧИКИ ЗАПУСКА ************************/
-/*globals $, document*/
+/* ОБРАБОТЧИКИ ЗАПУСКА */
 
-$(document).ready(function () {
-
-    'use strict';
-    
+$(document).ready(() => {
     // запрос от сервера списка всех доступных авиалиний
     window.socket.emit("airlines_get");
-    
 });

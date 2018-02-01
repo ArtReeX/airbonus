@@ -1,13 +1,9 @@
-/************************ КОНФИГУРАЦИЯ КЛИЕНТА ************************/
-/*globals window*/
-
+/* КОНФИГУРАЦИЯ КЛИЕНТА */
 
 // адрес сервера
 window.config = {
-    
-    "server": {
-        "address": "localhost",
-        "port": 8181
+    server: {
+        address: "localhost",
+        port: 8181
     }
-    
 };

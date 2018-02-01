@@ -1,7 +1,7 @@
 /*global require, module*/
 
 /*----------- ЗАГОЛОВКИ -----------*/
-var io_module = require("socket.io");
+let io_module = require("socket.io");
 
 /*-------------------------- ПАРАМЕТРЫ КЛИЕНТА -----------------------------*/
 module.exports = {

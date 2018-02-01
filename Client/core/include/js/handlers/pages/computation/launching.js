@@ -1,12 +1,10 @@
-/************************ ОБРАБОТЧИКИ ЗАПУСКА ************************/
-/*globals $, document*/
+/* ОБРАБОТЧИКИ ЗАПУСКА */
 
-$(document).ready(function () {
-
-    'use strict';
-
+$(document).ready(() => {
     // скрываем по умолчанию уведомления
-    $("#computation-info_warning_block, #computation-info_warning, #computation-info_danger_block, #computation-info_danger").hide();
+    $(
+        "#computation-info_warning_block, #computation-info_warning, #computation-info_danger_block, #computation-info_danger"
+    ).hide();
 
     // скрываем заголовок о отсутствии вариантов
     $("#computation-header_empty").hide();
@@ -16,5 +14,4 @@ $(document).ready(function () {
 
     // запрос от сервера списка всех вычисленных вариантов
     window.socket.emit("computation_get");
-
 });

@@ -1,71 +1,38 @@
-/*globals require, module*/
+/* API */
 
-/*----------- ЗАГОЛОВКИ -----------*/
-var handlers_module = require("./api/handlers"),
-    parameters_module = require("./api/parameters");
+const handlersModule = require("./api/handlers"),
+    parametersModule = require("./api/parameters");
 
-/*---------------------------- API-ОБРАБОТЧИКИ -------------------------------*/
-module.exports.set = function(
-    config,
-    websocket,
-    database,
-    log,
-    async,
-    callback
-) {
-    "use strict";
+module.exports.set = async (config, websocket, database, log, async) => {
+    try {
+        websocket.sockets.on("connection", async socket_client => {
+            // логгирование
+            log.info(
+                "Пользователь " +
+                    socket_client.id +
+                    ", IP: " +
+                    socket_client.request.connection.remoteAddress +
+                    " подключился."
+            );
 
-    var socket;
-
-    websocket.sockets.on("connection", function(socket_client) {
-        // логгирование
-        log.info(
-            "Пользователь " +
-                socket_client.id +
-                ", IP: " +
-                socket_client.request.connection.remoteAddress +
-                " подключился."
-        );
-
-        async.parallel([
             // установка обработчиков стандартных событий
-            function(done) {
-                handlers_module.standart.set(
-                    socket_client,
-                    log,
-                    async,
-                    function(error) {
-                        if (error) {
-                            done(error);
-                        } else {
-                            socket_client.session = JSON.parse(
-                                JSON.stringify(parameters_module)
-                            );
-                            done();
-                        }
-                    }
-                );
-            },
+            await handlersModule.standart.set(socket_client, log);
+
+            // установка структуры параметров пользователя
+            socket_client.session = await JSON.parse(
+                await JSON.stringify(parametersModule)
+            );
 
             // установка обработчиков клиентских событий
-            function(done) {
-                handlers_module.general.set(
-                    config,
-                    socket_client,
-                    database,
-                    log,
-                    async,
-                    function(error) {
-                        if (error) {
-                            done(error);
-                        } else {
-                            done();
-                        }
-                    }
-                );
-            }
-        ]);
-    });
-
-    callback(null);
+            await handlersModule.general.set(
+                config,
+                socket_client,
+                database,
+                log,
+                async
+            );
+        });
+    } catch (error) {
+        throw new Error(error);
+    }
 };

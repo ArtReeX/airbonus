@@ -1,7 +1,6 @@
-/*globals module*/
+/* МЕТОД ДЛЯ ОБРАБОТЧИКОВ API */
 
-/*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-module.exports.selectConversion = function(
+module.exports.selectConversion = (
     config,
     conn,
     cards_use_in_computation,
@@ -11,11 +10,9 @@ module.exports.selectConversion = function(
     log,
     async,
     callback
-) {
-    "use strict";
-
+) => {
     // счётчики
-    var cards_use_count,
+    let cards_use_count,
         cards_all_count,
         programs_count,
         conversion_count,
@@ -38,9 +35,9 @@ module.exports.selectConversion = function(
         // рассчитанные преобразованые карты
         cards_conversion = [],
         // проверка результатов на существование похожего варианта
-        checkArrayToUnique = function(array_cards) {
+        checkArrayToUnique = array_cards => {
             // счётчики
-            var array_count_one, array_count_two;
+            let array_count_one, array_count_two;
 
             for (
                 array_count_one = 0;
@@ -64,7 +61,7 @@ module.exports.selectConversion = function(
             return true;
         },
         // алгоритм сортировки карт
-        sortAlhoritmCards = function(card_one, card_two) {
+        sortAlhoritmCards = (card_one, card_two) => {
             // сравнение двух карт по параметрам
             if (Boolean(card_one.card.have) !== Boolean(card_two.card.have)) {
                 if (Boolean(card_one.card.have)) {
@@ -95,8 +92,8 @@ module.exports.selectConversion = function(
             return 0;
         },
         // генерация уникального идентификатора карты
-        generateUniqueId = function(current_card, array_with_card) {
-            var current_card_count,
+        generateUniqueId = (current_card, array_with_card) => {
+            let current_card_count,
                 array_with_card_count,
                 converted_card_count,
                 array_with_card_id = [],
@@ -133,8 +130,8 @@ module.exports.selectConversion = function(
             );
         },
         // проверка массива карт на уникальность
-        checkCardsToUnique = function(current_card, array_with_card) {
-            var current_card_count,
+        checkCardsToUnique = (current_card, array_with_card) => {
+            let current_card_count,
                 array_with_card_count,
                 converted_card_count,
                 array_with_card_id = [],
@@ -199,7 +196,7 @@ module.exports.selectConversion = function(
             return true;
         },
         // рекурсивный алгоритм обработки данных
-        calcRecursive = function(
+        calcRecursive = (
             step,
             bounding_count,
             temp_array,
@@ -207,13 +204,13 @@ module.exports.selectConversion = function(
             converion_factors,
             current_card,
             start_conversion_cards
-        ) {
+        ) => {
             // проверка на конец глубины рекурсии
             if (step === config.recursion_depth_conversion) {
                 return;
             }
 
-            var array_count,
+            let array_count,
                 table_count,
                 table = [],
                 conversion_program_current_count,
@@ -364,14 +361,14 @@ module.exports.selectConversion = function(
 
     async.series(
         [
-            function(callback) {
+            callback => {
                 async.parallel(
                     [
                         // выбор всех карт из БД
-                        function(callback) {
+                        callback => {
                             conn.query(
                                 "SELECT cards.id, cards.program_id, cards.bonus_cur, cards.amount, cards.fee1, cards.link, cards.image, cards.airline_iata, cards.name FROM cards ORDER BY cards.bonus_cur DESC",
-                                function(error, cards) {
+                                (error, cards) => {
                                     if (error) {
                                         log.debug(
                                             "Error MySQL connection: " + error
@@ -379,7 +376,7 @@ module.exports.selectConversion = function(
                                         callback();
                                     } else {
                                         // счётчики
-                                        var cards_db_count;
+                                        let cards_db_count;
 
                                         for (
                                             cards_db_count = 0;
@@ -454,10 +451,10 @@ module.exports.selectConversion = function(
                         },
 
                         // выбор всех направлений преобразований из БД
-                        function(callback) {
+                        callback => {
                             conn.query(
                                 "SELECT conversion_factors.from_program_id, conversion_factors.to_program_id, conversion_factors.factor FROM conversion_factors ORDER BY conversion_factors.factor DESC",
-                                function(error, factors) {
+                                (error, factors) => {
                                     if (error) {
                                         log.debug(
                                             "Error MySQL connection: " + error
@@ -471,13 +468,13 @@ module.exports.selectConversion = function(
                             );
                         }
                     ],
-                    function() {
+                    () => {
                         callback();
                     }
                 );
             },
 
-            function(callback) {
+            callback => {
                 // замена из списка всех карт, имеющимися картами
                 for (
                     cards_use_count = 0;
@@ -513,7 +510,7 @@ module.exports.selectConversion = function(
                 callback();
             },
 
-            function(callback) {
+            callback => {
                 for (
                     cards_use_count = 0;
                     cards_use_count < cards_use_in_computation.length;
@@ -634,17 +631,15 @@ module.exports.selectConversion = function(
                 callback();
             }
         ],
-        function() {
+        () => {
             callback(cards_conversion);
         }
     );
 };
 
-module.exports.calcCostConversionCards = function(data, params, callback) {
-    "use strict";
-
+module.exports.calcCostConversionCards = (data, params, callback) => {
     // счётчики
-    var card_count, act_count, route_count, people_count;
+    let card_count, act_count, route_count, people_count;
 
     // поиск доступных карт, на которых есть достаточное количество бонусов
     for (

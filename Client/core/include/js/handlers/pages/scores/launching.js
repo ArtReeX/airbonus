@@ -1,11 +1,6 @@
-/************************ ОБРАБОТЧИКИ ЗАПУСКА ************************/
-/*globals $, document*/
+/* ОБРАБОТЧИКИ ЗАПУСКА */
 
-$(document).ready(function () {
-
-    'use strict';
-    
+$(document).ready(() => {
     // запрос от сервера списка кредитных рейтингов
     window.socket.emit("scores_get");
-    
 });

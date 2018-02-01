@@ -3,7 +3,7 @@
 <html>
 
     <head>
-        
+
         <!-- подключение необходимых файлов -->
         <?php include("core/include.php"); ?>
 
@@ -24,5 +24,5 @@
         </div>
 
     </body>
-    
+
 </html>

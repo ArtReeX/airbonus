@@ -1,8 +1,3 @@
-/************************ ОБРАБОТЧИКИ СООБЩЕНИЙ ОТ СЕРВЕРА ************************/
-/*globals $, document, showPageAirlines*/
+/* ОБРАБОТЧИКИ СООБЩЕНИЙ ОТ СЕРВЕРА */
 
-$(document).ready(function () {
-
-    'use strict';
-    
-});
+$(document).ready(() => {});

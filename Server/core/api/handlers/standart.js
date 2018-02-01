@@ -1,14 +1,9 @@
-/*globals require, module*/
+/* СТАНДАРТНЫЕ ОБРАБОТЧИКИ */
 
-/*---------------------------- СТАНДАРТНЫЕ ОБРАБОТЧИКИ -------------------------------*/
-module.exports.set = function(socket, log, async, callback) {
-    "use strict";
-
+module.exports.set = async (socket, log) => {
     // отключение клиента
     socket.on("disconnect", function() {
         // логгирование
         log.info("Пользователь " + socket.id + " отключился.");
     });
-
-    callback(null);
 };

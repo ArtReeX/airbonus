@@ -1,19 +1,12 @@
-/************************ ЗАПУСКАЕМЫЕ СКРИПТЫ ************************/
-/*globals $, document, window, io, showPageAirports, showPageError*/
+/* ЗАПУСКАЕМЫЕ СКРИПТЫ */
 
-$(document).ready(function () {
-    
-    'use strict';
-    
+$(document).ready(() => {
     // создание структуры
     window.data = {
-        
         computation_results: null,
         modified_results: null
-        
     };
-    
+
     // показ основной страницы
     showPageAirports();
-
 });

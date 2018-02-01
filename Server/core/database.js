@@ -1,23 +1,17 @@
-/*globals require, module*/
+/* БАЗА ДАННЫХ */
 
-/*----------- ЗАГОЛОВКИ -----------*/
-var mysql_module = require("mysql");
+const mysqlModule = require("promise-mysql");
 
-/*---------------------------- MYSQL -------------------------------*/
-module.exports.create = function(config, log, callback) {
-    "use strict";
+module.exports.create = async config => {
+    try {
+        // создание подключения с параметрами
+        const pool = await mysqlModule.createPool(config);
 
-    // создание подключения с параметрами
-    var database_client = mysql_module.createPool(config);
+        // проверка подключения
+        await pool.getConnection();
 
-    // проверка подключения
-    database_client.getConnection(function(error) {
-        if (error) {
-            // вызов callback-функции
-            callback(error, null);
-        } else {
-            // вызов callback-функции
-            callback(null, database_client);
-        }
-    });
+        return pool;
+    } catch (error) {
+        throw new Error(error);
+    }
 };

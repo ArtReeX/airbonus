@@ -1,4 +1,4 @@
-<!--************************ МОДУЛИ ************************-->
+<!-- МОДУЛИ -->
 
 <!-- ПОДКЛЮЧЕНИЕ МОДУЛЯ Socket.IO -->
 <script src="core/include/libs/modules/socket.io.js"></script>

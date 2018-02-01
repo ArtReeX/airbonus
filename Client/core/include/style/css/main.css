@@ -1,4 +1,4 @@
-/************************ ОСНОВНОЕ ************************/
+/* ОСНОВНОЕ */
 
 /* шрифты */
 
@@ -11,7 +11,6 @@
 
 html,
 body {
-
     font-family: "Gotham Pro Light" !important;
 
     height: 100%;
@@ -23,18 +22,14 @@ body {
     overflow-x: hidden;
 }
 
-
 /* задний план */
 
 body {
     background-image: url(../images/basic/background.jpg);
     background-size: cover;
     background-attachment: fixed;
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
+    user-select: none;
 }
-
 
 /* кнопка */
 
@@ -49,7 +44,7 @@ body {
 
 .btn-computation {
     height: 80% !important;
-    padding: .0rem .0rem !important;
+    padding: 0rem 0rem !important;
     border-radius: 0px;
 }
 
@@ -62,7 +57,6 @@ body {
 }
 
 .btn-changed {
-
     background-color: #c23c3c;
 }
 
@@ -75,7 +69,6 @@ body {
     background-color: #54717e;
 }
 
-
 /* поле ввода */
 
 input {
@@ -85,7 +78,7 @@ input {
 .input-form {
     height: 90% !important;
     font-size: 100% !important;
-    padding: .0rem .0rem !important;
+    padding: 0rem 0rem !important;
 }
 
 .input-checkbox {
@@ -93,13 +86,11 @@ input {
     height: 70%;
 }
 
-
 /* предупреждения */
 
 .alert {
     border-radius: 0px !important;
 }
-
 
 /* логотип */
 
@@ -111,7 +102,6 @@ input {
     margin-top: -80%;
 }
 
-
 /* цвета */
 
 .bg-header {
@@ -119,7 +109,7 @@ input {
 }
 
 .bg-content {
-    background-color: rgba(78, 131, 152, 0.80);
+    background-color: rgba(78, 131, 152, 0.8);
 }
 
 .bg-footer {
@@ -130,13 +120,11 @@ input {
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-
 /* содержимое */
 
 .wrapper {
     min-height: 80% !important;
 }
-
 
 /* футер */
 
@@ -144,13 +132,11 @@ input {
     min-height: 20% !important;
 }
 
-
 /* отображение */
 
 .none {
     display: none;
 }
-
 
 /* селектор */
 
@@ -163,13 +149,11 @@ select {
     overflow-y: auto;
 }
 
-
 /* карточки */
 
 .card {
     border-radius: 0px !important;
 }
-
 
 /* видимость */
 

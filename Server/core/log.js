@@ -1,14 +1,9 @@
-/*globals require, module*/
+/* ЛОГГЕР */
 
-/*----------- ЗАГОЛОВКИ -----------*/
-var log4js_module = require("log4js");
+const log4js = require("log4js");
 
-/*---------------------------- LOG -------------------------------*/
-module.exports.create = function(config, callback) {
-    "use strict";
-
-    // задание параметров логирования
-    log4js_module.configure({
+module.exports.create = async config => {
+    log4js.configure({
         appenders: {
             console: {
                 type: "console"
@@ -40,9 +35,5 @@ module.exports.create = function(config, callback) {
         }
     });
 
-    // создание логгера
-    var logger = log4js_module.getLogger();
-
-    // вызов callback-функции
-    callback(null, logger);
+    return log4js.getLogger();
 };

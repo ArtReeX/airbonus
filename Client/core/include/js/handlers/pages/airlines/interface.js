@@ -1,24 +1,23 @@
-/************************ ОБРАБОТЧИКИ ИНТЕРФЕЙСА ************************/
-/*globals $, document, window, showPageAirports, showPagePreScores*/
+/* ОБРАБОТЧИКИ ИНТЕРФЕЙСА */
 
-$(document).ready(function () {
-
-    'use strict';
-
+$(document).ready(() => {
     // обработчик нажатия кнопки для возврата на предыдущую страницу
-    $("#loaded").off("click", "#airlines-button_goto_back").on("click", "#airlines-button_goto_back", function () {
+    $("#loaded")
+        .off("click", "#airlines-button_goto_back")
+        .on("click", "#airlines-button_goto_back", () => {
+            // проверка соответствие обработчика со страницей
+            if (window.identifier === "airlines") {
+                showPageAirports();
+            }
+        });
 
-        // проверка соответствие обработчика со страницей
-        if (window.identifier === "airlines") { showPageAirports(); }
-
-    });
-    
     // обработчик нажатия кнопки для перехода на следующую страницу
-    $("#loaded").off("click", "#airlines-button_goto_next").on("click", "#airlines-button_goto_next", function () {
-
-        // проверка соответствие обработчика со страницей
-        if (window.identifier === "airlines") {  showPagePreScores(); }
-
-    });
-
+    $("#loaded")
+        .off("click", "#airlines-button_goto_next")
+        .on("click", "#airlines-button_goto_next", () => {
+            // проверка соответствие обработчика со страницей
+            if (window.identifier === "airlines") {
+                showPagePreScores();
+            }
+        });
 });

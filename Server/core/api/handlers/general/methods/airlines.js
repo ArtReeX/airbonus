@@ -1,30 +1,20 @@
-/*globals module*/
+/* МЕТОД ДЛЯ ОБРАБОТЧИКОВ API */
 
-/*---------------------------- МЕТОД ДЛЯ ОБРАБОТЧИКОВ API -------------------------------*/
-module.exports.get = function(params, database, callback) {
-    "use strict";
+module.exports.get = async (params, database) => {
+    try {
+        // получение соединения
+        const connection = await database.getConnection();
 
-    // получение соединения
-    database.getConnection(function(error, connection) {
-        if (error) {
-            // возврат результата
-            callback({ type: "database" }, null);
-        } else {
-            // узнаём идентификаторы всех авиалиний из рейсов
-            connection.query(
-                "SELECT airlines.name FROM airlines, routes_per_region WHERE airlines.iata = routes_per_region.airline_iata AND routes_per_region.source = ? AND routes_per_region.destination = ?",
-                [params.from, params.to],
-                function(error, airlines) {
-                    if (error) {
-                        callback({ type: "database" }, null);
-                    } else {
-                        callback(null, airlines);
-                    }
-                }
-            );
-        }
+        // узнаём идентификаторы всех авиалиний из рейсов
+        let result = await connection.query(
+            "SELECT airlines.name FROM airlines, routes_per_region WHERE airlines.iata = routes_per_region.airline_iata AND routes_per_region.source = ? AND routes_per_region.destination = ?",
+            [params.from, params.to]
+        );
 
-        // закрытие соединения
         connection.release();
-    });
+
+        return result;
+    } catch (error) {
+        throw new Error(error);
+    }
 };

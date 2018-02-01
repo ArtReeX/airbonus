@@ -1,21 +1,14 @@
-/************************ ПРЕДЗАГРУЗЧИК ************************/
-/*globals $, document, window, showPagePreloader, showPageError, setTimeout*/
+/* ПРЕДЗАГРУЗЧИК */
 
 function showPagePreScores() {
-
-    'use strict';
-    
-    $(document).ready(function () {
-
+    $(document).ready(() => {
         // показ прелоадера
         showPagePreloader();
 
         // установка задержки прелоадера
-        setTimeout(function () {
-
+        setTimeout(() => {
             // отправка запроса на получение содержимого страницы
             $.ajax({
-
                 url: "/core/include/php/pages/preScores.php",
 
                 dataType: "html",
@@ -24,8 +17,7 @@ function showPagePreScores() {
 
                 async: true,
 
-                success: function (html) {
-
+                success: html => {
                     // идентификация страницы
                     window.identifierPrevious = window.identifier;
                     window.identifier = "preScores";
@@ -37,24 +29,21 @@ function showPagePreScores() {
                     $("#loaded").html(html);
 
                     // запуск скриптов после окончания загрузки страницы
-                    $.getScript("/core/include/js/handlers/pages/preScores/launching.js").fail(function () { showPageError("scripts_exist"); });
-                    
+                    $.getScript(
+                        "/core/include/js/handlers/pages/preScores/launching.js"
+                    ).fail(() => {
+                        showPageError("scripts_exist");
+                    });
+
                     // показ страницы
                     $("#loaded").show();
-
                 },
 
-                error: function () {
-
+                error: () => {
                     // показ страницы с ошибкой
                     showPageError("page_exist");
-
                 }
-
             });
-
         }, 600);
-
     });
-
 }
