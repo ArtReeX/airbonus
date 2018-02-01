@@ -4,10 +4,8 @@
 var http_module = require("http");
 var express_module = require("express");
 
-
 /*---------------------------- EXPRESS-СЕРВЕР -------------------------------*/
-module.exports.create = function (config, callback) {
-    
+module.exports.create = function(config, callback) {
     "use strict";
 
     var express = express_module(),
@@ -17,10 +15,11 @@ module.exports.create = function (config, callback) {
     express.use(express_module["static"](config.files_directory));
 
     // начало прослушивание порта
-    app.listen(config.port, function (error) {
-
-        if (error) { callback(error, null); } else { callback(null, app); }
-
+    app.listen(config.port, function(error) {
+        if (error) {
+            callback(error, null);
+        } else {
+            callback(null, app);
+        }
     });
-    
 };
