@@ -6,4 +6,4 @@
 
 Основной серверный файл для запуска - server.js;
 Запуск через NodeJS - node server.js;
-Запуск через демон (Forever) NodeJS - forever start server.js;
+Запуск через демон (forever) NodeJS - forever start server.js;
